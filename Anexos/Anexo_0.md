@@ -1,4 +1,4 @@
-# Anexo 0 - Creación de tareas periódicas en una ESP32 usando FREERTOS
+# ANEXO 0 - Creación de tareas periódicas en una ESP32 usando FREERTOS
 
 Para programar la tarjeta ESP32 se emplea como entorno el IDE de Arduino, en esta guía se emplea la versión 1.8.19, se parte del hecho de que este software ya está instalado en el PC que será empleado para programar la tarjeta. La ESP32 no viene incluida por defecto en el IDE de arduino, pero se puede agregar mediante el “Gestor de tarjetas”.
 
