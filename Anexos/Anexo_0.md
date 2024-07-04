@@ -32,7 +32,7 @@ Tras haber instalado las herramientas de compatibilidad con las tarjetas ESP32 y
 
 2) Finalmente debe de seleccionar el puerto de comunicación serial al cual está conectado la tarjeta, mediante el menú  “Herramientas/Tools” > “Puerto/Port”. En caso de estar desde un sistema operativo Windows, los nombres de los puertos siguen la estructura "COMX", mientras que en sistemas operativos Linux tienen la estructura "/dev/USBX".
 
-[Imagen de la interfaz de arduino](imgs/a0/img_6.png)   
+<img src="imgs/a0/img_5.png" alt="Imagen de la interfaz de arduino" style="margin-bottom:0;"> 
 
 ## Paso 3 - Librerías requeridas
 
