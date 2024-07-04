@@ -44,4 +44,4 @@ En general, existen dos bloques de código necesarios para la programación de t
 
 ### Creación de la tarea
 
-Existen dos funciones de FREERTOS para crear tareas, estas son `**"xTaskCreate"**` y `**"xTaskCreatePinnedToCore"**`
+Existen dos funciones de FREERTOS para crear tareas, estas son **"xTaskCreate"** y **"xTaskCreatePinnedToCore"**
