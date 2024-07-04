@@ -2,9 +2,9 @@
 
 Para programar la tarjeta ESP32 se emplea como entorno el IDE de Arduino, en esta guía se emplea la versión 1.8.19, se parte del hecho de que este software ya está instalado en el PC que será empleado para programar la tarjeta. La ESP32 no viene incluida por defecto en el IDE de arduino, pero se puede agregar mediante el “Gestor de tarjetas”.
 
-## Paso 1) Agregar compatibilidad con tarjetas ESP32
+## Paso 1 - Agregar compatibilidad con tarjetas ESP32
 
-1) Abrir el IDE de Arduino, ingresar en la barra de opciones superior a “Archivo” > “Preferencias”.
+1) Abrir el IDE de Arduino, ingresar en la barra de opciones superior a “Archivo/File” > “Preferencias/Preferences”.
 2) En el campo “URLs adicionales de gestor de tarjetas”, añade la siguiente URL
 
 
