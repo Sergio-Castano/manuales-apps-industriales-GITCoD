@@ -32,7 +32,7 @@ Tras haber instalado las herramientas de compatibilidad con las tarjetas ESP32 y
 
 2) Finalmente debe de seleccionar el puerto de comunicación serial al cual está conectado la tarjeta, mediante el menú  “Herramientas/Tools” > “Puerto/Port”. En caso de estar desde un sistema operativo Windows, los nombres de los puertos siguen la estructura "COMX", mientras que en sistemas operativos Linux tienen la estructura "/dev/USBX".
 
-![Imagen de la interfaz de arduino](imgs/a0/img_6.png)   
+![Imagen de la interfaz de arduino](imgs/a0/img_5.png)   
 ## Paso 3 - Librerías requeridas
 
 FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que estas tarjetas usan este sistema operativo para gestionar las tareas básicas del microcontrolador. Con lo cual se puede utilizar sin necesidad de añadir cabeceras ni librerías adicionales para usarlo.
