@@ -1,4 +1,4 @@
-# ANEXO 0 - Creación de tareas periódicas en una ESP32 usando FREERTOS
+# ANEXO 0 - Tareas periódicas en una ESP32 usando FREERTOS
 
 Para programar la tarjeta ESP32 se emplea como entorno el IDE de Arduino, en esta guía se emplea la versión 1.8.19, se parte del hecho de que este software ya está instalado en el PC que será empleado para programar la tarjeta. La ESP32 no viene incluida por defecto en el IDE de arduino, pero se puede agregar mediante el “Gestor de tarjetas”.
 
@@ -36,6 +36,12 @@ Tras haber instalado las herramientas de compatibilidad con las tarjetas ESP32 y
 
 ## Paso 3 - Librerías requeridas
 
-FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que estas tarjetas usan este sistema operativo para gestionar las tareas básicas del microcontrolador. Con lo cual se puede utilizar sin necesidad de añadir cabeceras ni librerías adicionales para usarlo.
+FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que estas tarjetas usan este sistema operativo para gestionar las tareas básicas del microcontrolador, con lo cual se puede utilizar sin necesidad de añadir cabeceras ni librerías adicionales para usarlo.
 
-## Paso 4 - Librerías requeridas
+## Paso 4 -  Programación de tareas con FREERTOS
+
+En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de creación de la tarea y la función que ejecuta la tarea. En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
+
+### Creación de la tarea
+
+Existen dos funciones de FREERTOS para crear tareas, estas son `**"xTaskCreate"**` y `**"xTaskCreatePinnedToCore"**`
