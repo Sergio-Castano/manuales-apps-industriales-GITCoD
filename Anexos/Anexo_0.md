@@ -48,4 +48,18 @@ Existen dos funciones de FREERTOS para crear tareas, estas son **"xTaskCreate"**
 
 Se debe tener precaución al crear y asignar tareas manualmente, pues el ESP32 utiliza el núcleo 0 para ciertas tareas criticas (WiFi, bluetooth, entre otras), con lo cual, asignar otras tareas de alta prioridad y con un tiempo de ejecución alto a este núcleo puede dar lugar a que el microcontrolador se reinicie si se interrumpen o que no se ejecuten a tiempo. Es por ello que se recomienda asignar ese tipo de tareas al núcleo 1. 
 
-Para ambas funciones,el bloque de código que corresponde a su llamado a de disponerse al interior de la función "void setup()". En este ejemplo se crearán dos tareas sencillas, la primera de ellas usando "xTaskCreate" (asignación de nucleo por parte del sistema operativo) y la segunda con "xTaskCreatePinnedToCore" siendo , para 
+Sin importar la función a emplear para crear la tarea, el bloque de código que corresponde a su llamado ha de disponerse al interior de la función "void setup()". En este ejemplo se creará una tarea usando "xTaskCreatePinnedToCore". A continuación se muestra el código correspondiente:
+
+```C
+void setup() {
+  xTaskCreatePinnedToCore(
+    TaskBlink, // Nombre de la función a ejecutar
+    "Taskname", // Nombre de la tarea
+    1024, // Tamaño de la pila
+    NULL, // Parámetros a pasar a la función
+    0, // Prioridad
+    NULL, // Task handler
+    1 // Nucleo
+  );
+}
+```
