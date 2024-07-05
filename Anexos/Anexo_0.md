@@ -40,7 +40,7 @@ FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que e
 
 ## Paso 4 -  Programación de tareas con FREERTOS
 
-En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de **creación de la tarea** [Introducción](###Creación de la tarea) y la **función que ejecuta la tarea**. En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
+En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de **creación de la tarea** [Introducción](#introducción) y la **función que ejecuta la tarea**. En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
 
 ### Creación de la tarea
 
@@ -73,3 +73,8 @@ Como se puede observar, el llamado a esta función requiere de varios parámetro
 - **Prioridad:** Debe ser un número entero dentro del rango de prioridades que se configura mediante el parámetro de FREERTOS "configMAX_PRIORITIES", siendo 0 la menor prioridad y configMAX_PRIORITIES – 1 la máxima. Por defecto "configMAX_PRIORITIES" tiene un valor de cuatro, en consecuencia el rango de prioridades es de 0 a 3. Según el tipo de aplicación puede llegar a ser conveniente incrementar la cantidad de niveles de prioridad. Este valor determina el orden en el que deben ser atendidas las tareas que están listas para ejecución, siendo las de prioridad mas alta ejecutadas primero.
 - **Task Handler:** A este parámetro se le debe asignar el puntero de una variable de tipo "TaskHandle_t" (dirección de memoria de dicha variable, por lo que hay que incluir el carácter ampersand "&" antes del nombre de la variable). Dicha variable se utiliza para referenciar desde otras partes del programa una tarea específica después de haber sido creada, permitiendo realizar acciones de control (se puede suspender, reanudar, eliminar, o cambiar la prioridad de una tarea específica utilizando su manejador), sincronización (por ejemplo, bloquear una tarea hasta que otra haya completado su trabajo) y consultar el estado de la tarea. Si no existe la necesidad de realizar ningún tipo de acción sobre la tarea, a este parámetro se le puede asignar el valor "NULL" como es el caso de este ejemplo.
 - **Nucleo:** Debe ser un número entero mediante el cual se especifica en núcleo al que se le asignará la ejecución de la tarea. En el caso del ESP32, al contar con dos núcleos, este valor puede ser 0 o 1. Como se ha mencionado con anterioridad, se debe tener precaución al momento de asignar ciertas tareas al núcleo 0. 
+
+## Introducción
+Bienvenido a este tutorial de programación en Python. Aquí aprenderás los fundamentos de este poderoso lenguaje.
+
+
