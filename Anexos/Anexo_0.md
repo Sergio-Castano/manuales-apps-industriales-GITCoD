@@ -57,9 +57,9 @@ typedef struct {
 } TaskBlinkParametros;
 
 TaskBlinkParametros Mis_Parametros;
-Mis_Parametros.DuracionBlinkMS = 1000; //1000 milisegundos -> 1 segundo
 
 void setup() {
+  Mis_Parametros.DuracionBlinkMS = 1000; //1000 milisegundos -> 1 segundo
 
   xTaskCreatePinnedToCore(
     TaskBlink,       // Nombre de la función a ejecutar
@@ -72,6 +72,7 @@ void setup() {
   );
 
 }
+
 ```
 Como se puede observar, el llamado a esta función requiere de varios parámetros, los cuales se detallan a continuación:
 
@@ -83,7 +84,7 @@ Como se puede observar, el llamado a esta función requiere de varios parámetro
 - **Task Handler:** A este parámetro se le debe asignar el puntero de una variable de tipo "TaskHandle_t" (dirección de memoria de dicha variable, por lo que hay que incluir el carácter ampersand "&" antes del nombre de la variable). Dicha variable se utiliza para referenciar desde otras partes del programa una tarea específica después de haber sido creada, permitiendo realizar acciones de control (se puede suspender, reanudar, eliminar, o cambiar la prioridad de una tarea específica utilizando su manejador), sincronización (por ejemplo, bloquear una tarea hasta que otra haya completado su trabajo) y consultar el estado de la tarea. Si no existe la necesidad de realizar ningún tipo de acción sobre la tarea, a este parámetro se le puede asignar el valor "NULL" como es el caso de este ejemplo.
 - **Nucleo:** Debe ser un número entero mediante el cual se especifica en núcleo al que se le asignará la ejecución de la tarea. En el caso del ESP32, al contar con dos núcleos, este valor puede ser 0 o 1. Como se ha mencionado con anterioridad, se debe tener precaución al momento de asignar ciertas tareas al núcleo 0. 
 
-Las otras lineas de código presentadas en esta porción del programa, anteriores a la función "void setup()", las cuales no corresponden propiamente a la creación de la tarea, corresponden a la definición de una estructura de dato (a la que se asignó arbitrariamente el nombre "TaskBlinkParametros") y la declaración de una variable global del tipo de estructura previamente definido. Esta estructura y la correspondiente variable creada se emplean como una herramienta auxiliar para pasar argumentos a la función de la tarea, por ende, su uso es prescindible en caso de no requerir pasar argumentos a la función. En este ejemplo, se pretende pasar el parámetro "DuracionBlinkMS", que corresponde al periodo, en milisegundos, con el que se requiere ejecutar la tarea, en este caso 1000 ms. De ser necesario una mayor cantidad de parámetros a pasar a la función, basta con adicionar miembros a la estructura y asignarle los valores correspondientes a la variable.
+Las lineas de código presentadas en esta porción del programa, anteriores a la función "void setup()", las cuales no pertenecen propiamente a la creación de la tarea, corresponden a la definición de una estructura de dato (a la que se asignó arbitrariamente el nombre "TaskBlinkParametros") y la declaración de una variable global del tipo de estructura previamente definido. Esta estructura y la correspondiente variable creada se emplean como una herramienta auxiliar para pasar argumentos a la función de la tarea, por ende, su uso es prescindible en caso de no requerir pasar argumentos a la función. En este ejemplo, se pretende pasar el parámetro "DuracionBlinkMS", que corresponde al periodo, en milisegundos, con el que se requiere ejecutar la tarea, en este caso 1000 ms. De ser necesario una mayor cantidad de parámetros a pasar a la función, basta con adicionar miembros a la estructura y asignarle los valores correspondientes a la variable.
 
 ### Definición de la función ejecutada en la tarea
 
@@ -103,22 +104,37 @@ void TaskBlink(void *pvParameters) {
   //Se crea una variable para controlar el estado de la salida
   bool led_estado = false;
 
-  //Se inicializa una variable con el conteo de los Ticks en ese instante
-  TickType_t LastWakeTime = xTaskGetTickCount();
-
   //Se inicializa una variable con la cantidad de Ticks de espera para cumplir el perido
   const TickType_t Periodo =  pdMS_TO_TICKS(parametros.DuracionBlinkMS);
 
-  //Se define la porción del código que será ejecutada de forma periódica
+  //Se inicializa una variable con el conteo de los Ticks en ese instante
+  TickType_t LastWakeTime = xTaskGetTickCount();
+
+  //Porción del código que será ejecutada de forma periódica
   for (;;) {
+    // -- BLOQUE DE ACCIÓN A REALIZAR PERIODICAMENTE --
+
     // Se invierte el estado anterior
     led_estado = !led_estado;
     // Se establece el estado de la salida
     digitalWrite(LED_BUILTIN, led_estado);
 
+    // -- BLOQUE DE ESPERA --
     // Se espera hasta alcanzar el tiempo de inicio para el próximo ciclo
     vTaskDelayUntil(&LastWakeTime, Periodo);
   }
 
 }
 ```
+Esta es entonces la definición de una función que ejecutará una tarea periódica. Se puede apreciar las características antes mencionadas, su tipo de retorno es void, recibe como argumento un puntero a void, posee un bucle infinito y líneas de código previas a este en las que se realizan configuraciones y se instancian variables que se emplean al interior del proceso cíclico. 
+
+En la primera línea de código al interior de la función se crea una variable local de tipo "TaskBlinkParametros" (estructura que se definió previamente) y se le asignan por referencia los parámetros que fueron pasados a la función mediante el puntero. De esta forma los argumentos podrán ser empleados en los procesos de la función, en este caso específico, se logra definir el periodo de la tarea. Posteriormente se configura como salida el pin digital de la placa que cuenta con un led integrado, al cual se hace referencia al utilizar la palabre reservada "LED_BUILTIN", y se crea una variable para controlar dentro del proceso cíclico el estado de la salida y en consecuencia del LED. 
+
+A partir de ahí, es conveniente hacer énfasis dos lineas claves, que son acciones propias de una tarea periódica:
+
+- **Establecer el periodo:** En este caso particular el valor para el periodo se pasó a la función mediante un parámetro, específicamente "DuracionBlinkMS", que es un miembro de la estructura que almacena los parámetros. El periodo se debe definir como cantidad de ticks, por ende la variable es de tipo "TickType_t", un tipo propio de FREERTOS. Por defecto FREERTOS está configurado con 1000 ticks por segundo, por ende cada tick corresponde a 1 ms. Para evitar tener que realizar nosotros mismos la conversión, FREERTOS tiene una función auxiliar ("pdMS_TO_TICKS()") que convierte milisegundos en la cantidad de ticks equivalentes. 
+- **Registrar la marca de tiempo de inicio del ciclo:** La unidad de tiempo que emplea FREERTOS para determinar el instante en que una tarea periódica debe "despertar" o cambiar de estado a lista para ejecución son los ticks, por ende, es necesario conocer el tiempo en que se pasó a ese estado por última vez. De ese modo basta con sumar al último tiempo en que despertó el valor del periodo, para determinar el siguiente tiempo en que debe despertar. Para almacenar el valor de tiempo en que la tarea despertó, al corresponder a unidades de ticks, se debe utilizar una variable de tipo "TickType_t". Antes de entrar al bucle, al ser la primera vez que se ejecuta, se recupera el valor de tiempo en que se inicia el ciclo, esto mediante la función "xTaskGetTickCount()" y se almacena en la variable correspondiente.
+
+Ya al interior del bucle se destacan dos bloques esencialmente. El primero corresponde donde se debe plasmar todo el código de la acción a desempeñar de forma periódica por la tarea. En este ejemplo es una acción bastante simple, en la cual se invierte el estado del pin digital, ocasionando el parpadeo del LED. 
+
+En el segundo bloque se hace el llamado a la función **"vTaskDelayUntil()"**, esta función es la responsable de garantizar una activación periódica de la tarea. El uso de esta función mantiene la regularidad en la activación de una tarea independientemente del tiempo de ejecución que tome la misma. Esta función recibe como argumentos el tiempo en ticks en el que se despertó la tarea por última vez y la cantidad de tiempo en ticks en el que deberá ser despertada nuevamente (periodo de la tarea). De este modo la función calcula en un marco de tiempo absoluto el instante hasta el cual la tarea estará bloqueada tras terminar su ejecución. La función toma el tiempo en que se despertó por últimas vez la tarea y le suma el tiempo del periodo, determinando así el instante hasta el cual conservar bloqueada la tarea. Además almacena automáticamente el resultado de este cálculo en la variable que se pasa como parámetro, de este modo, en cada iteración se determina de forma consistente la siguiente activación de la tarea. 
