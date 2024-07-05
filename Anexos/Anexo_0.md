@@ -120,7 +120,7 @@ void TaskBlink(void *pvParameters) {
     digitalWrite(LED_BUILTIN, led_estado);
 
     // -- BLOQUE DE ESPERA --
-    // Se espera hasta alcanzar el tiempo de inicio para el próximo ciclo
+    // Se bloquea la tarea hasta el tiempo de inicio para el próximo ciclo
     vTaskDelayUntil(&LastWakeTime, Periodo);
   }
 
