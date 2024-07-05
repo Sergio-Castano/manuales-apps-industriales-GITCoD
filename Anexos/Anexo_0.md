@@ -40,7 +40,7 @@ FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que e
 
 ## Paso 4 -  Programación de tareas con FREERTOS
 
-En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de [**creación de la tarea**](#creación-de-la-tarea) y la **función que ejecuta la tarea**. En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
+En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de [**creación de la tarea**](#creación-de-la-tarea) y la [**función que ejecuta la tarea**](). En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
 
 ### Creación de la tarea
 
@@ -51,16 +51,24 @@ Se debe tener precaución al crear y asignar tareas manualmente, pues el ESP32 u
 Sin importar la función a emplear para crear la tarea, el bloque de código que corresponde a su llamado ha de disponerse al interior de la función "void setup()". En este ejemplo se creará una tarea usando "xTaskCreatePinnedToCore", la cual va a ejecutar una función que será nombrada "Blink", dicha función cambiará periodicamente el estado de una salida digital de la ESP32 a la cual está conectado un LED, consiguiendo con ello que el parpadeo del LED. A continuación se muestra el código correspondiente:
 
 ```C
+typedef struct {
+  //Se pueden agregar cuantos parametros sean necesario al adicionar miembros a la estructura
+  int DuracionBlinkMS;
+} TaskBlinkParametros;
+
+TaskBlinkParametros Mis_Parametros;
 
 void setup() {
+  Mis_Parametros.DuracionBlinkMS = 1000; //1000 milisegundos -> 1 segundo
+
   xTaskCreatePinnedToCore(
-    Blink, // Nombre de la función
-    "Task1", // Nombre de la tarea
-    1024, // Tamaño de la pila
-    NULL, // pvParameters
-    0, // Prioridad
-    NULL, // Task handler
-    1 // Nucleo
+    TaskBlink,       // Nombre de la función a ejecutar
+    "Task1",         // Nombre de la tarea
+    1024,            // Tamaño de la pila
+    &Mis_Parametros,    // Parámetro a pasar a la función
+    1,               // Prioridad, debe ser mayor que 0
+    NULL,            // Task handler
+    1                // Núcleo
   );
 }
 ```
