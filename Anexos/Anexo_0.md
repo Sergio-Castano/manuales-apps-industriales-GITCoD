@@ -40,7 +40,7 @@ FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que e
 
 ## Paso 4 -  Programación de tareas con FREERTOS
 
-En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de [**creación de la tarea**](#creación-de-la-tarea) y la [**función que ejecuta la tarea**](). En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
+En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de [**creación de la tarea**](#creación-de-la-tarea) y la [**función que ejecuta la tarea**](definición-de-la-función-ejecutada-en-la-tarea). En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
 
 ### Creación de la tarea
 
@@ -48,7 +48,7 @@ Existen dos funciones de FREERTOS para crear tareas, estas son **"xTaskCreate"**
 
 Se debe tener precaución al crear y asignar tareas manualmente, pues el ESP32 utiliza el núcleo 0 para ciertas tareas criticas (WiFi, bluetooth, entre otras), con lo cual, asignar otras tareas de alta prioridad y con un tiempo de ejecución alto a este núcleo puede dar lugar a que el microcontrolador se reinicie si se interrumpen o que no se ejecuten a tiempo. Es por ello que se recomienda asignar ese tipo de tareas al núcleo 1. 
 
-Sin importar la función a emplear para crear la tarea, el bloque de código que corresponde a su llamado ha de disponerse al interior de la función "void setup()". En este ejemplo se creará una tarea usando "xTaskCreatePinnedToCore", la cual va a ejecutar una función que será nombrada "Blink", dicha función cambiará periodicamente el estado de una salida digital de la ESP32 a la cual está conectado un LED, consiguiendo con ello que el parpadeo del LED. A continuación se muestra el código correspondiente:
+Sin importar la función a emplear para crear la tarea, el bloque de código que corresponde a su llamado ha de disponerse al interior de la función "void setup()". En este ejemplo se creará una tarea usando "xTaskCreatePinnedToCore", la cual va a ejecutar una función que será nombrada "TaskBlink", dicha función cambiará periodicamente el estado de una salida digital de la ESP32 a la cual está conectado un LED, consiguiendo con ello el parpadeo del LED. A continuación se muestra el código correspondiente:
 
 ```C
 typedef struct {
@@ -57,9 +57,9 @@ typedef struct {
 } TaskBlinkParametros;
 
 TaskBlinkParametros Mis_Parametros;
+Mis_Parametros.DuracionBlinkMS = 1000; //1000 milisegundos -> 1 segundo
 
 void setup() {
-  Mis_Parametros.DuracionBlinkMS = 1000; //1000 milisegundos -> 1 segundo
 
   xTaskCreatePinnedToCore(
     TaskBlink,       // Nombre de la función a ejecutar
@@ -70,6 +70,7 @@ void setup() {
     NULL,            // Task handler
     1                // Núcleo
   );
+
 }
 ```
 Como se puede observar, el llamado a esta función requiere de varios parámetros, los cuales se detallan a continuación:
@@ -82,5 +83,7 @@ Como se puede observar, el llamado a esta función requiere de varios parámetro
 - **Task Handler:** A este parámetro se le debe asignar el puntero de una variable de tipo "TaskHandle_t" (dirección de memoria de dicha variable, por lo que hay que incluir el carácter ampersand "&" antes del nombre de la variable). Dicha variable se utiliza para referenciar desde otras partes del programa una tarea específica después de haber sido creada, permitiendo realizar acciones de control (se puede suspender, reanudar, eliminar, o cambiar la prioridad de una tarea específica utilizando su manejador), sincronización (por ejemplo, bloquear una tarea hasta que otra haya completado su trabajo) y consultar el estado de la tarea. Si no existe la necesidad de realizar ningún tipo de acción sobre la tarea, a este parámetro se le puede asignar el valor "NULL" como es el caso de este ejemplo.
 - **Nucleo:** Debe ser un número entero mediante el cual se especifica en núcleo al que se le asignará la ejecución de la tarea. En el caso del ESP32, al contar con dos núcleos, este valor puede ser 0 o 1. Como se ha mencionado con anterioridad, se debe tener precaución al momento de asignar ciertas tareas al núcleo 0. 
 
+Las otras lineas de código presentadas en esta porción del programa, anteriores a la función "void setup()", las cuales no corresponden propiamente a la creación de la tarea, corresponden a la definición de una estructura de dato (a la que se asignó arbitrariamente el nombre "TaskBlinkParametros") y la declaración de una variable global del tipo de estructura previamente definido. Esta estructura y la correspondiente variable creada se emplean como una herramienta auxiliar para pasar argumentos a la función de la tarea, por ende, su uso es prescindible en caso de no requerir pasar argumentos a la función. En este ejemplo, se pretende pasar el parámetro "DuracionBlinkMS", que corresponde al periodo, en milisegundos, con el que se requiere ejecutar la tarea, en este caso 1000 ms. De ser necesario una mayor cantidad de parámetros a pasar a la función, basta con adicionar miembros a la estructura y asignarle los valores correspondientes a la variable.
 
+### Definición de la función ejecutada en la tarea
 
