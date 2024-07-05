@@ -87,4 +87,38 @@ Las otras lineas de código presentadas en esta porción del programa, anteriore
 
 ### Definición de la función ejecutada en la tarea
 
-C
+Las funciones a ser ejecutadas por tareas deben tener unas ciertas características específicas. Deben ser definidas como una función con retorno de tipo void y un argumento de tipo puntero a void. Además, si se espera que las funciones se ejecuten mas de una vez, es decir para tareas periódicas o tareas de ejecución por eventos, las funciones deben contener un ciclo infinito, ya sea un bucle for o while que evite que la función termine, mientras que el código que se escribe previo al bucle se ejecutará solo una vez, algo equivalente a la función "setup()". En caso contrario, para tareas que se ejecuten una sola vez se debe incluir al interior de la función el llamado a "vTaskDelete" para eliminar la tarea al terminar.
+
+A continuación se presenta el código donde se define la función "TaskBlink" que ejecutará la tarea previamente creada:
+
+```C
+void TaskBlink(void *pvParameters) {
+
+  //Asigna los parámetros pasados a la función a una variable local
+  TaskBlinkParametros parametros = *((TaskBlinkParametros*) pvParameters);
+
+  //Se configura como salida el pin al que está conectado el LED integrado en la placa
+  pinMode(LED_BUILTIN, OUTPUT);// Normalmente GPIO2 en la ESP32
+
+  //Se crea una variable para controlar el estado de la salida
+  bool led_estado = false;
+
+  //Se inicializa una variable con el conteo de los Ticks en ese instante
+  TickType_t LastWakeTime = xTaskGetTickCount();
+
+  //Se inicializa una variable con la cantidad de Ticks de espera para cumplir el perido
+  const TickType_t Periodo =  pdMS_TO_TICKS(parametros.DuracionBlinkMS);
+
+  //Se define la porción del código que será ejecutada de forma periódica
+  for (;;) {
+    // Se invierte el estado anterior
+    led_estado = !led_estado;
+    // Se establece el estado de la salida
+    digitalWrite(LED_BUILTIN, led_estado);
+
+    // Se espera hasta alcanzar el tiempo de inicio para el próximo ciclo
+    vTaskDelayUntil(&LastWakeTime, Periodo);
+  }
+
+}
+```
