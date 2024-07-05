@@ -40,7 +40,7 @@ FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que e
 
 ## Paso 4 -  Programación de tareas con FREERTOS
 
-En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de **creación de la tarea** [Introducción](### Creación de la tarea) y la **función que ejecuta la tarea**. En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
+En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de **creación de la tarea** [Introducción](###Creación de la tarea) y la **función que ejecuta la tarea**. En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
 
 ### Creación de la tarea
 
