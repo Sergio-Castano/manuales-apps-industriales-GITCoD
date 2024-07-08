@@ -2,7 +2,7 @@
 
 Para programar la tarjeta ESP32 se emplea como entorno el IDE de Arduino, en esta guía se emplea la versión 1.8.19, se parte del hecho de que este software ya está instalado en el PC que será empleado para programar la tarjeta. La ESP32 no viene incluida por defecto en el IDE de arduino, pero se puede agregar mediante el “Gestor de tarjetas”.
 
-# Sección 1.1 - Instalación
+# 1.1 - Instalación
 
 ## Paso 1 - Agregar compatibilidad con tarjetas ESP32
 
@@ -40,8 +40,7 @@ Tras haber instalado las herramientas de compatibilidad con las tarjetas ESP32 y
 
 FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que estas tarjetas usan este sistema operativo para gestionar las tareas básicas del microcontrolador, con lo cual se puede utilizar sin necesidad de añadir cabeceras ni librerías adicionales para usarlo.
 
-
-# Sección 1.2 - Programación de tareas con FREERTOS
+# 1.2 - Programación de tareas con FREERTOS
 
 En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de [**creación de la tarea**](#creación-de-la-tarea) y la [**función que ejecuta la tarea**](definición-de-la-función-ejecutada-en-la-tarea). En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
 
