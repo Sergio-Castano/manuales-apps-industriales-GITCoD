@@ -140,3 +140,50 @@ A partir de ahí, es conveniente hacer énfasis dos lineas claves, que son accio
 Ya al interior del bucle se destacan dos bloques esencialmente. El primero corresponde donde se debe plasmar todo el código de la acción a desempeñar de forma periódica por la tarea. En este ejemplo es una acción bastante simple, en la cual se invierte el estado del pin digital, ocasionando el parpadeo del LED. 
 
 En el segundo bloque se hace el llamado a la función **"vTaskDelayUntil()"**, esta función es la responsable de garantizar una activación periódica de la tarea. El uso de esta función mantiene la regularidad en la activación de una tarea independientemente del tiempo de ejecución que tome la misma. Esta función recibe como argumentos el tiempo en ticks en el que se despertó la tarea por última vez y la cantidad de tiempo en ticks en el que deberá ser despertada nuevamente (periodo de la tarea). De este modo la función calcula en un marco de tiempo absoluto el instante hasta el cual la tarea estará bloqueada tras terminar su ejecución. La función toma el tiempo en que se despertó por últimas vez la tarea y le suma el tiempo del periodo, determinando así el instante hasta el cual conservar bloqueada la tarea. Además almacena automáticamente el resultado de este cálculo en la variable que se pasa como parámetro, de este modo, en cada iteración se determina de forma consistente la siguiente activación de la tarea. 
+
+# 1.3 - Herramientas para la sincronización, acceso a recursos y comunicación entre tareas FREERTOS
+
+En sistemas multitarea la sincronización y comunicación son temas fundamentales. FreeRTOS proporciona herramientas esenciales para atender estas necesidades, estas son: 
+
+## Semáforos
+Los semáforos son herramientas de sincronización que permiten a las tareas comunicarse entre sí de manera eficiente. En un entorno multitarea son de gran utilidad para controlar el acceso a un recurso compartido. Como su nombre indica, permiten pausar y continuar la ejecución de una tarea, en función del estado de dicho semáforo. En FreeRTOS hay tres tipos principales de semáforos:
+
+### Semáforos Binarios:
+- Como su nombre lo indica, la variable que controla su estado puede tomar solo dos valores (cero y uno). Cuando el semáforo es dado (xSemaphoreGive), su valor se establece en 1 y cuando el semáforo es tomado (xSemaphoreTake), su valor se establece en 0.
+- Si una tarea intenta tomar el semáforo cuando su valor es 0, es decir, que ya ha sido tomado, la tarea se bloquea y queda en espera hasta que el otro proceso lo libere (estableciendo su valor en 1).
+- Si por el contrario al tomar el semáforo su valor es 1, puede continuar con su proceso normalmente y al concluirlo liberar de nuevo el semáforo.  
+- Esta pensado para sincronización entre dos tareas o entre una tarea y una interrupción.
+- Se utiliza para indicar la disponibilidad de un recurso único o para la señalización de eventos.
+- Se crea mediante la función **xSemaphoreCreateBinary()**.
+ 
+### Semáforo de Conteo: 
+- Este tipo de semáforo tiene un contador que permite a un conjunto de tareas acceder a un recurso limitado en número. Es útil al sincronizar múltiples tareas.
+- Los semáforos de conteo son útiles cuando se necesita gestionar un número limitado de recursos idénticos o cuando se quiere contar el número de veces que ocurre un evento.
+- Control de acceso concurrente, permitiendo que un número específico de tareas puedan acceder al recurso simultáneamente.
+- Cuando el semáforo es dado (xSemaphoreGive), su valor se incrementa, pero no puede exceder el valor máximo definido. Cuando el semáforo es tomado (xSemaphoreTake), su valor se decrementa.
+- Si una tarea intenta tomar el semáforo cuando su valor es 0, la tarea se bloquea hasta que otro proceso incremente su valor (libere el semáforo).
+- Al poder ser dado multiples veces, es util para coordinar el inicio simultáneo de tareas.
+- Se crea mediante la función **xSemaphoreCreateCounting(X,Y)** donde Y corresponde al valor inicial del contador y X al valor máximo del contador (cantidad máxima de accesos a otorgar de forma simultanea).  
+
+### Mutex (Mutual Exclusion)
+
+Un mutex es un tipo especial de semáforo diseñado específicamente para proteger secciones críticas de código. Es entonces un tipo especial de semáforo binario que se utiliza para proteger el acceso a recursos compartidos y asegurar que solo una tarea pueda acceder a un recurso a la vez. Entre las características específicas de un Mutex esta:
+
+- Tienen concepto de "propietario". Solo la tarea que adquirió el mutex puede liberarlo.
+- Se utilizan para proteger recursos compartidos como variables globales, estructuras de datos o dispositivos periféricos que no deben ser accedidos simultáneamente por múltiples tareas.
+- Gestionan la inversión de prioridad, es decir, si la tarea A tiene una prioridad más baja que la tarea B, la prioridad de la tarea A se eleva temporalmente hasta que termine de usar el recurso. 
+- Se crea mediante la función **xSemaphoreCreateMutex**
+
+## Colas
+Las colas (queues) en FreeRTOS permiten a las tareas comunicarse entre sí de manera segura y eficiente, enviando y recibiendo datos de manera asincrónica. Las colas son particularmente útiles para pasar mensajes o datos entre tareas, y pueden manejar datos de cualquier tipo y tamaño.
+
+### Características de las Colas en FreeRTOS
+
+- Las colas en FreeRTOS funcionan como buffers FIFO (First In, First Out), lo que significa que los datos se reciben en el mismo orden en que fueron enviados.
+- Al crear una cola, se especifica el número máximo de elementos que puede contener y el tamaño de cada elemento.
+- Las tareas pueden optar por esperar (bloquearse) hasta que haya datos disponibles en la cola o hasta que haya espacio para enviar datos, mejorando la sincronización entre tareas.
+
+## Implementación de semáforos y Colas
+A continuación se demuestra y explica el uso de diferentes tipos de semáforos y de colas en FreeRTOS mediante un ejemplo práctico. En general, se pretende implementar tres (3) tareas (tasks). Las tareas 1 y 2 son tareas que responden a eventos, específicamente a la disponibilidad de datos en una cola. Por otra parte, la tarea 3 es una tarea periódica, la cual envía y recibe datos hacia las otras dos tareas mediante colas. 
+
+Cada ciclo, la tarea 3 captura el valor de tiempo de ejecución (conteo de ticks) y lo envía a las otras dos tareas, posteriormente debe esperar que las otras tareas realicen un cálculo independiente sobre el valor transmitido y retornen el resultado, para finalmente sumar los resultados suministrados por ambas tareas y presentarlo como una impresión en la terminal serial. A su vez, las tareas 1 y 2 dentro de sus rutinas incluyen la impresión en la terminal serial de los resultados de sus cálculos. Por su parte, la tarea 1 calcula el resultado de evaluar el tiempo de ejecución(t) en la función cos²(t), mientras que la tarea 2 evalua el mismo valor pero en la función sin²(t). De este modo, al sumar el resultado de ambas evaluaciones el valor obtenido debe ser 1. Bajo este contexto es evidente la necesidad de sincronizar y comunicar las tareas, así como proteger el acceso al recurso compartido, que en este caso es el periférico de comunicaicón serial.
