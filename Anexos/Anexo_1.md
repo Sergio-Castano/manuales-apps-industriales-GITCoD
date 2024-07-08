@@ -1,6 +1,8 @@
-# ANEXO 0 - Tareas periódicas en una ESP32 usando FREERTOS
+# ANEXO 1 - Programación de tareas en ESP32 usando FREERTOS 
 
 Para programar la tarjeta ESP32 se emplea como entorno el IDE de Arduino, en esta guía se emplea la versión 1.8.19, se parte del hecho de que este software ya está instalado en el PC que será empleado para programar la tarjeta. La ESP32 no viene incluida por defecto en el IDE de arduino, pero se puede agregar mediante el “Gestor de tarjetas”.
+
+# Sección 1.1 - Instalación
 
 ## Paso 1 - Agregar compatibilidad con tarjetas ESP32
 
@@ -38,11 +40,12 @@ Tras haber instalado las herramientas de compatibilidad con las tarjetas ESP32 y
 
 FREERTOS está incorporado de fábrica en los microcontroladores ESP32, ya que estas tarjetas usan este sistema operativo para gestionar las tareas básicas del microcontrolador, con lo cual se puede utilizar sin necesidad de añadir cabeceras ni librerías adicionales para usarlo.
 
-## Paso 4 -  Programación de tareas con FREERTOS
+
+# Sección 1.2 - Programación de tareas con FREERTOS
 
 En general, existen dos bloques de código necesarios para la programación de tareas en FREERTOS: el bloque de [**creación de la tarea**](#creación-de-la-tarea) y la [**función que ejecuta la tarea**](definición-de-la-función-ejecutada-en-la-tarea). En este caso se va a crear una tarea que va a ejecutar una función de forma periódica.
 
-### Creación de la tarea
+## Creación de la tarea
 
 Existen dos funciones de FREERTOS para crear tareas, estas son **"xTaskCreate"** y **"xTaskCreatePinnedToCore"**. Ambas funciones permiten crear tareas pero su diferencia es que **"xTaskCreate"** deja que el sistema operativo seleccione líbremente el núcleo al cual asignar la tarea, mientras que con **"xTaskCreatePinnedToCore"** mediante un parámetro se especifica a cual nucleo se le asignará la tarea para su ejecución. 
 
@@ -86,7 +89,7 @@ Como se puede observar, el llamado a esta función requiere de varios parámetro
 
 Las lineas de código presentadas en esta porción del programa, anteriores a la función "void setup()", las cuales no pertenecen propiamente a la creación de la tarea, corresponden a la definición de una estructura de dato (a la que se asignó arbitrariamente el nombre "TaskBlinkParametros") y la declaración de una variable global del tipo de estructura previamente definido. Esta estructura y la correspondiente variable creada se emplean como una herramienta auxiliar para pasar argumentos a la función de la tarea, por ende, su uso es prescindible en caso de no requerir pasar argumentos a la función. En este ejemplo, se pretende pasar el parámetro "DuracionBlinkMS", que corresponde al periodo, en milisegundos, con el que se requiere ejecutar la tarea, en este caso 1000 ms. De ser necesario una mayor cantidad de parámetros a pasar a la función, basta con adicionar miembros a la estructura y asignarle los valores correspondientes a la variable.
 
-### Definición de la función ejecutada en la tarea
+## Definición de la función ejecutada en la tarea
 
 Las funciones a ser ejecutadas por tareas deben tener unas ciertas características específicas. Deben ser definidas como una función con retorno de tipo void y un argumento de tipo puntero a void. Además, si se espera que las funciones se ejecuten mas de una vez, es decir para tareas periódicas o tareas de ejecución por eventos, las funciones deben contener un ciclo infinito, ya sea un bucle for o while que evite que la función termine, mientras que el código que se escribe previo al bucle se ejecutará solo una vez, algo equivalente a la función "setup()". En caso contrario, para tareas que se ejecuten una sola vez se debe incluir al interior de la función el llamado a "vTaskDelete" para eliminar la tarea al terminar.
 
