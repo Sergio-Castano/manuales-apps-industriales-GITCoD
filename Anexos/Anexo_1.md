@@ -8,21 +8,21 @@ Para programar la tarjeta ESP32 se emplea como entorno el IDE de Arduino, en est
 
 1) Abrir el IDE de Arduino, ingresar en la barra de opciones superior a “Archivo/File” > “Preferencias/Preferences”.
    
-![Imagen de la interfaz de arduino](imgs/ESP/img_1.png)
+![Imagen de la interfaz de arduino](imgs/ESP32/img_1.png)
     
 2) En el campo “URLs adicionales de gestor de tarjetas/Additional Boards Manager URLs”, añade la siguiente URL:
 ```
 https://espressif.github.io/arduino-esp32/package_esp32_index.json
 ```
-![Imagen de la interfaz de arduino](imgs/ESP/img_2.png)
+![Imagen de la interfaz de arduino](imgs/ESP32/img_2.png)
 
 3) Tras guardar los cambios y cerrar la ventana, ingrese en el menú de opciones superior a “Herramientas/Tools” > “Placa/Board” > “Gestor de tarjetas/Boards Manager”.
 
-![Imagen de la interfaz de arduino](imgs/ESP/img_3.png)
+![Imagen de la interfaz de arduino](imgs/ESP32/img_3.png)
 
 4) En la ventana que aparece, empleando la barra de búsqueda se ingresa “ESP32” y al aparecer los resultados se identifica el que tiene como título "esp32" y en la descripción "by Espressif Systems". Posteriormente se da clic en el botón "Instalar/Install".
 
-![Imagen de la interfaz de arduino](imgs/ESP/img_4.png)
+![Imagen de la interfaz de arduino](imgs/ESP32/img_4.png)
 
 ## Paso 2 - Seleccionar la tarjeta ESP32 y el puerto
 
@@ -30,11 +30,11 @@ Tras haber instalado las herramientas de compatibilidad con las tarjetas ESP32 y
 
 1) Se debe ingresar a la opción “Herramientas/Tools” > “Placa/Board” > "ESP32 Arduino" y seleccionar del la referencia de la respectiva placa a programar. En nuestro caso se debe seleccionar la opción "DOIT ESP32 DEVKIT V1".
 
-![Imagen de la interfaz de arduino](imgs/a0/img_5.png)
+![Imagen de la interfaz de arduino](imgs/ESP32/img_5.png)
 
 2) Finalmente debe de seleccionar el puerto de comunicación serial al cual está conectado la tarjeta, mediante el menú  “Herramientas/Tools” > “Puerto/Port”. En caso de estar desde un sistema operativo Windows, los nombres de los puertos siguen la estructura "COMX", mientras que en sistemas operativos Linux tienen la estructura "/dev/USBX".
 
-![Imagen de la interfaz de arduino](imgs/ESP/img_6.png)
+![Imagen de la interfaz de arduino](imgs/ESP32/img_6.png)
 
 ## Paso 3 - Librerías requeridas
 
