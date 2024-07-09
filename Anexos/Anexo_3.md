@@ -11,6 +11,6 @@ PREEMPT_RT logra la capacidad de tiempo real en Linux a través de una serie de 
 
 En primera instancia se debe abordar el método para modificar el comportamiento del kernel, mediante la inclusión del parche "PREEMPT_RT". Los componente requeridos para son:
 
--1) Una Raspberry Pi 4
--2) Una PC con sistema operativo Linux
--3) Una tarjeta microSD
+- 1) Una Raspberry Pi 4
+- 2) Una PC con sistema operativo Linux
+- 3) Una tarjeta microSD
