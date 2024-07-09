@@ -21,11 +21,19 @@ En primera instancia se debe abordar el método para modificar el comportamiento
 
 Existen diversos métodos para instalar una imagen del sistema Raspberry Pi OS en una tarjeta SD, en esta guía se empleará la herramienta **Raspberry Pi Imager**.
 
-#### 1) Instalar Raspberry Pi Imager en la PC
-
-- En una PC con sistema operativo Ubuntu 22.04, abra una terminal y ejecute los siguiente comandos:
+#### 1) Instalar y ejecutar Raspberry Pi Imager en la PC
+En una PC con sistema operativo Ubuntu 22.04, abra una terminal y ejecute los siguiente comandos:
 
 ```bash
 sudo apt update
 sudo apt install rpi-imager
 ```
+Tras completar la instalaación, ejecute el programa mediante el siguiente comando:
+```bash
+rpi-imager
+```
+Esto desplegará la siguiente ventana:
+
+![Raspberry pi imager](imgs/ESP32/img_5.png)
+
+#### 3) Conecte la tarjeta micro SD a la 
