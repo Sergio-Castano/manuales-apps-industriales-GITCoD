@@ -201,16 +201,16 @@ Este proceso puede tardar varios minutos. Este tiempo dependerá de la capacidad
 
 #### 8) Instalar los módulos en un directorio externo
 
-Tras concluir la compilación, debe instalar los módulos en un directorio externo, al cual se le ha asignado arbitrariamente como nombre "install". Para ello en primera instancia cree el directorio y un subdirectorio, mediante el siguiente comando desde la misma terminal que ha estado utilizando:
+Tras concluir la compilación, debe instalar los módulos en un directorio externo, al cual se le ha asignado arbitrariamente como nombre "kernel_install". Para ello en primera instancia cree el directorio y un subdirectorio, mediante el siguiente comando desde la misma terminal que ha estado utilizando:
 
 ```bash
-mkdir -p ~/kernel_install/install/modules
+mkdir -p ~/kernel_install/modules
 ```
 
 Una vez creado el directorio, instale los módulos en él empleando el siguiente comando:
 
 ```bash
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=~/kernel_install/install/modules modules_install
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=~/kernel_install/modules modules_install
 ```
 
 ### Empaquetar el kernel parcheado
@@ -222,7 +222,7 @@ Tras haber parcheado, configurado, compilado el kernel, lo que resta es empaquet
 En el mismo directorio previamente creado, cree otrad carpetad, usando el siguiente comando:
 
 ```bash
-mkdir -p ~/kernel_install/install/boot/overlays
+mkdir -p ~/kernel_install/boot/overlays
 ```
 
 #### 2) Copiar el Kernel y los Device Trees al Directorio Temporal:
@@ -230,16 +230,16 @@ mkdir -p ~/kernel_install/install/boot/overlays
 Con los directorios creados, se debe copiar los archivos que componen al Kernel y sus Device Trees, para ello utilice los siguientes comandos:
 
 ```bash
-cp arch/arm64/boot/Image ~/kernel_install/install/boot/kernel8.img
+cp arch/arm64/boot/Image ~/kernel_install/boot/kernel8.img
 ```
 ```bash
-cp arch/arm64/boot/dts/broadcom/*.dtb ~/kernel_install/install/boot
+cp arch/arm64/boot/dts/broadcom/*.dtb ~/kernel_install/boot/
 ```
 ```bash
-cp arch/arm64/boot/dts/overlays/*.dtb* ~/kernel_install/install/boot/overlays/
+cp arch/arm64/boot/dts/overlays/*.dtb* ~/kernel_install/boot/overlays/
 ```
 ```bash
-cp arch/arm64/boot/dts/overlays/README ~/kernel_install/install/boot/overlays/
+cp arch/arm64/boot/dts/overlays/README ~/kernel_install/boot/overlays/
 ```
 
 #### 3) Empaquetar el Directorio Temporal en un Archivo Comprimido
