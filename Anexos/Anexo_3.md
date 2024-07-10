@@ -233,9 +233,9 @@ Posteriormente ejecute el siguiente comando para empaquetar los archivos del ker
 tar -czvf kernel_patch.tar.gz boot modules
 ```
 
-**El archivo comprimido con el kernel parcheado y listo para instalación está disponible en la carpeta **INSERTAR CARPETA AQUI**
-
 ### Instalación del Kernel en la Raspberry Pi
+
+**El archivo comprimido con el kernel parcheado y listo para instalación está disponible en la carpeta **INSERTAR CARPETA AQUI**
 
 Transfiera el archivo comprimido por el medio de su preferencia a la Raspberry Pi 4. Para no tener que hacer modificaciones a los comandos presentados en esta guía, disponga el archivo comprimido en la carpeta raiz de la Raspberry Pi 4.
 
