@@ -147,25 +147,33 @@ Dentro de este menú, emplee las flechas del teclado para navegar entre las opci
 
 **- Activar el modo Fully Preemptible Kernel (RT)**
 1) Con la opción **"General setup"** resaltada en la lista y **"Select"** en las acciones, presione la tecla enter.
---Insertar imagen
+
+![Raspberry pi imager](imgs/RPI4/config_01.png)
 2) Baje en la lista hasta resaltar la opción **"Preemption Model (...)"** y con la acción **"Select"** resaltada, presione enter.
---Insertar imagen
+
+![Raspberry pi imager](imgs/RPI4/config_02.png)
 3) Baje hasta resaltar la opción **"Fully Preemptible Kernel (Real-Time)"** y presione la tecla barra espaciadora. Esto hará que la opción se marque con una X. Posteriormente presione enter.
---Insertar imagen
+
+![Raspberry pi imager](imgs/RPI4/config_03.png)
 4) Regrese a la lista inicial de opciones usando las teclas laterales para seleccionar la acción **"Exit"** y presionando la tecla enter.
 
 **- Incrementar la frecuencia del timer**
-1) Con la opción **"Kernle Features"** resaltada en la lista y **"Select"** en las acciones, presione la tecla enter.
---Insertar imagen
+1) Use la flechas para bajar hasta resaltar la opción **"Kernel Features"** y con **"Select"** resaltado en las acciones, presione la tecla enter.
+
+![Raspberry pi imager](imgs/RPI4/config_04.png)
 2) Baje en la lista hasta resaltar la opción **"Timer frequency (...)"** y con la acción **"Select"** resaltada, presione enter.
---Insertar imagen
-3) Baje hasta resaltar la opción **"1000 Hz"** y presione la tecla barra espaciadora. Esto hará que la opción se marque con una X. Posteriormente presione enter.
---Insertar imagen
+
+![Raspberry pi imager](imgs/RPI4/config_05.png)
+3) Baje hasta resaltar la opción **"1000 Hz"** y y con la acción **"Select"** resaltada, presione enter.
+
+![Raspberry pi imager](imgs/RPI4/config_06.png)
 4) Regrese a la lista inicial de opciones usando las teclas laterales para seleccionar la acción **"Exit"** y presionando la tecla enter.
 
 **-Guardar los cambios y salir**
 1) Usando las teclas laterales resalte la opción **"Save"** y posteriormente presione la tecla enter.
 2) En el menú que se despliega, verificando que el nombre del archivo en el cual se guardará la configuración sea ".config" y que la acción resaltada sea **"Ok"** presione enter.
+
+![Raspberry pi imager](imgs/RPI4/config_07.png)
 3) Se le confirmará que los combios fueron grabados. Presione enter para continuar.
 4) Usando las flechas laterales, resalte la acción **"Exit"** y presione enter.
 
@@ -292,7 +300,3 @@ Al concluir el proceso de reinicio (puede tardar mas de lo habitual) y estar de 
 Linux raspberrypi 6.6.37-rt35-v8+ #1 SMP PREEMPT_RT Tue Jul  9 14:53:17 -05 2024 aarch64 GNU/Linux
 ```
 Donde se observa que la versión del kernel refleja la instalación del parche rt y que el modo del kernel ahora está configurado como "PREEMPT_RT", confirmando que el proceso de instalación fue exitoso.
-
-
-
-
