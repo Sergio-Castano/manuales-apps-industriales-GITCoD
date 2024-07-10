@@ -1,4 +1,4 @@
-# ANEXO 3 - Programación de tares de tiempo real en Raspberry Pi 4 con PREEMPT_RT
+# ANEXO 3 - Programación de tares de tiempo real en Raspberry Pi con PREEMPT_RT
 
 La programación de tareas con requisitos de tiempo real en un sistema operativo (SO) Linux (los mas típicamente soportados por las tarjetas Raspberry Pi) se puede lograr utilizando versiones especializadas del kernel. Específicamente empleando un parche nombrado **"PREEMPT_RT"**, el cual convierte el kernel estándar de Linux en un kernel de tiempo real "blando" (soft real-time), adecuado para muchas aplicaciones industriales y de investigación.
 
