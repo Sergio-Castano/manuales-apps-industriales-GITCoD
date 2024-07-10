@@ -294,7 +294,7 @@ kernel=kernel8.img
 
 Guarde los cambios presionando "Ctrl + o", luego presiona "Enter" para confirmar y finalmente salga del editor presionando "Ctrl + X".
 
-### Reinicio y Verificación de la correcta instalación del Kernel
+### Reiniciar y Verificar la Correcta Instalación del Kernel
 
 Una vez transferidos todos los archivo a su ubicación y habiendo editado config.txt, reinicie la Raspberry Pi, usando este comando en la terminal:
 
