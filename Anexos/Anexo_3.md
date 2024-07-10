@@ -247,7 +247,7 @@ cp arch/arm64/boot/dts/overlays/README ~/kernel_install/boot/overlays/
 Ingrese desde la terminal a la carpeta de instalación temporal, usando el siguiente comando:
 
 ```bash
-cd ~/kernel_install/install
+cd ~/kernel_install
 ```
 Posteriormente ejecute el siguiente comando para empaquetar los archivos del kernel en un archivo comprimido
 
