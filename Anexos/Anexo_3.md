@@ -64,10 +64,33 @@ Tras tener correctamente instaldo el sistema operativo en la tarjeta Raspberry P
 
 ***NOTA:** El proceso de compilación del kernel con el parche PREEMPT_RT se presenta en esta guía con un caracter principalmente demostrativo, siendo realmente útil en el momento que se pretanda actualizar por algún motivo la versión del Kernel del sistema opearativo. Mas allá de eso, se recomienda usar los archivos que ya han sido compilados y que están disponibles en este repositorio. 
 
-#### 1) Verificación de la versión y tipo de kernel preinstalado
+#### 0) Verificación de la versión y tipo de kernel preinstalado
 
-Aunque este paso no es estrictamente necesario, se recomienda visualizar 
+Aunque este paso no es estrictamente necesario, se recomienda visualizar la versión y tipo de kernel que se instala por defecto en la imagen del Raspberry Pi OS. Para ello en la Raspberry Pi 4, abra una terminal y ejecute el comando ```uname -a```, lo cual debe generar una salida similar a esta:
 
-Para ello en la Raspberry Pi 4, abra una terminal y ejecute el comando ```"uname -a"```
+```bash
+Linux raspberrypi 6.6.31+rpt-rpi-v8 #1 SMP PREEMPT Debian 1:6.6.31-1+rpt1 (2024-05-29) aarch64 GNU/Linux
+```
+De esta se destacan dos valores, el primero es la versión del kernel "6.6.31+rpt-rpi-v8" y el segundo el modelo del kernel "PREEMPT". En estos dos parámetros se evidenciarán cambios tras realizar la correcta instalación del kernel parcheado.
+
+Al momento de escribir esta guía, la versión más reciente del Raspberry Pi OS emplea por defecto la versión de kernel "6.6.31", esta será la versión de kernel a emplear durante el resto de procedimientos.
+
+#### 1) Preparar el Entorno de compilación en la PC
+
+En la PC, en su directorio raíz abra una terminal y cree una carpeta empleando los siguientes comandos:
+
+```bash
+mkdir ~/kernel_build
+cd ~/kernel_build
+```
+
+A continuación, instale las herramientas necesarias para la compilación del kernel usando estos comandos:
+
+```bash
+sudo apt-get update
+sudo apt-get install gcc-aarch64-linux-gnu build-essential bc bison flex libssl-dev make
+```
+
+
 
 ### Instalación
