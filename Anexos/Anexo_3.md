@@ -62,7 +62,7 @@ Tras haber insertado la tarjeta micro SD, conecte un monitor mediante HDMI a la 
 
 Tras tener correctamente instaldo el sistema operativo en la tarjeta Raspberry Pi, el paso restante es parchear su kernel. Debido a que la compilación del kernel es un proceso que requiere de una alta demanda computacional, realizarlo directamente en la Raspberry Pi, aunque es totalmente posible, implica un tiempo significativamente alto, por lo tanto se emplea "compilación cruzada", es decir, compilar el kernel en una máquina más potente (PC con Linux) y luego transferir los archivos compilados a la Raspberry Pi.
 
-***NOTA:** El proceso de compilación del kernel con el parche PREEMPT_RT se presenta en esta guía con un caracter principalmente demostrativo, siendo realmente útil en el momento que se pretanda actualizar por algún motivo la versión del Kernel del sistema opearativo. Mas allá de eso, se recomienda usar los archivos que ya han sido compilados y que están disponibles en este repositorio. 
+***NOTA:** El proceso de compilación del kernel con el parche PREEMPT_RT se presenta en esta guía con un caracter principalmente demostrativo, siendo realmente útil en el momento que se pretanda actualizar por algún motivo la versión del Kernel del sistema opearativo. Mas allá de eso, se recomienda usar los archivos que ya han sido compilados y que están disponibles en este repositorio, avanzando directamente a la sección [**Instalación del Kernel en la Raspberry Pi**](#instalación-del-kernel-en-la-Raspberry-Pi). 
 
 #### 0) Verificación de la versión y tipo de kernel preinstalado
 
@@ -117,4 +117,181 @@ wget https://www.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6.36-rt35.p
 
 **Nota: Modifique la ruta del archivo a descargar en función de la versión del parche*
 
-### Instalación
+#### 4) Configurar los parámetros de compilación en el PC para que el Kernel sea apto para Raspberry Pi
+
+Para configurar los parámetros del compilador, en la terminal ejecute el siguiente comando:
+
+```bash
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+```
+
+#### 5) Aplicar el parche de PREEMPT_RT
+
+Para hacer efectivos los cambios que PREEMPT_RT aplica sobre el kernel base de linux se debe ejecutar el siguiente comando en la terminal:
+
+```bash
+patch -p1 < patch-6.6.36-rt35.patch
+```
+Verifique que el nombre del parche a aplicar coincida con el descargado
+
+#### 6) Configurar el kernel para favorecer la ejecución de tareas con requisitos de tiempo real
+
+Las configuraciones el kernel se hacen a traves de una interfaz de configuración a la cual se accede mediante el siguiente comando:
+
+```bash
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+```
+
+Dentro de este menú, emplee las flechas del teclado para navegar entre las opciones. Con las techas de arriba y abajo se mueve por las opciones de la lista y con las techlas laterales se desplaza entre las acciones. Hay dos configuraciones principales que se deben realizar para favorecer la ejecución de tareas con requisitos de tiempo real, estas son activar el modo **"Fully Preemptible Kernel (RT)"** e incrementar la frecuencia del timer. Para ello:
+
+**- Activar el modo Fully Preemptible Kernel (RT)**
+1) Con la opción **"General setup"** resaltada en la lista y **"Select"** en las acciones, presione la tecla enter.
+--Insertar imagen
+2) Baje en la lista hasta resaltar la opción **"Preemption Model (...)"** y con la acción **"Select"** resaltada, presione enter.
+--Insertar imagen
+3) Baje hasta resaltar la opción **"Fully Preemptible Kernel (Real-Time)"** y presione la tecla barra espaciadora. Esto hará que la opción se marque con una X. Posteriormente presione enter.
+--Insertar imagen
+4) Regrese a la lista inicial de opciones usando las teclas laterales para seleccionar la acción **"Exit"** y presionando la tecla enter.
+
+**- Incrementar la frecuencia del timer**
+1) Con la opción **"Kernle Features"** resaltada en la lista y **"Select"** en las acciones, presione la tecla enter.
+--Insertar imagen
+2) Baje en la lista hasta resaltar la opción **"Timer frequency (...)"** y con la acción **"Select"** resaltada, presione enter.
+--Insertar imagen
+3) Baje hasta resaltar la opción **"1000 Hz"** y presione la tecla barra espaciadora. Esto hará que la opción se marque con una X. Posteriormente presione enter.
+--Insertar imagen
+4) Regrese a la lista inicial de opciones usando las teclas laterales para seleccionar la acción **"Exit"** y presionando la tecla enter.
+
+**-Guardar los cambios y salir**
+1) Usando las teclas laterales resalte la opción **"Save"** y posteriormente presione la tecla enter.
+2) En el menú que se despliega, verificando que el nombre del archivo en el cual se guardará la configuración sea ".config" y que la acción resaltada sea **"Ok"** presione enter.
+3) Se le confirmará que los combios fueron grabados. Presione enter para continuar.
+4) Usando las flechas laterales, resalte la acción **"Exit"** y presione enter.
+
+#### 7) Compilar el kernel
+
+Tras haber instalado el parche y configurado el kernel, se procede a la compilación. Para ello, desde la misma terminal, ejecute el siguiente comando:
+
+```bash
+make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
+```
+Este proceso puede tardar varios minutos. Este tiempo dependerá de la capacidad de cómputo del PC.
+
+#### 8) Instalar los módulos en un directorio externo
+
+Tras concluir la compilación, debe instalar los módulos en un directorio externo, al cual se le ha asignado arbitrariamente como nombre "install". Para ello en primera instancia cree el directorio y un subdirectorio, mediante el siguiente comando desde la misma terminal que ha estado utilizando:
+
+```bash
+mkdir -p ~/kernel_install/install/modules
+```
+
+Una vez creado el directorio, instale los módulos en él empleando el siguiente comando:
+
+```bash
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=~/kernel_install/install/modules modules_install
+```
+
+### Empaquetar el kernel parcheado
+
+Tras haber parcheado, configurado, compilado el kernel, lo que resta es empaquetarlo en un archivo comprimido para ser transferido por algún medio (vía USB, SCP, Internet, etc..) a la Raspberry Pi y finalmente ser instalado.
+
+#### 1) Crear Directorios para Kernel y Device Trees:
+
+En el mismo directorio previamente creado, cree otrad carpetad, usando el siguiente comando:
+
+```bash
+mkdir -p ~/kernel_install/install/boot/overlays
+```
+
+#### 2) Copiar el Kernel y los Device Trees al Directorio Temporal:
+
+Con los directorios creados, se debe copiar los archivos que componen al Kernel y sus Device Trees, para ello utilice los siguientes comandos:
+
+```bash
+cp arch/arm64/boot/Image ~/kernel_install/install/boot/kernel8.img
+```
+```bash
+cp arch/arm64/boot/dts/broadcom/*.dtb ~/kernel_install/install/boot
+```
+```bash
+cp arch/arm64/boot/dts/overlays/*.dtb* ~/kernel_install/install/boot/overlays/
+```
+```bash
+cp arch/arm64/boot/dts/overlays/README ~/kernel_install/install/boot/overlays/
+```
+
+#### 3) Empaquetar el Directorio Temporal en un Archivo Comprimido
+
+Ingrese desde la terminal a la carpeta de instalación temporal, usando el siguiente comando:
+
+```bash
+cd ~/kernel_install/install
+```
+Posteriormente ejecute el siguiente comando para empaquetar los archivos del kernel en un archivo comprimido
+
+```bash
+tar -czvf kernel_patch.tar.gz boot modules
+```
+
+**El archivo comprimido con el kernel parcheado y listo para instalación está disponible en la carpeta **INSERTAR CARPETA AQUI**
+
+### Instalación del Kernel en la Raspberry Pi
+
+Transfiera el archivo comprimido por el medio de su preferencia a la Raspberry Pi 4. Para no tener que hacer modificaciones a los comandos presentados en esta guía, disponga el archivo comprimido en la carpeta raiz de la Raspberry Pi 4.
+
+#### 1) Crear una carpeta para desempaquetar el archivo
+
+Abra una terminal en la carpeta raiz "~" de la Raspberry Pi y posteriormente ejecute este comando:
+
+```bash
+mkdir -p ~/kernel_install/
+```
+
+En la misma terminal ejecute el siguiente comando para desempaquetar los archivos:
+
+```bash
+tar -xzvf kernel_patch.tar.gz -C ~/kernel_install
+```
+
+#### 2) Instalar los Archivos del Kernel y los Módulos
+
+Para realizar la instalación de los archivos basta con copiarlos en las carpetas correspondientes del sistema operativo. Para ello ejecute los siguientes comandos en la terminal:
+
+```bash
+sudo cp ~/kernel_install/boot/kernel8.img /boot/firmware/
+sudo cp ~/kernel_install/boot/*.dtb /boot/firmware/
+sudo cp ~/kernel_install/boot/overlays/*.dtb* /boot/firmware/overlays/
+sudo cp ~/kernel_install/boot/overlays/README /boot/firmware/overlays/
+sudo cp -r ~/kernel_install/modules/lib/modules/* /lib/modules/
+```
+Para que el arranque del sistema operativo se ejecute efectivamente con el kernel parcheado, se requiere tambien modificar el archivo de configuración que se encuentra en la ruta "/boot/firmware/config.txt". Para editar este archivo puede emplear el siguiente comando:
+
+```bash
+sudo nano /boot/firmware/config.txt
+```
+
+Cuando en la terminal se muestre el contenido del archivo, agregue la siguiente línea de configuración al archivo, justo antes de la etiqueta "cm4":
+
+```bash
+kernel=kernel8.img
+```
+
+Guarde los cambios presionando "Ctrl + o", luego presiona "Enter" para confirmar y finalmente salga del editor presionando "Ctrl + X".
+
+### Reinicio y Verificación de la correcta instalación del Kernel
+
+Una vez transferidos todos los archivo a su ubicación y habiendo editado config.txt, reinicie la Raspberry Pi, usando este comando en la terminal:
+
+```bash
+sudo reboot
+```
+Al concluir el proceso de reinicio (puede tardar mas de lo habitual) y estar de nuevo en la página de inicio de la interfaz de Raspberry Pi OS, abra una terminal y ejecute el comando ```uname -a```. La salida esperada de este comando debe ser:
+
+```bash
+Linux raspberrypi 6.6.37-rt35-v8+ #1 SMP PREEMPT_RT Tue Jul  9 14:53:17 -05 2024 aarch64 GNU/Linux
+```
+Donde se observa que la versión del kernel refleja la instalación del parche rt y que el modo del kernel ahora está configurado como "PREEMPT_RT", confirmando que el proceso de instalación fue exitoso.
+
+
+
+
