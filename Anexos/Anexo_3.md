@@ -48,8 +48,7 @@ Finalmente haga clic sobre el botón de "Escribir/Write" y confirme el inicio de
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_4.png)
 
 #### 6) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
-Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4.
-
+Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4. 
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_5.png)
 
 #### 7) Realizar la configuración inicial del sistema operativo
