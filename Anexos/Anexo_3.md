@@ -91,6 +91,30 @@ sudo apt-get update
 sudo apt-get install gcc-aarch64-linux-gnu build-essential bc bison flex libssl-dev make
 ```
 
+#### 2) Descargar el código fuente del kernel
 
+Descargue desde github el código fuente del kernel. Recuerde acceder al branch correspondiente a la versión de kernel que desea parchear e instalar. En este caso puntual es la versión "6.6", empleando entonces el siguiente comando: 
+
+```bash
+git clone --depth=1 -b rpi-6.6.y https://github.com/raspberrypi/linux
+```
+Tras completarse el procese anterior, ingrese a la carpeta que se obtiene como producto, usando el siguiente comando:
+
+```bash
+cd linux
+```
+
+#### 3) Buscar y descargar la versión adecuada del parche PREEMPT_RT
+
+1) Ingrese a la dirección web ["https://www.kernel.org/pub/linux/kernel/projects/rt/"](https://www.kernel.org/pub/linux/kernel/projects/rt/) y posteriormente a la carpeta correspondiente a la versión del kernel que se ha descargado. En este caso a la "6.6".
+2) Al interior de dicha carpeta encontrará un listado con todas las versiones del parche disponibles para la respectiva versión del kernel. Identifique la versión de parche que desea instalar, en este caso instalaremos la última versión disponible al momento de redactar esta guía "6.6.36-rt35".
+
+Tras haber identificado la versión del parche a usar, en la misma terminal que ha venido usando hasta el momento (verificando que la ruta sea ~/kernel_build/linux/), ejecute el siguiente comando para descargar el parche PREEMPT_RT:
+
+```bash
+wget https://www.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6.36-rt35.patch.xz
+```
+
+**Nota: Modifique la ruta del archivo a descargar en función de la versión del parche*
 
 ### Instalación
