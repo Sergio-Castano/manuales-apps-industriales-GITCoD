@@ -105,7 +105,15 @@ Tras completarse el procese anterior, ingrese a la carpeta que se obtiene como p
 cd linux
 ```
 
-#### 3) Buscar y descargar la versión adecuada del parche PREEMPT_RT
+#### 3) Configurar los parámetros de compilación en el PC para que el Kernel sea apto para Raspberry Pi
+
+Para configurar los parámetros del compilador, en la terminal ejecute el siguiente comando:
+
+```bash
+make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+```
+
+#### 4) Buscar y descargar la versión adecuada del parche PREEMPT_RT
 
 1) Ingrese a la dirección web ["https://www.kernel.org/pub/linux/kernel/projects/rt/"](https://www.kernel.org/pub/linux/kernel/projects/rt/) y posteriormente a la carpeta correspondiente a la versión del kernel que se ha descargado. En este caso a la "6.6".
 2) Al interior de dicha carpeta encontrará un listado con todas las versiones del parche disponibles para la respectiva versión del kernel. Identifique la versión de parche que desea instalar, en este caso instalaremos la última versión disponible al momento de redactar esta guía "6.6.36-rt35".
@@ -118,12 +126,10 @@ wget https://www.kernel.org/pub/linux/kernel/projects/rt/6.6/patch-6.6.36-rt35.p
 
 **Nota: Modifique la ruta del archivo a descargar en función de la versión del parche*
 
-#### 4) Configurar los parámetros de compilación en el PC para que el Kernel sea apto para Raspberry Pi
+Finalmente descomprima el archivo del parche utilizando el comando:
 
-Para configurar los parámetros del compilador, en la terminal ejecute el siguiente comando:
-
-```bash
-make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+```sh
+xz -d patch-6.6.36-rt35.patch.xz
 ```
 
 #### 5) Aplicar el parche de PREEMPT_RT
