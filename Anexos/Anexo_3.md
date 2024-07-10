@@ -30,6 +30,7 @@ Tras completar la instalaación, ejecute el programa mediante el siguiente coman
 rpi-imager
 ```
 Esto desplegará la siguiente ventana:
+
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_1.png)
 
 #### 2) Conecte la tarjeta micro SD a la PC
@@ -37,6 +38,7 @@ Ya sea mediante un adaptador USB o un lector de tarjetas SD integrado en el equi
 
 #### 3) Seleccione el sistema operativo
 Haga clic sobre el botón "Escoger sistema operativo/Choose OS" de la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción **"Raspberry Pi OS (64-bit)"** como se aprecia en la imagen.
+
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_2.png)
 
 #### 4) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
@@ -45,10 +47,12 @@ Haga clic sobre el botón "Escoger almacenamiento/Choose Storage" en la interfaz
 
 #### 5) Escriba la imagen del sistema operativo en la tarjeta
 Finalmente haga clic sobre el botón de "Escribir/Write" y confirme el inicio del proceso en la ventana emergente. Esto iniciará el proceso de escritura del SO en la tarjeta micro SD. Espere a que la instalación y verificación concluyan.
+
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_4.png)
 
 #### 6) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
-Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4. 
+Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4.
+
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_5.png)
 
 #### 7) Realizar la configuración inicial del sistema operativo
