@@ -1,4 +1,4 @@
-# ANEXO 3 - Programación de tares de tiempo real en Raspberry Pi 4 con PREEMPT_RT
+![image](https://github.com/Sergio-Castano/manuales-apps-industriales-GITCoD/assets/108374122/151b2dca-2bb3-44d1-bd86-1e21e6f78a81)# ANEXO 3 - Programación de tares de tiempo real en Raspberry Pi 4 con PREEMPT_RT
 
 La programación de tareas con requisitos de tiempo real en un sistema operativo (SO) Linux (los mas típicamente soportados por las tarjetas Raspberry Pi) se puede lograr utilizando versiones especializadas del kernel. Específicamente empleando un parche nombrado **"PREEMPT_RT"**, el cual convierte el kernel estándar de Linux en un kernel de tiempo real "blando" (soft real-time), adecuado para muchas aplicaciones industriales y de investigación.
 
@@ -17,7 +17,7 @@ En primera instancia se debe abordar el método para modificar el comportamiento
 
 **Nota: La capacidad de cómputo de la PC repercute directamente en la duración del proceso de compilación cruzada del Kernel, por ende, trate de emplear una PC con un procesador multi-nucleo de alta potencia.* 
 
-### Instalar Raspberry Pi OS (64 bits) en la tarjeta SD
+### Instalar Raspberry Pi OS (64 bits)
 
 Existen diversos métodos para instalar una imagen del sistema Raspberry Pi OS en una tarjeta SD, en esta guía se empleará la herramienta **Raspberry Pi Imager**.
 
@@ -36,4 +36,38 @@ Esto desplegará la siguiente ventana:
 
 ![Raspberry pi imager](imgs/ESP32/img_5.png)
 
-#### 3) Conecte la tarjeta micro SD a la 
+#### 2) Conecte la tarjeta micro SD a la PC
+Ya sea mediante un adaptador USB o un lector de tarjetas SD integrado en el equipo, conecte la tarjeta microSD al PC
+
+#### 3) Seleccione el sistema operativo
+Haga clic sobre el botón "Escoger sistema operativo/Choose OS" de la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción **"Raspberry Pi OS (64-bit)"** como se aprecia en la imagen.
+
+![Raspberry pi imager](imgs/ESP32/img_5.png)
+
+#### 3) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
+Haga clic sobre el botón "Escoger almacenamiento/Choose Storage" en la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción correspondiente a la tarjeta microSD conectada. Tenga precaución con el medio de almacenamiento seleccionado, pues este será formateado durante el proceso, con lo cual la información previamente almacenada se eliminará de forma permanente.
+
+![Raspberry pi imager](imgs/ESP32/img_5.png)
+
+#### 4) Escriba la imagen del sistema operativo en la tarjeta
+Finalmente haga clic sobre el botón de "Escribir/Write" y confirme el inicio del proceso en la ventana emergente. Esto iniciará el proceso de escritura del SO en la tarjeta micro SD. Espere a que la instalación y verificación concluyan.
+
+#### 5) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
+Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4.
+
+#### 6) Realizar la configuración inicial del sistema operativo
+Tras haber insertado la tarjeta micro SD, conecte un monitor mediante HDMI a la Raspberry Pi 4, así como mouse y teclado. Posteriormente alimente con corriente eléctrica la tarjeta mediante su puerto USB tipo C. Siga los pasos que se irán solicitando en el monitor para configurar el sistema operativo. 
+
+### Compilación cruzada del Kernel con el parche PREEMPT_RT
+
+Tras tener correctamente instaldo el sistema operativo en la tarjeta Raspberry Pi, el paso restante es parchear su kernel. Debido a que la compilación del kernel es un proceso que requiere de una alta demanda computacional, realizarlo directamente en la Raspberry Pi, aunque es totalmente posible, implica un tiempo significativamente alto, por lo tanto se emplea "compilación cruzada", es decir, compilar el kernel en una máquina más potente (PC con Linux) y luego transferir los archivos compilados a la Raspberry Pi.
+
+***NOTA:** El proceso de compilación del kernel con el parche PREEMPT_RT se presenta en esta guía con un caracter principalmente demostrativo, siendo realmente útil en el momento que se pretanda actualizar por algún motivo la versión del Kernel del sistema opearativo. Mas allá de eso, se recomienda usar los archivos que ya han sido compilados y que están disponibles en este repositorio. 
+
+#### 1) Verificación de la versión y tipo de kernel preinstalado
+
+Aunque este paso no es estrictamente necesario, se recomienda visualizar 
+
+Para ello en la Raspberry Pi 4, abra una terminal y ejecute el comando ```"uname -a"```
+
+### Instalación
