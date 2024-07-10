@@ -1,5 +1,4 @@
 # ANEXO 3 - Programación de tares de tiempo real en Raspberry Pi con PREEMPT_RT
-
 La programación de tareas con requisitos de tiempo real en un sistema operativo (SO) Linux (los mas típicamente soportados por las tarjetas Raspberry Pi) se puede lograr utilizando versiones especializadas del kernel. Específicamente empleando un parche nombrado **"PREEMPT_RT"**, el cual convierte el kernel estándar de Linux en un kernel de tiempo real "blando" (soft real-time), adecuado para muchas aplicaciones industriales y de investigación.
 
 PREEMPT_RT logra la capacidad de tiempo real en Linux a través de una serie de modificaciones y mejoras específicas al kernel. Las dos mas relevantes son:
@@ -8,7 +7,6 @@ PREEMPT_RT logra la capacidad de tiempo real en Linux a través de una serie de 
 - **Ajustes en el Planificador:** El planificador de tareas en PREEMPT_RT está mejorado para manejar las políticas de planificación SCHED_FIFO y SCHED_RR de manera más eficiente, garantizando que las tareas de alta prioridad obtengan el tiempo de CPU necesario.
 
 ## 3.1 Instalación del parche PREEMPT_RT para Raspberry Pi OS
-
 En primera instancia se debe abordar el método para modificar el comportamiento del kernel, mediante la inclusión del parche "PREEMPT_RT". A continuación se detallarán los pasos para conseguirlo, tenga en cuenta que los componente empleados durante esta explicación son:
 
 - Una Raspberry Pi 4 
@@ -18,7 +16,6 @@ En primera instancia se debe abordar el método para modificar el comportamiento
 **Nota: La capacidad de cómputo de la PC repercute directamente en la duración del proceso de compilación cruzada del Kernel, por ende, trate de emplear una PC con un procesador multi-nucleo de alta potencia.* 
 
 ### Instalar Raspberry Pi OS (64 bits)
-
 Existen diversos métodos para instalar una imagen del sistema Raspberry Pi OS en una tarjeta SD, en esta guía se empleará la herramienta **Raspberry Pi Imager**.
 
 #### 1) Instalar y ejecutar Raspberry Pi Imager en la PC
@@ -33,29 +30,28 @@ Tras completar la instalaación, ejecute el programa mediante el siguiente coman
 rpi-imager
 ```
 Esto desplegará la siguiente ventana:
-
-![Raspberry pi imager](imgs/ESP32/img_5.png)
+![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_1.png)
 
 #### 2) Conecte la tarjeta micro SD a la PC
 Ya sea mediante un adaptador USB o un lector de tarjetas SD integrado en el equipo, conecte la tarjeta microSD al PC
 
 #### 3) Seleccione el sistema operativo
 Haga clic sobre el botón "Escoger sistema operativo/Choose OS" de la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción **"Raspberry Pi OS (64-bit)"** como se aprecia en la imagen.
+![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_2.png)
 
-![Raspberry pi imager](imgs/ESP32/img_5.png)
-
-#### 3) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
+#### 4) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
 Haga clic sobre el botón "Escoger almacenamiento/Choose Storage" en la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción correspondiente a la tarjeta microSD conectada. Tenga precaución con el medio de almacenamiento seleccionado, pues este será formateado durante el proceso, con lo cual la información previamente almacenada se eliminará de forma permanente.
+![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_3.png)
 
-![Raspberry pi imager](imgs/ESP32/img_5.png)
-
-#### 4) Escriba la imagen del sistema operativo en la tarjeta
+#### 5) Escriba la imagen del sistema operativo en la tarjeta
 Finalmente haga clic sobre el botón de "Escribir/Write" y confirme el inicio del proceso en la ventana emergente. Esto iniciará el proceso de escritura del SO en la tarjeta micro SD. Espere a que la instalación y verificación concluyan.
+![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_4.png)
 
-#### 5) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
+#### 6) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
 Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4.
+![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_4.png)
 
-#### 6) Realizar la configuración inicial del sistema operativo
+#### 7) Realizar la configuración inicial del sistema operativo
 Tras haber insertado la tarjeta micro SD, conecte un monitor mediante HDMI a la Raspberry Pi 4, así como mouse y teclado. Posteriormente alimente con corriente eléctrica la tarjeta mediante su puerto USB tipo C. Siga los pasos que se irán solicitando en el monitor para configurar el sistema operativo. 
 
 ### Compilación cruzada del Kernel con el parche PREEMPT_RT
