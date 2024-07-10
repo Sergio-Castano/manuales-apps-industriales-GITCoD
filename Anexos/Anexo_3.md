@@ -43,6 +43,7 @@ Haga clic sobre el botón "Escoger sistema operativo/Choose OS" de la interfaz d
 
 #### 4) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
 Haga clic sobre el botón "Escoger almacenamiento/Choose Storage" en la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción correspondiente a la tarjeta microSD conectada. Tenga precaución con el medio de almacenamiento seleccionado, pues este será formateado durante el proceso, con lo cual la información previamente almacenada se eliminará de forma permanente.
+
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_3.png)
 
 #### 5) Escriba la imagen del sistema operativo en la tarjeta
