@@ -257,7 +257,7 @@ tar -czvf kernel_patch.tar.gz boot modules
 
 ### Instalación del Kernel en la Raspberry Pi
 
-**El archivo comprimido con el kernel parcheado y listo para instalación está disponible en la carpeta [RPi PREEMPT_RT Kernel](../RPi PREEMPT_RT Kernel)
+**El archivo comprimido con el kernel parcheado y listo para instalación está disponible en la carpeta [RPi PREEMPT_RT Kernel](../RPi%20PREEMPT_RT%20Kernel)
 
 Transfiera el archivo comprimido por el medio de su preferencia a la Raspberry Pi 4. Para no tener que hacer modificaciones a los comandos presentados en esta guía, disponga el archivo comprimido en la carpeta raiz de la Raspberry Pi 4.
 
