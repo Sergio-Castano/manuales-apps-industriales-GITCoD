@@ -6,7 +6,7 @@ PREEMPT_RT logra la capacidad de tiempo real en Linux a través de una serie de 
 - **Preemptibilidad Completa:** En un kernel estándar de Linux, ciertas secciones de código no pueden ser interrumpidas, lo que puede causar retrasos impredecibles en la respuesta del sistema a eventos de tiempo real. PREEMPT_RT permite que tareas de mayor prioridad interrumpan casi cualquier proceso del SO. Esto reduce significativamente la latencia.
 - **Ajustes en el Planificador:** El planificador de tareas en PREEMPT_RT está mejorado para manejar las políticas de planificación SCHED_FIFO y SCHED_RR de manera más eficiente, garantizando que las tareas de alta prioridad obtengan el tiempo de CPU necesario.
 
-## 3.1 Instalación del parche PREEMPT_RT para Raspberry Pi OS
+# 3.1 Instalación del parche PREEMPT_RT para Raspberry Pi OS
 En primera instancia se debe abordar el método para modificar el comportamiento del kernel, mediante la inclusión del parche "PREEMPT_RT". A continuación se detallarán los pasos para conseguirlo, tenga en cuenta que los componente empleados durante esta explicación son:
 
 - Una Raspberry Pi 4 
@@ -15,10 +15,10 @@ En primera instancia se debe abordar el método para modificar el comportamiento
 
 **Nota: La capacidad de cómputo de la PC repercute directamente en la duración del proceso de compilación cruzada del Kernel, por ende, trate de emplear una PC con un procesador multi-nucleo de alta potencia.* 
 
-### Instalar Raspberry Pi OS (64 bits)
+## Instalar Raspberry Pi OS (64 bits)
 Existen diversos métodos para instalar una imagen del sistema Raspberry Pi OS en una tarjeta SD, en esta guía se empleará la herramienta **Raspberry Pi Imager**.
 
-#### 1) Instalar y ejecutar Raspberry Pi Imager en la PC
+### 1) Instalar y ejecutar Raspberry Pi Imager en la PC
 En una PC con sistema operativo Ubuntu 22.04, abra una terminal y ejecute los siguiente comandos:
 
 ```bash
@@ -33,39 +33,39 @@ Esto desplegará la siguiente ventana:
 
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_1.png)
 
-#### 2) Conecte la tarjeta micro SD a la PC
+### 2) Conecte la tarjeta micro SD a la PC
 Ya sea mediante un adaptador USB o un lector de tarjetas SD integrado en el equipo, conecte la tarjeta microSD al PC
 
-#### 3) Seleccione el sistema operativo
+### 3) Seleccione el sistema operativo
 Haga clic sobre el botón "Escoger sistema operativo/Choose OS" de la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción **"Raspberry Pi OS (64-bit)"** como se aprecia en la imagen.
 
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_2.png)
 
-#### 4) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
+### 4) Seleccione la tarjeta micro SD donde se almacenará la imagen del SO
 Haga clic sobre el botón "Escoger almacenamiento/Choose Storage" en la interfaz del Raspberry Pi Imager y de la lista que se despliega seleccione la opción correspondiente a la tarjeta microSD conectada. Tenga precaución con el medio de almacenamiento seleccionado, pues este será formateado durante el proceso, con lo cual la información previamente almacenada se eliminará de forma permanente.
 
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_3.png)
 
-#### 5) Escriba la imagen del sistema operativo en la tarjeta
+### 5) Escriba la imagen del sistema operativo en la tarjeta
 Finalmente haga clic sobre el botón de "Escribir/Write" y confirme el inicio del proceso en la ventana emergente. Esto iniciará el proceso de escritura del SO en la tarjeta micro SD. Espere a que la instalación y verificación concluyan.
 
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_4.png)
 
-#### 6) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
+### 6) Retire la tarjeta micro SD del PC e insertela en el socket correspondiente de la tarjeta Raspberry Pi 4
 Tras observar el mensaje de notificación de la correcta instalación de la imagen del sistema operativo, retire la tarjeta del PC e insertela en la Raspberry Pi 4.
 
 ![Raspberry pi imager](imgs/RPI4/RPImgInterfaz_5.png)
 
-#### 7) Realizar la configuración inicial del sistema operativo
+### 7) Realizar la configuración inicial del sistema operativo
 Tras haber insertado la tarjeta micro SD, conecte un monitor mediante HDMI a la Raspberry Pi 4, así como mouse y teclado. Posteriormente alimente con corriente eléctrica la tarjeta mediante su puerto USB tipo C. Siga los pasos que se irán solicitando en el monitor para configurar el sistema operativo. 
 
-### Compilación cruzada del Kernel con el parche PREEMPT_RT
+## Compilación cruzada del Kernel con el parche PREEMPT_RT
 
 Tras tener correctamente instaldo el sistema operativo en la tarjeta Raspberry Pi, el paso restante es parchear su kernel. Debido a que la compilación del kernel es un proceso que requiere de una alta demanda computacional, realizarlo directamente en la Raspberry Pi, aunque es totalmente posible, implica un tiempo significativamente alto, por lo tanto se emplea "compilación cruzada", es decir, compilar el kernel en una máquina más potente (PC con Linux) y luego transferir los archivos compilados a la Raspberry Pi.
 
 ***NOTA:** El proceso de compilación del kernel con el parche PREEMPT_RT se presenta en esta guía con un caracter principalmente demostrativo, siendo realmente útil en el momento que se pretanda actualizar por algún motivo la versión del Kernel del sistema opearativo. Mas allá de eso, se recomienda usar los archivos que ya han sido compilados y que están disponibles en este repositorio, avanzando directamente a la sección [**Instalación del Kernel en la Raspberry Pi**](#instalación-del-kernel-en-la-Raspberry-Pi). 
 
-#### 0) Verificación de la versión y tipo de kernel preinstalado
+### 0) Verificación de la versión y tipo de kernel preinstalado
 
 Aunque este paso no es estrictamente necesario, se recomienda visualizar la versión y tipo de kernel que se instala por defecto en la imagen del Raspberry Pi OS. Para ello en la Raspberry Pi 4, abra una terminal y ejecute el comando ```uname -a```, lo cual debe generar una salida similar a esta:
 
@@ -76,7 +76,7 @@ De esta se destacan dos valores, el primero es la versión del kernel "6.6.31+rp
 
 Al momento de escribir esta guía, la versión más reciente del Raspberry Pi OS emplea por defecto la versión de kernel "6.6.31", esta será la versión de kernel a emplear durante el resto de procedimientos.
 
-#### 1) Preparar el Entorno de compilación en la PC
+### 1) Preparar el Entorno de compilación en la PC
 
 En la PC, en su directorio raíz abra una terminal y cree una carpeta empleando los siguientes comandos:
 
@@ -92,7 +92,7 @@ sudo apt-get update
 sudo apt-get install gcc-aarch64-linux-gnu build-essential bc bison flex libssl-dev make
 ```
 
-#### 2) Descargar el código fuente del kernel
+### 2) Descargar el código fuente del kernel
 
 Descargue desde github el código fuente del kernel. Recuerde acceder al branch correspondiente a la versión de kernel que desea parchear e instalar. En este caso puntual es la versión "6.6", empleando entonces el siguiente comando: 
 
@@ -105,7 +105,7 @@ Tras completarse el procese anterior, ingrese a la carpeta que se obtiene como p
 cd linux
 ```
 
-#### 3) Configurar los parámetros de compilación en el PC para que el Kernel sea apto para Raspberry Pi
+### 3) Configurar los parámetros de compilación en el PC para que el Kernel sea apto para Raspberry Pi
 
 Para configurar los parámetros del compilador, en la terminal ejecute el siguiente comando:
 
@@ -113,7 +113,7 @@ Para configurar los parámetros del compilador, en la terminal ejecute el siguie
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
 ```
 
-#### 4) Buscar y descargar la versión adecuada del parche PREEMPT_RT
+### 4) Buscar y descargar la versión adecuada del parche PREEMPT_RT
 
 1) Ingrese a la dirección web ["https://www.kernel.org/pub/linux/kernel/projects/rt/"](https://www.kernel.org/pub/linux/kernel/projects/rt/) y posteriormente a la carpeta correspondiente a la versión del kernel que se ha descargado. En este caso a la "6.6".
 2) Al interior de dicha carpeta encontrará un listado con todas las versiones del parche disponibles para la respectiva versión del kernel. Identifique la versión de parche que desea instalar, en este caso instalaremos la última versión disponible al momento de redactar esta guía "6.6.36-rt35".
@@ -132,7 +132,7 @@ Finalmente descomprima el archivo del parche utilizando el comando:
 xz -d patch-6.6.36-rt35.patch.xz
 ```
 
-#### 5) Aplicar el parche de PREEMPT_RT
+### 5) Aplicar el parche de PREEMPT_RT
 
 Para hacer efectivos los cambios que PREEMPT_RT aplica sobre el kernel base de linux se debe ejecutar el siguiente comando en la terminal:
 
@@ -141,7 +141,7 @@ patch -p1 < patch-6.6.36-rt35.patch
 ```
 Verifique que el nombre del parche a aplicar coincida con el descargado
 
-#### 6) Configurar el kernel para favorecer la ejecución de tareas con requisitos de tiempo real
+###**** 6) Configurar el kernel para favorecer la ejecución de tareas con requisitos de tiempo real
 
 Las configuraciones el kernel se hacen a traves de una interfaz de configuración a la cual se accede mediante el siguiente comando:
 
@@ -190,7 +190,7 @@ Dentro de este menú, emplee las flechas del teclado para navegar entre las opci
 3) Se le confirmará que los combios fueron grabados. Presione enter para continuar.
 4) Usando las flechas laterales, resalte la acción **"Exit"** y presione enter.
 
-#### 7) Compilar el kernel
+### 7) Compilar el kernel
 
 Tras haber instalado el parche y configurado el kernel, se procede a la compilación. Para ello, desde la misma terminal, ejecute el siguiente comando:
 
@@ -199,7 +199,7 @@ make -j$(nproc) ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs
 ```
 Este proceso puede tardar varios minutos. Este tiempo dependerá de la capacidad de cómputo del PC.
 
-#### 8) Instalar los módulos en un directorio externo
+### 8) Instalar los módulos en un directorio externo
 
 Tras concluir la compilación, debe instalar los módulos en un directorio externo, al cual se le ha asignado arbitrariamente como nombre "kernel_install". Para ello en primera instancia cree el directorio y un subdirectorio, mediante el siguiente comando desde la misma terminal que ha estado utilizando:
 
@@ -213,11 +213,11 @@ Una vez creado el directorio, instale los módulos en él empleando el siguiente
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=~/kernel_install/modules modules_install
 ```
 
-### Empaquetar el kernel parcheado
+## Empaquetar el kernel parcheado
 
 Tras haber parcheado, configurado, compilado el kernel, lo que resta es empaquetarlo en un archivo comprimido para ser transferido por algún medio (vía USB, SCP, Internet, etc..) a la Raspberry Pi y finalmente ser instalado.
 
-#### 1) Crear Directorios para Kernel y Device Trees:
+### 1) Crear Directorios para Kernel y Device Trees:
 
 En el mismo directorio previamente creado, cree otrad carpetad, usando el siguiente comando:
 
@@ -225,7 +225,7 @@ En el mismo directorio previamente creado, cree otrad carpetad, usando el siguie
 mkdir -p ~/kernel_install/boot/overlays
 ```
 
-#### 2) Copiar el Kernel y los Device Trees al Directorio Temporal:
+### 2) Copiar el Kernel y los Device Trees al Directorio Temporal:
 
 Con los directorios creados, se debe copiar los archivos que componen al Kernel y sus Device Trees, para ello utilice los siguientes comandos:
 
@@ -242,7 +242,7 @@ cp arch/arm64/boot/dts/overlays/*.dtb* ~/kernel_install/boot/overlays/
 cp arch/arm64/boot/dts/overlays/README ~/kernel_install/boot/overlays/
 ```
 
-#### 3) Empaquetar el Directorio Temporal en un Archivo Comprimido
+### 3) Empaquetar el Directorio Temporal en un Archivo Comprimido
 
 Ingrese desde la terminal a la carpeta de instalación temporal, usando el siguiente comando:
 
@@ -255,13 +255,13 @@ Posteriormente ejecute el siguiente comando para empaquetar los archivos del ker
 tar -czvf kernel_patch.tar.gz boot modules
 ```
 
-### Instalación del Kernel en la Raspberry Pi
+## Instalación del Kernel en la Raspberry Pi
 
 **El archivo comprimido con el kernel parcheado y listo para instalación está disponible en la carpeta [RPi PREEMPT_RT Kernel](../RPi%20PREEMPT_RT%20Kernel)
 
 Transfiera el archivo comprimido por el medio de su preferencia a la Raspberry Pi 4. Para no tener que hacer modificaciones a los comandos presentados en esta guía, disponga el archivo comprimido en la carpeta raiz de la Raspberry Pi 4.
 
-#### 1) Crear una carpeta para desempaquetar el archivo
+### 1) Crear una carpeta para desempaquetar el archivo
 
 Abra una terminal en la carpeta raiz "~" de la Raspberry Pi y posteriormente ejecute este comando:
 
@@ -275,7 +275,7 @@ En la misma terminal ejecute el siguiente comando para desempaquetar los archivo
 tar -xzvf kernel_patch.tar.gz -C ~/kernel_install
 ```
 
-#### 2) Instalar los Archivos del Kernel y los Módulos
+### 2) Instalar los Archivos del Kernel y los Módulos
 
 Para realizar la instalación de los archivos basta con copiarlos en las carpetas correspondientes del sistema operativo. Para ello ejecute los siguientes comandos en la terminal:
 
