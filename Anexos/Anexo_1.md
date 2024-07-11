@@ -189,3 +189,190 @@ A continuación se demuestra y explica el uso de diferentes tipos de semáforos 
 Cada ciclo, la tarea 3 captura el valor de tiempo de ejecución (conteo de ticks) y lo envía a las otras dos tareas, posteriormente debe esperar que las otras tareas realicen un cálculo independiente sobre el valor transmitido y retornen el resultado, para finalmente sumar los resultados suministrados por ambas tareas y presentarlo como una impresión en la terminal serial. A su vez, las tareas 1 y 2 dentro de sus rutinas incluyen la impresión en la terminal serial de los resultados de sus cálculos. Por su parte, la tarea 1 calcula el resultado de evaluar el tiempo de ejecución(t) en la función cos²(t), mientras que la tarea 2 evalua el mismo valor pero en la función sin²(t). De este modo, al sumar el resultado de ambas evaluaciones el valor obtenido debe ser 1. Bajo este contexto es evidente la necesidad de sincronizar y comunicar las tareas, así como proteger el acceso al recurso compartido, que en este caso es el periférico de comunicaicón serial.
 
 
+```C
+#include <math.h>
+
+// Declaración de colas y semáforos
+QueueHandle_t queueTicks;
+QueueHandle_t queueResult1;
+QueueHandle_t queueResult2;
+
+SemaphoreHandle_t mutexSerial;
+SemaphoreHandle_t mutexSync;
+
+SemaphoreHandle_t semaphoreTask1;
+SemaphoreHandle_t semaphoreTask2;
+SemaphoreHandle_t semaphoreSync;
+
+// Definición de las tareas
+void Task1(void *pvParameters);
+void Task2(void *pvParameters);
+void Task3(void *pvParameters);
+
+int TaskNum = 3;
+volatile int readyCount = 0; // Contador de tareas listas
+
+TickType_t lastWakeTime;
+
+void setup() {
+  Serial.begin(115200);
+  delay(1000);
+  Serial.println("");
+
+  // Creación de colas
+  queueTicks = xQueueCreate(2, sizeof(TickType_t));
+  queueResult1 = xQueueCreate(1, sizeof(float));
+  queueResult2 = xQueueCreate(1, sizeof(float));
+
+  // Creación de semáforos
+  //MUTEX
+  mutexSerial = xSemaphoreCreateMutex();
+  mutexSync = xSemaphoreCreateMutex();
+
+  //Conteo
+  semaphoreSync = xSemaphoreCreateCounting(3, 0); // Semáforo de conteo para sincronizar las tareas
+
+  //Binarios
+  semaphoreTask1 = xSemaphoreCreateBinary(); // Semáforo binario
+  semaphoreTask2 = xSemaphoreCreateBinary(); // Semáforo binario
+
+  // Creación de tareas
+  xTaskCreatePinnedToCore(Task1, "Task1", 2048, NULL, 2, NULL, 1);
+  xTaskCreatePinnedToCore(Task2, "Task2", 2048, NULL, 3, NULL, 1);
+  xTaskCreatePinnedToCore(Task3, "Task3", 2048, NULL, 4, NULL, 1);
+
+  // Esperar hasta que las tres tareas estén listas
+  while (readyCount < TaskNum) {
+    vTaskDelay(1);
+  }
+
+  xSemaphoreTake(mutexSync, portMAX_DELAY);
+  lastWakeTime = xTaskGetTickCount();
+  for (int i = 0; i < readyCount; i++) {
+    xSemaphoreGive(semaphoreSync);
+  }
+  xSemaphoreGive(mutexSync);
+
+  vTaskSuspend(NULL); // Se suspende
+}
+
+void loop() {
+  // No se utiliza en este ejemplo
+  vTaskSuspend(NULL); // Se suspende
+}
+
+void Task1(void *pvParameters) {
+  TickType_t receivedTicks;
+  float result;
+
+  xSemaphoreTake(mutexSync, portMAX_DELAY);
+  readyCount++;
+  xSemaphoreGive(mutexSync);
+
+  xSemaphoreTake(semaphoreSync, portMAX_DELAY);
+  
+  while (true) {
+    // Se bloquea hasta que la tarea 3 disponga datos en la cola
+    xSemaphoreTake(semaphoreTask1, portMAX_DELAY);
+
+    // Recibir el valor del tiempo de ejecución
+    xQueueReceive(queueTicks, &receivedTicks, portMAX_DELAY);
+
+    // Calcular el valor de cos^2(t)
+    result = pow(cos((float)receivedTicks), 2);
+
+    // Retraso aleatorio entre 1 y 3 ms
+    vTaskDelay(pdMS_TO_TICKS(1 + esp_random() % 2));
+
+    // Imprimir el resultado
+    xSemaphoreTake(mutexSerial, portMAX_DELAY);
+    Serial.print("Tarea 1 - Resultado de cos^2(t): ");
+    Serial.println(result);
+    xSemaphoreGive(mutexSerial);
+
+    // Enviar el resultado a la tarea 3
+    xQueueSend(queueResult1, &result, portMAX_DELAY);
+  }
+
+  vTaskDelete(NULL);
+}
+
+void Task2(void *pvParameters) {
+  TickType_t receivedTicks;
+  float result;
+
+  xSemaphoreTake(mutexSync, portMAX_DELAY);
+  readyCount++;
+  xSemaphoreGive(mutexSync);
+
+  xSemaphoreTake(semaphoreSync, portMAX_DELAY);
+
+  while (true) {
+    // Se bloquea hasta que la tarea 3 disponga datos en la cola
+    xSemaphoreTake(semaphoreTask2, portMAX_DELAY);
+
+    // Recibir el valor del tiempo de ejecución
+    xQueueReceive(queueTicks, &receivedTicks, portMAX_DELAY);
+
+    // Calcular el valor de sin^2(t)
+    result = pow(sin((float)receivedTicks), 2);
+
+    // Retraso aleatorio entre 1 y 3 ms
+    vTaskDelay(pdMS_TO_TICKS(1 + esp_random() % 2));
+
+    // Imprimir el resultado
+    xSemaphoreTake(mutexSerial, portMAX_DELAY);
+    Serial.print("Tarea 2 - Resultado de sin^2(t): ");
+    Serial.println(result);
+    xSemaphoreGive(mutexSerial);
+
+    // Enviar el resultado a la tarea 3
+    xQueueSend(queueResult2, &result, portMAX_DELAY);
+  }
+
+  vTaskDelete(NULL);
+}
+
+void Task3(void *pvParameters) {
+  TickType_t currentTicks;
+  float result1, result2, finalResult;
+
+  xSemaphoreTake(mutexSync, portMAX_DELAY);
+  readyCount++;
+  xSemaphoreGive(mutexSync);
+
+  xSemaphoreTake(semaphoreSync, portMAX_DELAY);
+
+  for (;;) {
+    // Capturar el valor del tiempo de ejecución
+    currentTicks = xTaskGetTickCount();
+
+    // Enviar el valor del tiempo a las otras dos tareas
+    xQueueSend(queueTicks, &currentTicks, portMAX_DELAY);
+    xQueueSend(queueTicks, &currentTicks, portMAX_DELAY);
+
+    // Desbloquea la tarea 1
+    xSemaphoreGive(semaphoreTask1);
+    xSemaphoreGive(semaphoreTask2);
+
+    // Esperar los resultados de las tarea 1
+    xQueueReceive(queueResult1, &result1, portMAX_DELAY);
+    xQueueReceive(queueResult2, &result2, portMAX_DELAY);
+
+    // Sumar los resultados
+    finalResult = result1 + result2;
+
+    // Imprimir el resultado final
+    xSemaphoreTake(mutexSerial, portMAX_DELAY);
+    Serial.print("Tarea 3 - Suma de los resultados: ");
+    Serial.println(finalResult);
+    Serial.println("");
+    xSemaphoreGive(mutexSerial);
+
+    // Esperar hasta el inicio del siguiente ciclo (1 segundos)
+    vTaskDelayUntil(&lastWakeTime, pdMS_TO_TICKS(1000));
+  }
+
+  vTaskDelete(NULL);
+}
+```
