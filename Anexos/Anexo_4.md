@@ -52,18 +52,14 @@ cd WiringPi
 #include <time.h>
 #include <errno.h>
 
-typedef struct
-{
+typedef struct {
     int DuracionBlinkMS;
 } TaskBlinkParametros;
 
-struct timespec SumarPeriodoMS(struct timespec ts, int periodo)
-{
+struct timespec SumarPeriodoMS(struct timespec ts, int periodo) {
     ts.tv_nsec += periodo * 1e6;
 
-    // Condición para conservar la structura del timespec y prevenir errores
-    while (ts.tv_nsec >= 1000000000L)
-    {
+    while (ts.tv_nsec >= 1000000000L) {
         ts.tv_nsec -= 1000000000L;
         ts.tv_sec++;
     }
@@ -71,12 +67,15 @@ struct timespec SumarPeriodoMS(struct timespec ts, int periodo)
     return ts;
 }
 
-void *TaskBlink(void *pvParameters)
-{
+void *TaskBlink(void *pvParameters) {
     TaskBlinkParametros *parametros = (TaskBlinkParametros *)pvParameters;
     int ledPin = 29; // GPIO 21 - Pin 40
 
-    wiringPiSetup();
+    if (wiringPiSetup() == -1) {
+        fprintf(stderr, "Error al inicializar wiringPi\n");
+        pthread_exit(NULL);
+    }
+
     pinMode(ledPin, OUTPUT);
 
     struct timespec next_activation;
@@ -84,19 +83,19 @@ void *TaskBlink(void *pvParameters)
 
     clock_gettime(CLOCK_MONOTONIC, &next_activation);
 
-    while (1)
-    {
+    while (1) {
         led_estado = !led_estado;
         digitalWrite(ledPin, led_estado);
-        next_activation = SumarPeriodoMS(next_activation, parametros->DuracionB>
+        printf("Estado del LED: %d\n", led_estado); // Imprime el estado del LED
+        next_activation = SumarPeriodoMS(next_activation, parametros->DuracionBlinkMS);
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_activation, NULL);
     }
-    
+
     digitalWrite(ledPin, LOW);
     return NULL;
 }
-int main()
-{
+
+int main() {
     TaskBlinkParametros Mis_Parametros;
     Mis_Parametros.DuracionBlinkMS = 1000; // 1000 milisegundos -> 1 segundo
 
@@ -113,13 +112,15 @@ int main()
     param.sched_priority = 80;
     pthread_attr_setschedparam(&attr, &param);
 
-    pthread_create(&Task1, &attr, TaskBlink, &Mis_Parametros);
+    if (pthread_create(&Task1, &attr, TaskBlink, &Mis_Parametros) != 0) {
+        fprintf(stderr, "Error al crear el hilo\n");
+        return 1;
+    }
+
     pthread_join(Task1, NULL);
 
     return 0;
 }
-
-
 ```
 
 ## 3) Compilación del código
