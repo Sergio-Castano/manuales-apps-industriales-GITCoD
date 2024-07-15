@@ -95,6 +95,29 @@ void *TaskBlink(void *pvParameters)
     digitalWrite(ledPin, LOW);
     return NULL;
 }
+int main()
+{
+    TaskBlinkParametros Mis_Parametros;
+    Mis_Parametros.DuracionBlinkMS = 1000; // 1000 milisegundos -> 1 segundo
+
+    pthread_t Task1;
+    struct sched_param param;
+    pthread_attr_t attr;
+
+    // Inicializa los atributos del hilo
+    pthread_attr_init(&attr);
+    pthread_attr_setinheritsched(&attr, PTHREAD_EXPLICIT_SCHED);
+    pthread_attr_setschedpolicy(&attr, SCHED_FIFO);
+
+    // Asigna una prioridad alta al hilo
+    param.sched_priority = 80;
+    pthread_attr_setschedparam(&attr, &param);
+
+    pthread_create(&Task1, &attr, TaskBlink, &Mis_Parametros);
+    pthread_join(Task1, NULL);
+
+    return 0;
+}
 
 
 ```
