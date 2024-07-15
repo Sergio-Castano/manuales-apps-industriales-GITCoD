@@ -42,7 +42,62 @@ cd WiringPi
 
 ## 2) Creación del código
 
+```c
+#include <wiringPi.h>
+#include <pthread.h>
+#include <sched.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+#include <errno.h>
 
+typedef struct
+{
+    int DuracionBlinkMS;
+} TaskBlinkParametros;
+
+struct timespec SumarPeriodoMS(struct timespec ts, int periodo)
+{
+    ts.tv_nsec += periodo * 1e6;
+
+    // Condición para conservar la structura del timespec y prevenir errores
+    while (ts.tv_nsec >= 1000000000L)
+    {
+        ts.tv_nsec -= 1000000000L;
+        ts.tv_sec++;
+    }
+
+    return ts;
+}
+
+void *TaskBlink(void *pvParameters)
+{
+    TaskBlinkParametros *parametros = (TaskBlinkParametros *)pvParameters;
+    int ledPin = 29; // GPIO 21 - Pin 40
+
+    wiringPiSetup();
+    pinMode(ledPin, OUTPUT);
+
+    struct timespec next_activation;
+    int led_estado = LOW;
+
+    clock_gettime(CLOCK_MONOTONIC, &next_activation);
+
+    while (1)
+    {
+        led_estado = !led_estado;
+        digitalWrite(ledPin, led_estado);
+        next_activation = SumarPeriodoMS(next_activation, parametros->DuracionB>
+        clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_activation, NULL);
+    }
+    
+    digitalWrite(ledPin, LOW);
+    return NULL;
+}
+
+
+```
 
 ## 3) Compilación del código
 
