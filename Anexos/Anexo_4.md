@@ -42,6 +42,15 @@ cd WiringPi
 
 ## 2) Creación del código
 
+En el directorio de su elección, cree un archivo con el nombre "blink_rt.c", para ello puede usar el siguiente comando:
+
+```bash
+touch blink_rt.c
+```
+
+Con el editor de texto de su preferencia, abra el archivo y pegue el siguiente código:
+
+
 ```c
 #include <wiringPi.h>
 #include <pthread.h>
@@ -123,6 +132,14 @@ int main() {
 }
 ```
 
+Guarde y cierre el archivo.
+
+**Escribir explicaciones del código*
+
 ## 3) Compilación del código
+
+```bash
+gcc -o blink_rt.exe blink_rt.c -lwiringPi -lpthread
+```
 
 ## 4) Ejecución del código y verificaciones
