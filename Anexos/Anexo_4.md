@@ -59,11 +59,20 @@ Con el editor de texto de su preferencia, abra el archivo y pegue el siguiente c
 #include <unistd.h>
 #include <time.h>
 #include <errno.h>
+#include <signal.h>
 
+// Variable global para indicar si el programa debe seguir corriendo
+volatile sig_atomic_t running = 1;
+
+// Prototipo del manejador de señales
+void handle_signal(int sig);
+
+// Estructura de parámetros para la tarea de parpadeo
 typedef struct {
     int DuracionBlinkMS;
 } TaskBlinkParametros;
 
+// Función para sumar un periodo en milisegundos a una estructura timespec
 struct timespec SumarPeriodoMS(struct timespec ts, int periodo) {
     ts.tv_nsec += periodo * 1e6;
 
@@ -74,7 +83,7 @@ struct timespec SumarPeriodoMS(struct timespec ts, int periodo) {
 
     return ts;
 }
-
+// Función de la tarea de parpadeo
 void *TaskBlink(void *pvParameters) {
     TaskBlinkParametros *parametros = (TaskBlinkParametros *)pvParameters;
     int ledPin = 29; // GPIO 21 - Pin 40
@@ -91,7 +100,7 @@ void *TaskBlink(void *pvParameters) {
 
     clock_gettime(CLOCK_MONOTONIC, &next_activation);
 
-    while (1) {
+    while (running) {
         led_estado = !led_estado;
         digitalWrite(ledPin, led_estado);
         printf("Estado del LED: %d\n", led_estado); // Imprime el estado del LED
@@ -102,8 +111,11 @@ void *TaskBlink(void *pvParameters) {
     digitalWrite(ledPin, LOW);
     return NULL;
 }
-
 int main() {
+    // Registrar el manejador de señales para SIGINT y SIGTERM
+    signal(SIGINT, handle_signal);
+    signal(SIGTERM, handle_signal);
+
     TaskBlinkParametros Mis_Parametros;
     Mis_Parametros.DuracionBlinkMS = 1000; // 1000 milisegundos -> 1 segundo
 
@@ -127,7 +139,17 @@ int main() {
 
     pthread_join(Task1, NULL);
 
+    printf("Programa terminado\n");
     return 0;
+}
+// Función manejadora de señales
+void handle_signal(int sig) {
+    if (sig == SIGINT) {
+        printf("\nSIGINT recibido! Apagando LED y terminando el programa...\n");
+    } else if (sig == SIGTERM) {
+        printf("\nSIGTERM recibido! Apagando LED y terminando el programa...\n");
+    }
+    running = 0; // Establece running a 0 para terminar el bucle en TaskBlink
 }
 ```
 
