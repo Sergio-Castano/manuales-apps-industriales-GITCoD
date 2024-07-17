@@ -61,6 +61,8 @@ Con el editor de texto de su preferencia, abra el archivo y pegue el siguiente c
 #include <errno.h>
 #include <signal.h>
 
+int ledPin = 29; // GPIO 21 - Pin 40
+
 // Variable global para indicar si el programa debe seguir corriendo
 volatile sig_atomic_t running = 1;
 
@@ -83,10 +85,11 @@ struct timespec SumarPeriodoMS(struct timespec ts, int periodo) {
 
     return ts;
 }
+
 // Función de la tarea de parpadeo
 void *TaskBlink(void *pvParameters) {
     TaskBlinkParametros *parametros = (TaskBlinkParametros *)pvParameters;
-    int ledPin = 29; // GPIO 21 - Pin 40
+
 
     if (wiringPiSetup() == -1) {
         fprintf(stderr, "Error al inicializar wiringPi\n");
@@ -108,9 +111,12 @@ void *TaskBlink(void *pvParameters) {
         clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_activation, NULL);
     }
 
-    digitalWrite(ledPin, LOW);
     return NULL;
 }
+void endRoutine(){
+    digitalWrite(ledPin, LOW);
+}
+
 int main() {
     // Registrar el manejador de señales para SIGINT y SIGTERM
     signal(SIGINT, handle_signal);
@@ -138,6 +144,8 @@ int main() {
     }
 
     pthread_join(Task1, NULL);
+
+    endRoutine();
 
     printf("Programa terminado\n");
     return 0;
