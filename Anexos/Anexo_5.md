@@ -18,3 +18,8 @@ Go, también conocido como Golang, es un lenguaje de programación desarrollado 
 
 ![Imagen versión de Go a Descargar](imgs/RPI4/Singularity_Go_1.png)
 
+2) Abra una terminal y navegue hasta la carpeta en la que se descargó el archivo, por defecto esta ruta es ~/Downloads, para ello puede usar el siguiente comando:
+
+```sh
+cd ~/Downloads
+```
