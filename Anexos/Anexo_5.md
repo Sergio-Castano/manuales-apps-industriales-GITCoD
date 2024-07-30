@@ -10,25 +10,29 @@ A continuación se presentan los pasos para lograr la ejecución de nodos de ROS
 
 # 5.1 - Instalación de Singularity
 
-## Paso 1 - Descargar e Instalar Go
+## Paso 1 - Instalar Go
 
 Go, también conocido como Golang, es un lenguaje de programación desarrollado por Google, con el cual fue desarrollado Singularity, por lo tanto es un requisito para su ejecución. 
 
-### 1) Ingrese al [sitio oficial de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64, de modo que sea compatible con Raspberry Pi OS. Al momento de redactada esta documentación, la última versión de Go disponible es la 1.22.25
+### 1) Descargar el código fuente
+
+Ingrese al [sitio oficial de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64, de modo que sea compatible con Raspberry Pi OS. Al momento de redactada esta documentación, la última versión de Go disponible es la 1.22.25
 
 ![Imagen versión de Go a Descargar](imgs/RPI4/Singularity_Go_1.png)
 
-### 2) Abra una terminal y navegue hasta la carpeta en la que se descargó el archivo, por defecto esta ruta es ~/Downloads, para ello puede usar el siguiente comando:
+### 2) Instalar los archivos
+
+- Abra una terminal y navegue hasta la carpeta en la que se descargó el archivo, por defecto esta ruta es ~/Downloads, para ello puede usar el siguiente comando:
 
 ```sh
 cd ~/Downloads
 ```
-### 3) Extraer el archivo tar de Go, para ello ingrese el siguiente comando en la terminal:
+- Extraer el archivo tar de Go, para ello ingrese el siguiente comando en la terminal:
 
 ```sh
 sudo tar -C /usr/local -xzf go1.22.5.linux-arm64.tar.gz
 ```
-### 4) Configurar las variables de entorno:
+### 3) Configurar las variables de entorno
 
 - En una terminal, abra el archivo ".profile" usando el siguiente comando:
 ```sh
@@ -46,4 +50,12 @@ export PATH=$PATH:$GOPATH/bin
 ```sh
 source ~/.profile
 ```
+### 4) Verificar la instalación
+- Para verificar que Go se ha instalado correctamente, en una terminal ejecute el siguiente comando:
+```sh
+go version
+```
+- Como respuesta al comando ingresado anteriormente deberá encontrar la versión de Go, el sistema operativo y la arquitectura del sistema (go version go1.22.5 linux/arm64
+)
 
+## Paso 2 - Instalar Singularity
