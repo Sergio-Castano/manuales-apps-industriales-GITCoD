@@ -140,7 +140,7 @@ patch -p1 < patch-6.6.36-rt35.patch
 ```
 Verifique que el nombre del parche a aplicar coincida con el descargado
 
-###**** 6) Configurar el kernel para favorecer la ejecución de tareas con requisitos de tiempo real
+### 6) Configurar el kernel para favorecer la ejecución de tareas con requisitos de tiempo real
 
 Las configuraciones el kernel se hacen a traves de una interfaz de configuración a la cual se accede mediante el siguiente comando:
 
