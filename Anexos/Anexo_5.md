@@ -16,5 +16,5 @@ Go, también conocido como Golang, es un lenguaje de programación desarrollado 
 
 1) Ingrese al [sitio oficial de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64, de modo que sea compatible con Raspberry Pi OS. Al momento de redactada esta documentación, la última versión de Go disponible es la 1.22.25
 
-![Imagen versión de Go a Descargar](imgs/ESP32/img_1.png)
+![Imagen versión de Go a Descargar](imgs/RPI4/Singularity_Go_1.png)
 
