@@ -28,3 +28,19 @@ cd ~/Downloads
 ```sh
 sudo tar -C /usr/local -xzf go1.22.5.linux-arm64.tar.gz
 ```
+4) Configurar las variables de entorno:
+
+- En una terminal, abra el archivo ".profile" usando el siguiente comando:
+```sh
+sudo nano ~/.profile
+```
+
+- Copie y pegue las siguientes líneas al final del archivo (Ctrl+Shift+c y Ctrl+Shift+v):  
+```sh
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+```
+- Guarde los cambios realizados al archivo (Ctrl+s) y cierre el archivo (Ctrl+x)
+- Ejecuta el siguiente comando para aplicar los cambios
+
