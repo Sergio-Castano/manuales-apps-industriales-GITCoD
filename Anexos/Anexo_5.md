@@ -14,7 +14,4 @@ A continuación se presentan los pasos para lograr la ejecución de nodos de ROS
 
 Go, también conocido como Golang, es un lenguaje de programación desarrollado por Google, con el cual fue desarrollado Singularity, por lo tanto es un requisito para su ejecución. 
 
-1) Ingrese al [sitio oficial de descargas de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64.
-
-
-3) 
+1) Ingrese al [sitio oficial de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64, de modo que sea compatible con Raspberry Pi OS.
