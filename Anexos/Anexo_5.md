@@ -8,6 +8,13 @@ Entre las alternativas mas conocidas para ejecutar contenedores se encuentran Do
 
 A continuación se presentan los pasos para lograr la ejecución de nodos de ROS2 en una Raspberry Pi 4 mediante contenedores de Singularity.
 
-## 5.1 - Instalación de Singularity
+# 5.1 - Instalación de Singularity
+
+## Paso 1 - Descargar e Instalar Go
+
+Go, también conocido como Golang, es un lenguaje de programación desarrollado por Google, con el cual fue desarrollado Singularity, por lo tanto es un requisito para su ejecución. 
+
+1) Ingrese al [sitio oficial de descargas de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64.
 
 
+3) 
