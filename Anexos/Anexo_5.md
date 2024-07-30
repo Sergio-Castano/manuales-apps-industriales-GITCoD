@@ -23,3 +23,8 @@ Go, también conocido como Golang, es un lenguaje de programación desarrollado 
 ```sh
 cd ~/Downloads
 ```
+3) Extraer el archivo tar de Go, para ello ingrese el siguiente comando en la terminal:
+
+```sh
+sudo tar -C /usr/local -xzf go1.22.5.linux-arm64.tar.gz
+```
