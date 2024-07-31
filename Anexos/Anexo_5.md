@@ -14,7 +14,7 @@ A continuación se presentan los pasos para lograr la ejecución de nodos de ROS
 
 Go, también conocido como Golang, es un lenguaje de programación desarrollado por Google, con el cual fue desarrollado Singularity, por lo tanto es un requisito para su ejecución. 
 
-### 1) Descargar el código fuente
+### 1) Descargar el código fuente de Go
 
 Ingrese al [sitio oficial de Go](https://go.dev/dl/) y descargue el archivo correspondiente a sistema operativo Linux y arquitectura ARM64, de modo que sea compatible con Raspberry Pi OS. Al momento de redactada esta documentación, la última versión de Go disponible es la 1.22.25
 
@@ -59,3 +59,6 @@ go version
 )
 
 ## Paso 2 - Instalar Singularity
+
+### 1) Descargar el código fuente de Singularity
+- Ingrese al repositorio en GitHub de Singularity, en la sección de ["releases"](https://github.com/sylabs/singularity/releases)
