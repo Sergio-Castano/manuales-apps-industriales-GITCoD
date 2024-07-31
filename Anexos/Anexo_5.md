@@ -60,10 +60,66 @@ go version
 
 ## Paso 2 - Instalar Singularity
 
-### 1) Descargar el código fuente de Singularity
+### 1) Verifique que estén instaladas todas las dependencias para la compilación
+- Abra una terminal y verifique que todas las dependencias estén instaladas y actualizadas, para ello ejecute los siguientes comandos:
+```sh
+sudo apt-get update
+```
+```sh
+sudo apt-get install build-essential libssl-dev uuid-dev libgpgme11-dev squashfs-tools libseccomp-dev wget pkg-config git cryptsetup libseccomp-dev libglib2.0-dev libfuse-dev libfuse3-dev autoconf automake libtool
+```
+
+### 2) Descargar el código fuente de Singularity
 - Ingrese al repositorio en GitHub de Singularity, en la sección de [releases](https://github.com/sylabs/singularity/releases) descargue la versión "general" del código fuente, haciendo clic en el enlace inmerso en el texto o en la sección assets.
 
 ![Imagen ](imgs/RPI4/Singularity_1.png)
 
 ***Importante:*** Verifique que la versión de Go instalada sea igual o superior a la versión con la que se compiló la versión de Singularity.
+
+
+### 3) Preparar los archivos para compilar
+- Abra una terminal y navegue hasta la carpeta en la que ha descargado el archivo comprimido de singulárity, por defecto la carpeta de descargas, para ello puede usar el siguiente comando:
+```sh
+cd ~/Downloads
+```
+- Descomprima el archivo usando el siguiente comando:
+```sh
+tar -xzf singularity-ce-4.1.4.tar.gz
+```
+- Ingrese a la carpeta producto de la descompresión:
+```sh
+cd singularity-ce-4.1.4/
+```
+- Navegue hasta el directorio "squashfuse":
+```sh
+cd third_party/squashfuse
+```
+- Configure el entorno automáticamente para la compilación ejecutando el comando:
+```sh
+autoreconf -i 
+```
+- Retorne a la ruta de la carpeta principal:
+```sh
+cd ../..
+```  
+
+### 4) Compilación e Instalación
+- Ejecute en orden los siguientes comandos:
+```sh
+./mconfig 
+```  ```sh
+make -C builddir
+```  ```sh
+sudo make -C builddir install
+```
+
+### 5) Verificar la instalación
+- Para verificar que singulárity ha sido correctamente instalado, un una nueva terminal ejecute el sifuiente comando:
+```  ```sh
+singularity --version
+```
+- La salida obtenida debe ser similar "singularity-ce version 4.1.4".
+
+***Importante:*** Todos los comandos y salidas deberán ser modificados en función de la versión a instalar de Singulárity, en este ejemplo se instaló la última version disponible (4.1.4)
+
 
