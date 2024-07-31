@@ -136,9 +136,9 @@ Otra ventaja que ofrece Singularity es la de crear imágenes a partir de las dis
 
 - Ejecute el siguiente comando para crear el sandbox:
 ```sh
-singularity build --sandbox --arch arm64 --no-home ROS2/ docker://ros:humble-ros-base
+singularity build --sandbox --arch arm64 ROS2/ docker://ros:humble-ros-base
 ```
-Explorando este comando encontramos en orden tras el comando "build", que permite crear imágenes, la bandera que indica que se va a construir una imagen de tipo sandbox, la arquitectura de la plataforma host, la bandera para que no se copie el contenido de la carpeta home del host, el nombre que tendrá la imagen y el archivo a partir del cual se va a crear, en este caso, una imagen previa alojada en el repositorio de Docker (DockerHub). En este caso una imagen con la versión "humble" de ROS2 preinstalada.
+Explorando este comando encontramos en orden tras el comando "build", que permite crear imágenes, la bandera que indica que se va a construir una imagen de tipo sandbox, la arquitectura de la plataforma host, el nombre que tendrá la imagen y el archivo a partir del cual se va a crear, en este caso, una imagen previa alojada en el repositorio de Docker (DockerHub). En este caso una imagen con la versión "humble" de ROS2 preinstalada.
 
 Esto crea entonces una carpeta llamada ROS2, que corresponde al archivo a partir del cual se pueden construir los contenedores y se podrá modificar segun se requiera en función a la aplicación a desarrollar.
 
