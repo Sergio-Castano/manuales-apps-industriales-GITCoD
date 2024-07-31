@@ -107,18 +107,19 @@ cd ../..
 - Ejecute en orden los siguientes comandos:
 ```sh
 ./mconfig 
-```  ```sh
+```
+```sh
 make -C builddir
-```  ```sh
+```
+```sh
 sudo make -C builddir install
 ```
 
 ### 5) Verificar la instalación
 - Para verificar que singulárity ha sido correctamente instalado, un una nueva terminal ejecute el sifuiente comando:
-```  ```sh
+```sh
 singularity --version
 ```
-
 - La salida obtenida debe ser similar "singularity-ce version 4.1.4".
 
 ***Importante:*** Todos los comandos y salidas deberán ser modificados en función de la versión a instalar de Singulárity, en este ejemplo se instaló la última version disponible (4.1.4)
