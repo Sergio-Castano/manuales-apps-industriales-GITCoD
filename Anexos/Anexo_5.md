@@ -124,4 +124,25 @@ singularity --version
 
 ***Importante:*** Todos los comandos y salidas deberán ser modificados en función de la versión a instalar de Singulárity, en este ejemplo se instaló la última version disponible (4.1.4).
 
+## Paso 3 - Crear un contenedor de Singularity a partir de una imagen con ROS2 preinstalado
+
+Los contenedores Singularity se producen a partir de imágenes inmutables en el formato Singularity Image File (SIF). Esto garantiza imágenes reproducibles y verificables y permite muchos beneficios adicionales, como la capacidad de firmar y verificar sus contenedores. Sin embargo, durante las pruebas y la depuración es posible es deseable un formato de imagen en el que se pueda escribir. De esta manera, poder instalar software y dependencias hasta asegurar el correcto funcionamiento de la aplicación a contenerizar. Para estos escenarios, Singularity admite el formato ***"sandbox"***. Este es básicamente un directorio editable a partir del cual es posible crear contenedores.
+
+Otra ventaja que ofrece Singularity es la de crear imágenes a partir de las disponibles en el repositorio de Docker. Aprovechando esta característica, se pueden crear sandbox que contenga ROS2 preinstalado, para ello basta con ejecutar seguir este procedimiento: 
+
+- Abra una terminal y cree una carpeta en su directorio home:
+
+- Cree una carpeta, para la cual se sigiere el nombre "singularity_containers" y posteriormente ingrese a la carpeta:
+
+- Ejecute el siguiente comando para crear el sandbox:
+```sh
+singularity build --sandbox --arch arm64 --no-home ROS2/ docker://ros:humble-ros-base
+```
+
+Esto creará una carpeta llamada ROS2, que corresponde al archivo a partir del cual se pueden construir los contenedores y podrá modificar segun se requiera en función a la aplicación a desarrollar.
+
+Exploarando un poco este comando encontramos en orden tras el comando "build", que permite crear imágenes, la bandera que indica que se va a construir una imagen de tipo sandbox, la arquitectura de la plataforma host, la bandera para que no se copie el contenido de la carpeta home del host, el nombre que tendrá la imagen y el archivo a partir del cual se va a crear, en este caso, una imagen previa alojada en el repositorio de Docker (DockerHub). En este caso una imagen con la versión "humble" de ROS2 preinstalada.
+
+
+
 
