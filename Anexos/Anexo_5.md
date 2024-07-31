@@ -61,4 +61,7 @@ go version
 ## Paso 2 - Instalar Singularity
 
 ### 1) Descargar el código fuente de Singularity
-- Ingrese al repositorio en GitHub de Singularity, en la sección de ["releases"](https://github.com/sylabs/singularity/releases)
+- Ingrese al repositorio en GitHub de Singularity, en la sección de ["releases"](https://github.com/sylabs/singularity/releases) descargue la versión "general" del código fuente, haciendo clic en el enlace inmerso en el texto o en la sección assets.
+
+***Importante:*** Verifique que la versión de Go instalada sea igual o superior a la versión con la que se compiló la versión de Singularity.
+
