@@ -138,9 +138,21 @@ Otra ventaja que ofrece Singularity es la de crear imágenes a partir de las dis
 ```sh
 sudo singularity build --sandbox --arch arm64 ROS2/ docker://ros:humble-ros-base
 ```
-Explorando este comando encontramos en orden tras el comando "build", que permite crear imágenes, la bandera que indica que se va a construir una imagen de tipo sandbox, la arquitectura de la plataforma host, el nombre que tendrá la imagen y el archivo a partir del cual se va a crear, en este caso, una imagen previa alojada en el repositorio de Docker (DockerHub). En este caso una imagen con la versión "humble" de ROS2 preinstalada.
+Explorando este comando encontramos en orden tras el comando "build", que permite crear imágenes, la bandera que indica que se va a construir una imagen de tipo sandbox, la arquitectura de la plataforma host, el nombre que tendrá la imagen y el archivo a partir del cual se va a crear, en este caso, una imagen previa alojada en el repositorio de Docker (DockerHub). En este caso una imagen de ubuntu con la versión "humble" de ROS2 preinstalada.
 
 Esto crea entonces una carpeta llamada ROS2, que corresponde al archivo a partir del cual se pueden construir los contenedores y se podrá modificar segun se requiera en función a la aplicación a desarrollar.
+
+## Paso 4 - Editar la imagen para agregar nodos de ROS2
+
+Tras haber creado un sandbox con ROS2, vamos a modificar la imagen para instalar un par de nodos de ROS2.
+
+### 1) Crear un contenedor para editar la imagen
+
+Mediante el comando ```shell``` 
+
+
+
+
 
 
 
