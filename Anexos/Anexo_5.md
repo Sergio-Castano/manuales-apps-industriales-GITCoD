@@ -308,7 +308,7 @@ int main(int argc, char * argv[])
 
 ### 5) Agregar las dependencias del paquete
 
-- Ahora se deben agregar dependencias al archivo "package.xml", el cual fue creado automáticamente al momento de crear el paquete, es decir que se encuentra dentro de la carpeta "cpp_pubsub". Para modificar este archivo puede utilizar cualquiera de los dos métodos anteriormente mencionados.
+- Ahora se deben agregar dependencias al archivo ```package.xml```, el cual fue creado automáticamente al momento de crear el paquete, es decir que se encuentra dentro de la carpeta "cpp_pubsub". Para modificar este archivo puede utilizar cualquiera de los dos métodos anteriormente mencionados.
 
 Si lo hace mediante la terminal enlazada al contenedor ejecute los siguientes comandos:
 ```sh
@@ -329,7 +329,7 @@ sudo xdg-open package.xml
 
 La primera es la dependencia que permite utilizar la librería con todas las funciones de ROS y la segunda las estructuras de mensajes estandar de ROS2.
 
-- El contenido del archivo "package.xml" debe ser entonces el siguiente:
+- El contenido del archivo ```package.xml``` debe ser entonces el siguiente:
 
 ```xml
 <?xml version="1.0"?>
@@ -356,8 +356,50 @@ La primera es la dependencia que permite utilizar la librería con todas las fun
 ```
 
 ### 6) Agregar ejecutables al archivo de compilación
+- Ahora se deben agregar las dependencias y rutas a los códigos fuente para generar los archivos ejecutables tras la compilación, para ello se debe modificar el archivo ```CMakeLists.txt```, el cual fue creado automáticamente al momento de crear el paquete, es decir que se encuentra dentro de la carpeta "cpp_pubsub". Para modificar este archivo puede utilizar cualquiera de los dos métodos anteriormente mencionados.
+
+Si lo hace mediante la terminal enlazada al contenedor ejecute los siguientes comandos:
+```sh
+cd /ros2_ws/src/cpp_pubsub/
+nano CMakeLists.xml
+```
+Si lo hace mediante el editor de las Raspberry Pi ejecute los siguientes comandos:
+```sh
+cd ~/singularity_containers/ROS2/ros2_ws/src/cpp_pubsub/
+sudo xdg-open CMakeLists.xml
+```
+
+- Debajo de la linea ```find_package(ament_cmake REQUIRED)``` adicione lo siguiente, guarde y cierre el archivo:
+```html
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+
+add_executable(publicador src/publicador.cpp)
+ament_target_dependencies(publicador rclcpp std_msgs)
+
+add_executable(subscriptor src/subscriptor.cpp)
+ament_target_dependencies(subscriptor rclcpp std_msgs)
+
+install(TARGETS
+  publicador
+  subscriptor
+  DESTINATION lib/${PROJECT_NAME})
+```
+
+Mediante estas lineas se definen las rutas a los códigos y las dependencias para poder compilar y generar los archivos ejecutables de los nodos. 
 
 ### 7) Construir el paquete
+
+Tras haber creado los archivos con el código fuente de los nodos y editado el CMakeLists.xml y package.xml para conseguir su adecuada compilación, se procede a construir el paquete. Para ello se siguen estos pasos:
+
+- En la terminal enlazada con el contenedor, navegue hasta la carpeta del espacio de trabajo de ROS (ros2_ws) y ejecute los siguientes comandos:
+```sh
+cd /ros2_ws/
+colcon build
+```
+
+**Nota:** Si previamente cerró la terminal enlazada con el contenedor, abra una nueva terminal, navegue hasta la carpeta en la que está ubicado el sandbox, cree un contenedor usando el comando ```sudo singularity shell -w ROS2/``` empleado en el numeral 1 del paso 4, posteriormente inicie en entorno de ROS con el comando ```source /opt/ros/humble/setup.bash```. Finalmente ejecute los comandos para construir los paquetes.
+
 
 ### 8) Ejecutar los nodos
 
