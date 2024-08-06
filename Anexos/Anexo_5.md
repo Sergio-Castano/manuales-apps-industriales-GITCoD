@@ -209,16 +209,102 @@ touch publicador.cpp subscriptor.cpp
 - Abra el archivo "publicador.cpp" con un editor, para ello existen dos opciones:  
 
 #### Opción 1: 
-La primera opción es editar el archivo directamente en el entorno contenerizado mediante un editor en consola, es decir, en la misma terminal que se enlazó al contenedor al ejecutar el comando singularity shell. Así pues, en la misma terminal que utilizó para crear el paquete y los archivos, asegúrese de estar en la ruta adecuada 
+La primera opción es editar el archivo directamente en el entorno contenerizado mediante un editor en consola, es decir, en la misma terminal que se enlazó al contenedor al ejecutar el comando singularity shell. Así pues, usando la misma terminal empleada para crear el paquete y los archivos, asegúrese de estar en la ruta correcta y abra el archivo usando nano:
+```sh
+cd /ros2_ws/src/cpp_pubsub/src/
+nano publicador.cpp
+```
 
+#### Opción 2: 
+Puede abrir y editar archivos mediante un editor con interfaz gráfica del sistema host. Recuerde que la imagen al ser un sandobox es tambien una carpeta accesible mediante el gestor de archivos de la Raspberry Pi, con lo cual si prefiere, puede modificar el archivo usando un procesador de texto gráfico como gedit. Para ello abra una nueva terminal y ejecute loa siguientea comandos:
+```sh
+cd ~/singularity_containers/ROS2/ros2_ws/src/cpp_pubsub/src/
+sudo xdg-open publicador.cpp
+```
 
-o mediante un editor de texto del sistema host, ya que al ser la imagen un sandobox es tambien una carpeta accesible mediante la interfaz gráfica de la Raspberry Pi, con lo cual si prefiere, puede modificar el archivo usando un procesador de texto gráfico como gedit.
+- Tras haber abierto el archivo "publicador.cpp" por el método de su preferencia, agregue el siguiente código al contenido del archivo, guardelo y cierrelo.
+```cpp
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <string>
 
--   por ejemplo, para ello abra otra terminal y ejecute el siguiente comando:
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
 
+using namespace std::chrono_literals;
 
+/* This example creates a subclass of Node and uses std::bind() to register a
+* member function as a callback from the timer. */
 
+class MinimalPublisher : public rclcpp::Node
+{
+  public:
+    MinimalPublisher()
+    : Node("minimal_publisher"), count_(0)
+    {
+      publisher_ = this->create_publisher<std_msgs::msg::String>("topic", 10);
+      timer_ = this->create_wall_timer(
+      500ms, std::bind(&MinimalPublisher::timer_callback, this));
+    }
 
+  private:
+    void timer_callback()
+    {
+      auto message = std_msgs::msg::String();
+      message.data = "Hello, world! " + std::to_string(count_++);
+      RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", message.data.c_str());
+      publisher_->publish(message);
+    }
+    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
+    size_t count_;
+};
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<MinimalPublisher>());
+  rclcpp::shutdown();
+  return 0;
+}
+```
+  
+- De forma equivalente, abra el archivo "subscriptor.cpp" por el método de su preferencia y agregue el siguiente código al contendido del archivo, para posteriormente guardar y cerrar el archivo.
+
+```cpp
+#include <memory>
+
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/string.hpp"
+using std::placeholders::_1;
+
+class MinimalSubscriber : public rclcpp::Node
+{
+  public:
+    MinimalSubscriber()
+    : Node("minimal_subscriber")
+    {
+      subscription_ = this->create_subscription<std_msgs::msg::String>(
+      "topic", 10, std::bind(&MinimalSubscriber::topic_callback, this, _1));
+    }
+
+  private:
+    void topic_callback(const std_msgs::msg::String & msg) const
+    {
+      RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg.data.c_str());
+    }
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_;
+};
+
+int main(int argc, char * argv[])
+{
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<MinimalSubscriber>());
+  rclcpp::shutdown();
+  return 0;
+}
+```
 
 
 
