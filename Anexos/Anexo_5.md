@@ -130,10 +130,15 @@ Los contenedores Singularity se producen a partir de imágenes inmutables en el 
 
 Otra ventaja que ofrece Singularity es la de crear imágenes a partir de las disponibles en el repositorio de Docker. Aprovechando esta característica, se pueden crear sandbox que contenga ROS2 preinstalado, para ello basta con ejecutar seguir este procedimiento: 
 
-- Abra una terminal y cree una carpeta en su directorio home:
-
+- Abra una terminal y navegue a su directorio home:
+```sh
+cd ~
+```
 - Cree una carpeta, para la cual se sigiere el nombre "singularity_containers" y posteriormente ingrese a la carpeta:
-
+```sh
+mkdir singularity_containers
+cd singularity_containers/
+```
 - Ejecute el siguiente comando para crear el sandbox:
 ```sh
 sudo singularity build --sandbox --arch arm64 ROS2/ docker://ros:humble-ros-base
@@ -148,7 +153,69 @@ Tras haber creado un sandbox con ROS2, vamos a modificar la imagen para instalar
 
 ### 1) Crear un contenedor para editar la imagen
 
-Mediante el comando ```shell``` 
+- Abra una terminal y diríjase a la ruta en la que se encuentra el sandbox previamente creado:
+```sh
+cd ~/singularity_containers/
+```
+
+- Mediante el comando ```shell``` se crea automáticamente un contenedor a partir de la imagen seleccionada y se enlaza la terminal para poder ejecutar comandos dentro del entorno contenerizado. Mediante la bandera ```-w``` o ```-writeable``` podremos modificar la imagen o sandbox a partir de la cual se generó el contenedor. Ejecute entonces el siguiente comando:
+```sh
+sudo singularity shell -w ROS2/
+```
+
+### 2) Crear un espacio de trabajo (workspace) de ROS2
+- En la misma terminal, la cual ahora está enlazada con el contenedor, ejecute los siguientes comandos para actualizar las librerias e instalar un procesador de texto que funcione desde la terminal (nano, vim, o el que sea de su preferencia):
+```sh
+apt update
+apt upgrade
+apt install nano
+```
+
+- Cree una carpeta en la raiz del contenedor:
+```sh
+mkdir -p /ros2_ws/src
+```
+
+### 3) Crear un paquete de ROS2
+- Navegue hasta la carpeta creada para el espacio de trabajo:
+```sh
+cd /ros2_ws/src
+```
+
+- Inicie el entorno de ros2:
+ ```sh
+source /opt/ros/humble/setup.bash 
+```  
+
+- Cree un paquete de ros, con el siguiente comando:
+ ```sh
+ros2 pkg create --build-type ament_cmake --license Apache-2.0 cpp_pubsub
+```  
+Este comando define mediante el parámetro "--build-type" establecido en "ament_cmake" que el compilador recibirá código fuente en lenguaje C/C++, que el paquete se crea bajo la licencia Apache-2.0 y por último que el nombre del paquete será cpp_pubsub.
+
+Tras ejecutar el comando se creará una carpeta con el nombre seleccionado (cpp_pubsub) y en su interior 3 archivos (CMakeLists.txt, LICENSE, package.xml) y dos subcarpetas (include y scr). 
+
+### 3) Crear el código fuente de los nodos
+- Navegue hasta la carpeta src del paquete previamente creado:
+```sh
+cd /ros2_ws/src/cpp_pubsub/src/
+```
+
+- Cree dos archivos con extensión .cpp con los siguientes nombres:
+```sh
+touch publicador.cpp subscriptor.cpp
+```
+
+- Abra el archivo "publicador.cpp" con un editor, para ello existen dos opciones:  
+
+#### Opción 1: 
+La primera opción es editar el archivo directamente en el entorno contenerizado mediante un editor en consola, es decir, en la misma terminal que se enlazó al contenedor al ejecutar el comando singularity shell. Así pues, en la misma terminal que utilizó para crear el paquete y los archivos, asegúrese de estar en la ruta adecuada 
+
+
+o mediante un editor de texto del sistema host, ya que al ser la imagen un sandobox es tambien una carpeta accesible mediante la interfaz gráfica de la Raspberry Pi, con lo cual si prefiere, puede modificar el archivo usando un procesador de texto gráfico como gedit.
+
+-   por ejemplo, para ello abra otra terminal y ejecute el siguiente comando:
+
 
 
 
