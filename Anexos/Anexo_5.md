@@ -321,6 +321,40 @@ cd ~/singularity_containers/ROS2/ros2_ws/src/cpp_pubsub/
 sudo xdg-open package.xml
 ```
 
+- Agregue las siguientes despendencias despues de la linea ```<buildtool_depend>ament_cmake</buildtool_depend>```, guarde y cierre el archivo:
+```xml
+<depend>rclcpp</depend>
+<depend>std_msgs</depend>
+```
+
+La primera es la dependencia que permite utilizar la librería con todas las funciones de ROS y la segunda las estructuras de mensajes estandar de ROS2.
+
+- El contenido del archivo "package.xml" debe ser entonces el siguiente:
+
+```xml
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematyp>
+<package format="3">
+  <name>cpp_pubsub</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="root@todo.todo">root</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+```
+
 ### 6) Agregar ejecutables al archivo de compilación
 
 ### 7) Construir el paquete
