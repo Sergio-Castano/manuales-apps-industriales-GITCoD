@@ -195,7 +195,7 @@ Este comando define mediante el parámetro "--build-type" establecido en "ament_
 
 Tras ejecutar el comando se creará una carpeta con el nombre seleccionado (cpp_pubsub) y en su interior 3 archivos (CMakeLists.txt, LICENSE, package.xml) y dos subcarpetas (include y scr). 
 
-### 3) Crear el código fuente de los nodos
+### 4) Crear el código fuente de los nodos
 - Navegue hasta la carpeta src del paquete previamente creado:
 ```sh
 cd /ros2_ws/src/cpp_pubsub/src/
@@ -305,6 +305,27 @@ int main(int argc, char * argv[])
   return 0;
 }
 ```
+
+### 5) Agregar las dependencias del paquete
+
+- Ahora se deben agregar dependencias al archivo "package.xml", el cual fue creado automáticamente al momento de crear el paquete, es decir que se encuentra dentro de la carpeta "cpp_pubsub". Para modificar este archivo puede utilizar cualquiera de los dos métodos anteriormente mencionados.
+  - Si lo hace mediante la terminal enlazada al contenedor ejecute los siguientes comandos:
+```sh
+cd /ros2_ws/src/cpp_pubsub/src/
+nano publicador.cpp
+```
+  - Si lo hace mediante el editor de las Raspberry Pi ejecute los siguientes comandos:
+```sh
+cd ~/singularity_containers/ROS2/ros2_ws/src/cpp_pubsub/src/
+sudo xdg-open publicador.cpp
+```
+
+### 6) Agregar ejecutables al archivo de compilación
+
+### 7) Construir el paquete
+
+### 8) Ejecutar los nodos
+
 
 
 
