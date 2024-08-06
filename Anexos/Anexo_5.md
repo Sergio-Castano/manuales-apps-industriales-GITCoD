@@ -309,15 +309,16 @@ int main(int argc, char * argv[])
 ### 5) Agregar las dependencias del paquete
 
 - Ahora se deben agregar dependencias al archivo "package.xml", el cual fue creado automáticamente al momento de crear el paquete, es decir que se encuentra dentro de la carpeta "cpp_pubsub". Para modificar este archivo puede utilizar cualquiera de los dos métodos anteriormente mencionados.
-  - Si lo hace mediante la terminal enlazada al contenedor ejecute los siguientes comandos:
+
+Si lo hace mediante la terminal enlazada al contenedor ejecute los siguientes comandos:
 ```sh
-cd /ros2_ws/src/cpp_pubsub/src/
-nano publicador.cpp
+cd /ros2_ws/src/cpp_pubsub/
+nano package.xml
 ```
-  - Si lo hace mediante el editor de las Raspberry Pi ejecute los siguientes comandos:
+Si lo hace mediante el editor de las Raspberry Pi ejecute los siguientes comandos:
 ```sh
-cd ~/singularity_containers/ROS2/ros2_ws/src/cpp_pubsub/src/
-sudo xdg-open publicador.cpp
+cd ~/singularity_containers/ROS2/ros2_ws/src/cpp_pubsub/
+sudo xdg-open package.xml
 ```
 
 ### 6) Agregar ejecutables al archivo de compilación
