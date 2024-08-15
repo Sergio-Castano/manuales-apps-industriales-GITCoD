@@ -199,7 +199,41 @@ int main(int argc, char **argv)
 
 7) Compilar el paquete
 
-Recuerde que antes de poder compilar el paquete, debe modificar los archivos Cmake
+Recuerde que antes de compilar el paquete, debe modificar los archivos CMakeLists.txt y Package.xml. 
+
+*Package.xml
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+
+
+*CMakeList.txt
+
+```xlm
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic -lwiringPi -lpthread)
+endif()
+
+# find dependencies
+
+find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
+
+include_directories(include)
+
+# Create cpp executables
+add_executable(sensor_node src/sensor_node.cpp)
+target_link_libraries(sensor_node -lwiringPi -lpthread)
+ament_target_dependencies(sensor_node rclcpp std_msgs std_srvs)
+
+
+# Install cpp executables
+install(TARGETS
+  sensor_node
+  DESTINATION lib/${PROJECT_NAME})
+```
    
 
 ### Programar la interfaz analógica (Arduino Due)
