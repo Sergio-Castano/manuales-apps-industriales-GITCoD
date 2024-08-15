@@ -276,6 +276,73 @@ void serialEvent() {
 }
 ```
 
+**Codigo Planta**
+
+```c
+#include <DueTimer.h>
+
+// Variables para la ecuación en diferencia (Condiciones iniciales)
+float Uz = 0.0; //Accion de control
+float Uz_m1 = 0.0; //Acción de control en la iteración anterior
+float Yz = 0.0; //Salida
+float Yz_m1 = 0.0; //Salida en la iteración anterior
+
+float DAC_output_voltage = 0.0;
+int DAC_output_value = 0;
+
+void setup() {
+  Serial.begin(115200);
+  analogReadResolution(12);
+  analogWriteResolution(12);
+  
+  //Entrada analógica para recibir la acción de control
+  pinMode(A8, INPUT);
+
+  //Se inicia la salida analógica en cero 
+  analogWrite(DAC0, 0);
+
+  //Se configura un timmer para determinar la salida de la planta cada 10ms
+  Timer3.attachInterrupt(Dinamica);
+  Timer3.start(10000);
+}
+
+void loop() {
+}
+
+
+void Dinamica() {
+  //Se lee el valor de entrada
+  int in_value = analogRead(A8);
+  //Se escala de 0 a 3.3V
+  Uz = (map(in_value, 684, 3420, 0, 330))/100.0; //Escalo de 0.00V a 3.30V la entrada del DAC del
+
+  Serial.println(Uz);
+
+  Yz = 0.001248*Uz_m1 + 0.9975*Yz_m1;
+
+  if (Yz < 0) {
+    Yz = 0;
+  }
+  else if (Yz > 3.3) {
+    Yz = 3.3;
+  }
+
+  //Se almacenan las variables para la siguiente iteración
+  Yz_m1 = Yz;
+  Uz_m1 = Uz;
+
+
+  DAC_output_value = (4095.0 * Yz) / 3.3;
+  analogWrite(DAC0, DAC_output_value);
+
+  //Opcional
+  Serial.print(Yz);
+  Serial.print(",");
+  Serial.println(Uz);
+}
+
+```
+
 8) Programar la interfaz analógica
 
 8) Probar el nodo:
