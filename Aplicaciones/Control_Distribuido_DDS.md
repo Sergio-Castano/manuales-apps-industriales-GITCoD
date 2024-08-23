@@ -387,4 +387,169 @@ void Dinamica() {
 ## Nodo para calcular y aplicar la acción de control (Nodo Controlador)
 
 
+```c
+#include <chrono>
+#include <functional>
+#include <memory>
+#include <string>
+#include <wiringSerial.h>
+#include <vector>
+#include <fstream>
+#include <filesystem>
+#include <sys/mman.h> // necessary for mlockall
+#include <pthread.h>  //necessary for thread and RT
+#include <unistd.h>
+#include <iostream>
+
+#include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/string.hpp"
+
+using std::placeholders::_1;
+using namespace std;
+using namespace std::chrono_literals;
+
+double setpoint = 0.0;
+
+double sensor_value = 0.0;
+double entrada_V = 0.0;
+
+int sp; // Serial port
+
+int i = 0;
+
+bool new_sensor_read = false;
+
+// Variables PID
+float error = 0.0;
+float error_prev = 0.0;
+float error_integral = 0.0;
+float error_derivado = 0.0;
+float accion_control = 0.0;
+float error_integral_previo = 0.0; // Para el wind up
+
+const float Kp = 6.154;
+const float Ki = 1.538;
+const float Kd = 0.0; // Planta emulada
+
+float U = 0.0;
+float Ts = 0.200; // Periodo de ControladorPID
+
+class ControladorPID : public rclcpp::Node
+{
+public:
+  ControladorPID() : Node("control_node")
+  {
+    setpoint_subscription_ = this->create_subscription<std_msgs::msg::Float64>("new_setpoint_topic", 1, std::bind(&ControladorPID::new_setpoint_topic_callback, this, _1));
+    sensor_subscription_ = this->create_subscription<std_msgs::msg::Float64>("pressure_sensor_topic", 1, std::bind(&ControladorPID::sensor_topic_callback, this, _1));
+  }
+
+private:
+  void sensor_topic_callback(const std_msgs::msg::Float64 &msg) const
+  {
+    sensor_value = msg.data;
+    RCLCPP_INFO(this->get_logger(), "I heard: '%s'", msg->data.c_str());
+
+    // CALCULAR ACCION DE CONTROL
+    error = setpoint - sensor_value;
+    error_integral = error_integral + (error * Ts); // Ts en s
+    error_derivado = ((error - error_prev) / (Ts));
+    U = (Kp * error) + (Ki * error_integral) + (Kd * error_derivado);
+    // std::cout << "U: " << U << std::endl;
+
+    if (setpoint > 0)
+    {
+      if (U <= 0.0)
+      {
+        U = 0.0;
+        error_integral = error_integral_previo;
+      }
+      else if (U > 60.0)
+      {
+        U = 60.0;
+        error_integral = error_integral_previo;
+      }
+    }
+    else if (setpoint == 0.0)
+    {
+      U = 0.0;
+      error_integral = 0;
+    }
+
+    try
+    {
+      // Envio de la señal de control
+      serialFlush(sp);
+      string auxiliar = "a" + to_string(U) + "\n";
+      char comando[auxiliar.length() + 1];
+      strcpy(comando, auxiliar.c_str());
+      serialPuts(sp, comando);
+      cout << auxiliar << std::endl;
+    }
+    catch (...)
+    {
+      cout << "Fallo en comunicación serial";
+    }
+  }
+
+  void new_setpoint_topic_callback(const std_msgs::msg::Float64 &msg) const
+  {
+    setpoint = msg.data;
+  }
+
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr sensor_subscription_;
+  rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr setpoint_subscription_;
+};
+
+int main(int argc, char *argv[])
+{
+  int prioridad = 80;
+  unsigned int mask = 1; // Core
+
+  struct sched_param param;
+  param.sched_priority = prioridad;
+
+  cpu_set_t cpuset;
+
+  CPU_ZERO(&cpuset);
+  CPU_SET(mask, &cpuset);
+
+  pthread_setschedparam(pthread_self(), SCHED_FIFO, &param);
+  pthread_setaffinity_np(pthread_self(), sizeof(cpuset), &cpuset);
+
+  sp = serialOpen("/dev/ttyACM0", 115200);
+  usleep(5e5); // Esperar 500ms a que la conexión con el puerto se ejecute correctamente
+
+  if (sp == -1)
+  {
+    std::cout << "PORT FAIL TO OPEN" << std::endl;
+    exit(1);
+  }
+
+  try
+  {
+    // Envio de la señal de control
+    serialFlush(sp);
+    string auxiliar = "a0.0" + "\n";
+    char comando[auxiliar.length() + 1];
+    strcpy(comando, auxiliar.c_str());
+    serialPuts(sp, comando);
+    cout << auxiliar << std::endl;
+  }
+  catch (...)
+  {
+    cout << "Fallo en comunicación serial";
+  }
+
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<ControladorPID>());
+  rclcpp::shutdown();
+  return 0;
+
+  // exit the current thread
+  pthread_exit(NULL);
+
+  // return 0;
+}
+```
 
