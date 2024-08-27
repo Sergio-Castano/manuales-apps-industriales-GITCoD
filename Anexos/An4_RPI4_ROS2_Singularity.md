@@ -400,6 +400,13 @@ colcon build
 
 **Nota:** Si previamente cerró la terminal enlazada con el contenedor, abra una nueva terminal, navegue hasta la carpeta en la que está ubicado el sandbox, cree un contenedor usando el comando ```sudo singularity shell -w ROS2/``` empleado en el numeral 1 del paso 4, posteriormente inicie el entorno de ROS con el comando ```source /opt/ros/humble/setup.bash```. Finalmente ejecute los comandos para construir los paquetes.
 
+### 8) Agregar el paquete construído al entorno de ROS2
+
+```sh
+source /ros2_ws/install/setup.bash
+```
+
+
 ## Paso 5: Ejecutar los nodos
 
 Tras haber modificado la imagen para construir exitosamente los paquetes, ya podrá ejecutar los nodos de ROS dentro de los contenedores
