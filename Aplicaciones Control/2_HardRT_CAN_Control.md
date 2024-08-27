@@ -16,46 +16,40 @@ Se programa una placa Arduino Due con el siguiente código:
 #define PERIODO_uSEG 50000 //50 ms
 #define in_pin A0
 
-bool state = false;
-
 CAN_FRAME outgoing;
 
 void setup()
 {
-  pinMode(13, OUTPUT);
-  digitalWrite(13, state);
   Can0.begin(CAN_BPS_250K);
 
   Timer3.attachInterrupt(Capturar_dato);
   analogReadResolution(12);
   pinMode(in_pin, INPUT);
 
-  
   outgoing.id = 10;
   outgoing.extended = false;
   outgoing.priority = 1; //0-15 lower is higher priority
   outgoing.length = MAX_CAN_FRAME_DATA_LEN;
-  
+
   delay(5000);
 
   Timer3.start(PERIODO_uSEG);
-
 }
 
 void Capturar_dato() {
-  state = !state;
-  digitalWrite(13, state);
   int sensor_read = analogRead(in_pin);
   outgoing.data.s0 = sensor_read;
   Can0.sendFrame(outgoing);
 }
-
 
 void loop() {
 }
 ```
 
 ## 2) Nodo Controlador
+
+
+
 
 ## 3) Nodo Puente 
 
