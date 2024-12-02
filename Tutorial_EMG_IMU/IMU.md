@@ -1,0 +1,25 @@
+Elementos y Conexiones
+   -
+Redactar los elementos (ESP32, sensor Inercial, cables, protoboard/pcb, bateria) que se necesitan
+
+poner diagrama de las conexiones y explicarlas (en el escritorio uao hay una foto de las conexiones)
+
+Poner foto del montaje total
+
+el montaje es igual para ambas IMUs
+
+Configuración y Codigo en Arduino
+   -
+Explicacion de la configuracion con pantallazos:
+1. conectar con un cable USB al PC
+2. escoger el puerto USB* que se haya activado
+3. seleccionar la placa ESP32 que se este usando de no tener las tarjetas seguir este tutorial: https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/
+4. cargar el siguiente codigo en un nuevo archivo de arduino para que transmita por medio de MQTT los datos:
+  ```
+INSERTE EL CODIGO AQUI DE "IMU_FINAL_MQTT"
+```
+  recordar cambiar algunos parametros iniciales como IP del broker, topic a publicar, topic a suscribirse, red wifi a conectarse y ID del cliente ante el broker
+
+5. hacer lo mismo para el segundo sensor inercial pero cambiando el topic y el ID del cliente ante el broker especificamente
+
+  Listo las IMUS estan transmitiendo por medio de MQTT, una vez que reciban la señal!
