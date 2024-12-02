@@ -29,4 +29,4 @@ INSERTE EL CODIGO AQUI DE "EMG_FINAL_MQTT"
 ```
   recordar cambiar algunos parametros iniciales como IP del broker, topic a publicar, topic a suscribirse, red wifi a conectarse y ID del cliente ante el broker
 
-  Listo el EMG esta transmitiendo por medio de MQTT!
+  Listo el EMG esta transmitiendo por medio de MQTT una vez reciba la señal!
