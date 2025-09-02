@@ -10,4 +10,21 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)  
 3. Verificar que **MongoDB esté corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
-![Estado de MongoDB](imagenes/mongodb.png)
+
+   ![Estado de MongoDB](imagenes/mongodb.png)
+
+---
+
+## ▶️ Ejecución del prototipo
+
+1. Dirígete a la carpeta descargada `prototipo_v7`.  
+2. Haz **clic derecho** y selecciona **Abrir en Terminal**.  
+   La ventana debería abrirse como en la siguiente imagen:  
+
+   ![Abrir terminal en la carpeta](imagenes/tu_imagen_terminal.png)
+
+3. En ese terminal, ejecuta los siguientes comandos:  
+
+   ```bash
+   nvm use 20
+   npm run dev
