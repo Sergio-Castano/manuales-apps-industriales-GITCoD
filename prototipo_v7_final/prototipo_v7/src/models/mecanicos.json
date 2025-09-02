@@ -1,0 +1,113 @@
+{
+    "steps": [
+        {
+            "title": "Contrapunta Móvil",
+            "substeps": [
+                "Descargar la bobina metálica",
+                "Inspeccionar que la contrapunta móvil no presente desgaste superficial o golpes. Mida el diámetro de la contrapunta y comparelo con el diámetro nominal de 80 mm. Reporte medida obtenida.",
+                "Verificar que la contrapunta móvil gire libremente. Sí identifica arrastre, juego axial o radial informal al supervisor de mtto para definir contramedida.",
+                "Verificar los tornillos de sujeción de la contrapunta al portaimpulsor. Cambiar tornillos sí se encuentran partidos o ausentes.",
+                "Inspeccionar que el perno de arrastre no tenga fisuras o grietas superficiales. Verifique el estado superficial del perno de arrastre. Realizar su respectivo cambio sí encuentra alguna de las anteriores anomalias."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Contrapunta Fija",
+            "substeps": [
+                "Descargar la bobina metálica",
+                "Inspeccionar que la contrapunta móvil no presente desgaste superficial o golpes. Mida el diámetro de la contrapunta y comparelo con el diámetro nominal de 80 mm. Reporte medida obtenida.",
+                "Verificar que la contrapunta móvil gire libremente. Sí identifica arrastre, juego axial o radial informal al supervisor de mtto para definir contramedida.",
+                "Verificar los tornillos de sujeción de la contrapunta al portaimpulsor. Cambiar tornillos sí se encuentran partidos o ausentes.",
+                "Inspeccionar que el perno de arrastre no tenga fisuras o grietas superficiales. Verifique el estado superficial del perno de arrastre. Realizar su respectivo cambio sí encuentra alguna de las anteriores anomalias."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Motor Rotación Bobina",
+            "substeps": [
+                "Revisar el estado de la banda dentada de transmisión. Cambiela sí encuentra fisuras o defectos en los dientes.",
+                "Revisar el ajuste de la polea dentada superior e inferior de transmisión. Los dientes deben tener contacto superficial con la banda y no tener defectos superficiales.",
+                "Detectar si existe juego axial o radial de la polea superior e inferior de transmisión respecto al eje de rotación."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Motorreductor Desplazamiento",
+            "substeps": [
+                "Verificar el estado del anclaje del motorreductor a la base de la torre. Apriete tornillos de sujeción.",
+                "Inspeccionar el estado del \"frame\" del motorreductor. Identifique posibles fisuras o golpes que afecten su funcionalidad.",
+                "Inspeccionar el estado del eje de salida del motorreductor. Sí encuentra desajuste, desgaste o fisuras reportarlo."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Motorreductores Subir-Bajar Contrapuntas",
+            "substeps": [
+                "Verificar el estado del anclaje del motorreductor a la base de la torre. Apriete tornillos de sujeción.",
+                "Inspeccionar el estado del \"frame\" del motorreductor. Identifique posibles fisuras o golpes que afecten su funcionalidad.",
+                "Inspeccionar el estado del eje de salida del motorreductor. Sí encuentra desajuste, desgaste o fisuras reportarlo."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Sistema de Freno Desembobinador",
+            "substeps": [
+                "Retirar la guarda de seguridad ",
+                "Revisar el estado de las pastillas de freno. Desmontarlas, verificar que la superficie de frenado con el plato estén parejas. Comprobar desgaste y cambiar sí es necesario.",
+                "Revisar que las mordazas encajen correctamente con las pastillas de freno y se ajusten contra el disco metálico.",
+                "Revisar que la superficie del disco de freno se encuentre lisa y pareja. Adicionalmente, verificar que no presente juego axial ni radial respecto a su punto de anclaje.",
+                "Revisar que el diafragma del booster no presente fisuras o escapes de aire por medio de sus accesorios. Reportar y corregir anomalias que se presenten.",
+                "Verificar que las mangueras y racores del sistema neumático no presenten puntos de fuga. Cambiar accesorios en caso de identificar anonalias."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Guías Verticales",
+            "substeps": [
+                "Verificar la condición superficial de las guías metálicas de ambas torres del desembobinador. Estas debes estar lisas, sin imperfecciones o torceduras que impidan el traslado vertical de las contrapuntas.",
+                "Revisar la calidad de la lubricación. Este punto es para que lo revisen los mecánicos y den algún aviso al lubricador o el ingeniero de mantenimiento y este pueda ejecutar la re-lubricación de las guías verticales.",
+                "Verificar durante el funcionamiento de las torres durante el POST, que no exista algún juego axial o radial entre las guías y el frame móvil de las contrapuntas móvil y fija."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Tornillos Desplazamiento",
+            "substeps": [
+                "Verificar el estado de la rosca del tornillo, el cual no debe presentar despicaduras, torceduras o desgaste.",
+                "Verificar la calidad de la lubricación del tornillo y notificar sí debe mejorarse.",
+                "Inspeccionar físicamente el acople entre tornillo y tuerca. No se debe presentar juego axial o radial. Informar sí es así."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Rieles Desplazamiento Torres",
+            "substeps": [
+                "Retirar las bobinas del desembobinador",
+                "Verificar el estado del carcamo y de los rieles. Sí estps presentan condición anormal que pueda ocasionar un accidente de trabajo o una avería mecánica notifique a los ingenieros de mtto para toma de soluciones.",
+                "Verificar el estado de las pletinas soporte de bobinas. Estas deben desplazarse regularmente sobre los rieles. Verifique que no se encuentren fisuradas. Debe revisar las ruedas guía que se encuentran en su parte inferior."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Unidad de Mantenimiento",
+            "substeps": [
+                "Verificar que las mangueras y racores del sistema neumático no presenten puntos de fuga. Cambiar accesorios en caso de identificar anonalias.",
+                "Revisar el estado del manometro. Sí se encuentra con la caratula rota y/o no marca unidad de presión debe cambiarlo.",
+                "Realizar la revisión del nivel de aceite del deposito de la unidad de mantenimiento.",
+                "Revisar si hay tarjetas de alerta de fugas de aire comprimido, si las hay realice la corrección."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Rodillos",
+            "substeps": [
+                "Verificar que la estructura metálica que porta los rodillos esté correctamente anclada a la estructura del pedestal de rodillos.",
+                "Verificar el estado de los slog que permiten movimiento de los rodillos en trayectoria horizontal y vertical (sí aplica).",
+                "Inspeccionar el estado de los pomos de apriete de los rodillos guía (sí aplica).",
+                "Inspeccionar el estado superficial de los rodillos guía. Verifique que se encuentren sin talladuras, golpes o fisuras. Desmontar y corregir sí detecta anomalias.",
+                "Verificar que los rodillos no presenten juego axial o radial."
+            ],
+            "imagen": "/images/paso1.jpg"
+        }
+    ]
+}

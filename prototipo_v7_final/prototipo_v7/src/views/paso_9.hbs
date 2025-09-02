@@ -1,0 +1,417 @@
+<div class="my-body-area">
+    <div class="section-left">
+        <div class="top-half-left">
+            <div id="profile-pic" class="profile-pic"></div>
+            <div id="user-name" class="user-name">Nombre Apellido</div>
+            <div id="user-email" class="user-email">email@ejemplo.com</div>
+        </div>
+        <div class="bottom-half-left">
+            <div class="stage">
+                A. Preparación
+            </div>
+            <div class="stage">
+                B. Bloqueo
+            </div>
+            <div class="stage">
+                C. Intervención
+            </div>
+            <div class="stage">
+                D. Desbloqueo
+            </div>
+            <div class="stage">
+                E. Puesta a punto
+            </div>
+            <div class="stage">
+                F. Entrega
+            </div>
+        </div>
+    </div>
+    <div class="section-right">
+        <div class="top-half-right">
+            <div style="padding-left: 40px; color: white; font-weight: bold; font-size: 1.5rem;">Asistente de
+                mantenimiento</div>
+            <div style="padding-right: 40px; color: white;"> Logout </div>
+        </div>
+
+        <div class="bottom-half-right">
+            <div class="info-container mt-1">
+                <div class="box-container" style="width: 95%;">
+                    <p id="titulo" class="fw-bold" style="font-size: 2.3rem;">
+                        Mantenimientos a realizar
+                    </p>
+                    <div class="accordion" id="accordionExample"></div>
+
+                    <!-- Nuevo contenedor centrado para observaciones -->
+
+                    <form class="observations-form">
+                        <div class="mb-3 mt-3" style="width: 100%;">
+                            <label for="observations" class="form-label">Observaciones</label>
+                            <textarea class="form-control" id="observations" rows="4"
+                                placeholder="Escriba sus observaciones" style="width: 100%;"></textarea>
+                        </div>
+                    </form>
+
+                    <div class="button-container">
+                        <button type="button" id="prev-step" class="btn btn-secondary btn-lg"
+                            style=" width: 45%; background-color: #2b3b4a;">
+                            <i class="bi bi-arrow-left fs-1"></i>
+                        </button>
+                        <button type="button" id="next-step" class="btn btn-secondary btn-lg"
+                            style=" width: 45%; background-color: #2b3b4a;">
+                            <i class="bi bi-arrow-right fs-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Centrar checkbox y texto */
+    .check-container {
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+        gap: 10px;
+        /* Espacio entre el checkbox y el texto */
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    /* Ajustar tamaño del checkbox */
+    #confirm-check {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Mantener la posición del botón de avanzar */
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+</style>
+
+<script>
+    setUserProfile("{{usuario.picture}}", "{{usuario.name}}", "{{usuario.email}}")
+</script>
+
+<script>
+    const stages = document.querySelectorAll('.stage');
+    const progressMessage = document.getElementById('progress-message');
+    let currentStage = 3;
+
+    function updateStage(stage) {
+        stages.forEach((element, index) => {
+            if (index + 1 < stage) {
+                element.classList.add('completed');
+                element.classList.remove('active');
+            } else if (index + 1 === stage) {
+                element.classList.add('active');
+                element.classList.remove('completed');
+            } else {
+                element.classList.remove('active', 'completed');
+            }
+        });
+    }
+
+    updateStage(currentStage);
+</script>
+
+<script>
+    function replaceNewlinesWithBreaks(text) {
+        return text.replace(/\n/g, '<br>');
+    }
+</script>
+
+{{#if listaDeTitulos}}
+<script>
+    const filtroSteps = {{{ json listaDeTitulos }}}; // Evita el escape de caracteres con triple llave
+    console.log(filtroSteps);
+</script>
+{{/if}}
+
+
+{{#if electrico}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('/steps.json')
+            .then(response => response.json())
+            .then(data => {
+                // Filtrar los pasos que están en la lista de títulos
+                const filteredSteps = data.steps.filter(step => filtroSteps.includes(step.title));
+
+                // Obtener el contenedor donde se agregan los pasos
+                const accordion = document.getElementById('accordionExample');
+
+                // Renderizar solo los pasos filtrados
+                filteredSteps.forEach((step, index) => {
+                    const stepId = `step${index + 1}`;
+                    const collapseId = `collapse${index + 1}`;
+                    const counterId = `counter${index + 1}`;
+                    const checkId = `check${index + 1}`;
+
+                    const stepHtml = `
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="heading${index + 1}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+                      <span class="check-container" id="${checkId}"><i class="bi bi-check-lg"></i></span>
+                      ${step.title} <span class="badge bg-primary ms-2" id="${counterId}">0/${step.substeps.length}</span>
+                    </button>
+                  </h2>
+                  <div id="${collapseId}" class="accordion-collapse collapse" aria-labelledby="heading${index + 1}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <ul class="list-group">
+                        <!-- Aquí agregamos una fila vacía -->
+                        <li class="list-group-item">
+                          <div class="substep-row">
+                            <div class="text-col"></div>
+                            <div class="checkbox-col text-center small-label">Realizada</div>
+                            <div class="checkbox-col text-center small-label">No realizada</div>
+                          </div>
+                        </li>
+                        ${step.substeps.map((substep, subIndex) => `
+                          <li class="list-group-item">
+                            <div class="substep-row">
+                              <div class="text-col">${substep}</div>
+                              <div class="checkbox-col">
+                                <input type="checkbox" class="form-check-input custom-checkbox completed-checkbox" data-step="${index + 1}" data-type="completed">
+                              </div>
+                              <div class="checkbox-col">
+                                <input type="checkbox" class="form-check-input custom-checkbox not-completed-checkbox" data-step="${index + 1}" data-type="not-completed">
+                              </div>
+                            </div>
+                          </li>`).join('')}
+                      </ul>
+
+                      
+                    </div>
+                  </div>
+                </div>`;
+
+                    accordion.insertAdjacentHTML('beforeend', stepHtml);
+                });
+
+                // Aquí va el código para marcar los pasos como completados
+                document.querySelectorAll('.mark-all-completed').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const step = this.getAttribute('data-step');
+                        document.querySelectorAll(`input[data-step="${step}"][data-type="completed"]`).forEach(checkbox => {
+                            checkbox.checked = true;
+                        });
+                        document.querySelectorAll(`input[data-step="${step}"][data-type="not-completed"]`).forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+                        updateCounter(step);
+                    });
+                });
+
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', function () {
+                        const step = this.getAttribute('data-step');
+                        const type = this.getAttribute('data-type');
+
+                        if (type === 'completed') {
+                            const correspondingNotCompleted = this.closest('.substep-row').querySelector('input[data-type="not-completed"]');
+                            correspondingNotCompleted.checked = false;
+                        } else {
+                            const correspondingCompleted = this.closest('.substep-row').querySelector('input[data-type="completed"]');
+                            correspondingCompleted.checked = false;
+                        }
+
+                        updateCounter(step);
+                    });
+                });
+
+                function updateCounter(step) {
+                    const total = document.querySelectorAll(`input[data-step="${step}"][data-type="completed"]`).length;
+                    const checked = document.querySelectorAll(`input[data-step="${step}"][data-type="completed"]:checked`).length;
+                    document.getElementById(`counter${step}`).textContent = `${checked}/${total}`;
+                    const checkContainer = document.getElementById(`check${step}`);
+                    if (checked === total) {
+                        checkContainer.classList.add('checked');
+                    } else {
+                        checkContainer.classList.remove('checked');
+                    }
+                }
+
+                // Inicializar los contadores
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    updateCounter(checkbox.getAttribute('data-step'));
+                });
+            })
+            .catch(error => console.error('Error al cargar el archivo JSON:', error));
+    });
+</script>
+{{else}}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('/mecanicos.json')
+            .then(response => response.json())
+            .then(data => {
+                // Filtrar los pasos que están en la lista de títulos
+                const filteredSteps = data.steps.filter(step => filtroSteps.includes(step.title));
+
+                // Obtener el contenedor donde se agregan los pasos
+                const accordion = document.getElementById('accordionExample');
+
+                // Renderizar solo los pasos filtrados
+                filteredSteps.forEach((step, index) => {
+                    const stepId = `step${index + 1}`;
+                    const collapseId = `collapse${index + 1}`;
+                    const counterId = `counter${index + 1}`;
+                    const checkId = `check${index + 1}`;
+
+                    const stepHtml = `
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="heading${index + 1}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+                      <span class="check-container" id="${checkId}"><i class="bi bi-check-lg"></i></span>
+                      ${step.title} <span class="badge bg-primary ms-2" id="${counterId}">0/${step.substeps.length}</span>
+                    </button>
+                  </h2>
+                  <div id="${collapseId}" class="accordion-collapse collapse" aria-labelledby="heading${index + 1}" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <ul class="list-group">
+                        <!-- Aquí agregamos una fila vacía -->
+                        <li class="list-group-item">
+                          <div class="substep-row">
+                            <div class="text-col"></div>
+                            <div class="checkbox-col text-center small-label">Realizada</div>
+                            <div class="checkbox-col text-center small-label">No realizada</div>
+                          </div>
+                        </li>
+                        ${step.substeps.map((substep, subIndex) => `
+                          <li class="list-group-item">
+                            <div class="substep-row">
+                              <div class="text-col">${substep}</div>
+                              <div class="checkbox-col">
+                                <input type="checkbox" class="form-check-input custom-checkbox completed-checkbox" data-step="${index + 1}" data-type="completed">
+                              </div>
+                              <div class="checkbox-col">
+                                <input type="checkbox" class="form-check-input custom-checkbox not-completed-checkbox" data-step="${index + 1}" data-type="not-completed">
+                              </div>
+                            </div>
+                          </li>`).join('')}
+                      </ul>
+
+                      
+                    </div>
+                  </div>
+                </div>`;
+
+                    accordion.insertAdjacentHTML('beforeend', stepHtml);
+                });
+
+                // Aquí va el código para marcar los pasos como completados
+                document.querySelectorAll('.mark-all-completed').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const step = this.getAttribute('data-step');
+                        document.querySelectorAll(`input[data-step="${step}"][data-type="completed"]`).forEach(checkbox => {
+                            checkbox.checked = true;
+                        });
+                        document.querySelectorAll(`input[data-step="${step}"][data-type="not-completed"]`).forEach(checkbox => {
+                            checkbox.checked = false;
+                        });
+                        updateCounter(step);
+                    });
+                });
+
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', function () {
+                        const step = this.getAttribute('data-step');
+                        const type = this.getAttribute('data-type');
+
+                        if (type === 'completed') {
+                            const correspondingNotCompleted = this.closest('.substep-row').querySelector('input[data-type="not-completed"]');
+                            correspondingNotCompleted.checked = false;
+                        } else {
+                            const correspondingCompleted = this.closest('.substep-row').querySelector('input[data-type="completed"]');
+                            correspondingCompleted.checked = false;
+                        }
+
+                        updateCounter(step);
+                    });
+                });
+
+                function updateCounter(step) {
+                    const total = document.querySelectorAll(`input[data-step="${step}"][data-type="completed"]`).length;
+                    const checked = document.querySelectorAll(`input[data-step="${step}"][data-type="completed"]:checked`).length;
+                    document.getElementById(`counter${step}`).textContent = `${checked}/${total}`;
+                    const checkContainer = document.getElementById(`check${step}`);
+                    if (checked === total) {
+                        checkContainer.classList.add('checked');
+                    } else {
+                        checkContainer.classList.remove('checked');
+                    }
+                }
+
+                // Inicializar los contadores
+                document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                    updateCounter(checkbox.getAttribute('data-step'));
+                });
+            })
+            .catch(error => console.error('Error al cargar el archivo JSON:', error));
+    });
+</script>
+{{/if}}
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const nextButton = document.getElementById('next-step');
+
+        nextButton.addEventListener('click', () => {
+            const selectedOptionID = '{{selectedOptionID}}';
+
+            // Obtener los pasos desde el acordeón
+            const stepsData = [];
+            document.querySelectorAll('.accordion-item').forEach((stepElement, index) => {
+                const title = stepElement.querySelector('.accordion-button').textContent.trim();
+                const completedCheckboxes = stepElement.querySelectorAll('input[data-type="completed"]:checked');
+                const allCheckboxes = stepElement.querySelectorAll('input[data-type="completed"]');
+                const completedIndexes = [];
+
+                allCheckboxes.forEach((checkbox, subIndex) => {
+                    if (checkbox.checked) {
+                        completedIndexes.push(subIndex + 1);
+                    }
+                });
+
+                stepsData.push({
+                    part: title,
+                    completed_steps: completedIndexes
+                });
+            });
+
+            // Obtener el texto del textarea de observaciones
+            const observationsText = document.getElementById('observations').value.trim();
+
+            // Construir el JSON
+            const dataToSend = {
+                usuario: '{{usuario._id}}',
+                selectedOptionID: selectedOptionID,
+                steps: stepsData,
+                observations: observationsText
+            };
+
+            console.log('Enviando datos:', dataToSend); // Para depuración
+
+            fetch('/paso_10', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dataToSend)
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirectUrl;
+                    }
+                }).catch(console.error);
+        });
+    });
+
+</script>
