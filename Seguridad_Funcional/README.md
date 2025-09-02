@@ -11,4 +11,4 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 3. Verificar que **MongoDB esté corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
 
-![Estado de MongoDB](ruta/a/la/imagen.png)
+![Estado de MongoDB](Anexos/imgs/Seguridad_Funcional/mongodb.png)
