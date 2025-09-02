@@ -10,4 +10,4 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)  
 3. Verificar que **MongoDB esté corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
-![Estado de MongoDB]Anexos/imgs/Seguridad_Funcional/mongodb.png
+![Estado de MongoDB](Anexos/imgs/Seguridad_Funcional/mongodb.png)
