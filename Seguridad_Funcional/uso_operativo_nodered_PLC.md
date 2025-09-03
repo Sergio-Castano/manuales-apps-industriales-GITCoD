@@ -670,11 +670,4 @@ Deberás cambiar el return true de cada uno de los casos por la línea correspon
 Para E31: 
    ```bash
    return data.M341E31 === "0";
-   
 
-
-
-
-
-
-hOLA COMO ESTAS
