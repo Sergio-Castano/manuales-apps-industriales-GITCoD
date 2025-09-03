@@ -37,6 +37,7 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 
    ```bash
    http://localhost:3000/
+
    Y así se debería ver: 
    
    ![Abrir terminal en la carpeta](imagenes/fotoinicio.png)
