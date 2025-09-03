@@ -28,3 +28,8 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
    ```bash
    nvm use 20
    npm run dev
+
+4. Finalmente debe salir así la terminal
+
+    ![Abrir terminal en la carpeta](imagenes/terminal_principal.png)
+   
