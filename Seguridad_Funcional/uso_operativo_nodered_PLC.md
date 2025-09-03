@@ -678,6 +678,6 @@ Ahora, para ejecutarlo con el PLC raspberry 19R+, lo primero que debemos hacer e
       cd porras_test/
       cd ejecutables/
       ./vrms
-
+```
 Después de eso, debemos ver lo siguiente 
 
