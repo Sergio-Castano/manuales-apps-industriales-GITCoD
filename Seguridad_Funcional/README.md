@@ -32,4 +32,11 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 4. Finalmente debe salir así la terminal
 
     ![Abrir terminal en la carpeta](imagenes/terminal_principal.png)
+
+5. Para ejecutar el prototipo, ingresamos a nuestro buscador y ejecutamos el puerto
+
+   ```bash
+   http://localhost:3000/
+   ![Abrir terminal en la carpeta](imagenes/fotoinicio.png)
+   
    
