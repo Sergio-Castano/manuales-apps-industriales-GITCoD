@@ -638,6 +638,7 @@ Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de contin
 1. **Importar el hilo de validación en Node-RED**  
    Abre Node-RED y utiliza el siguiente comando para importar el hilo adecuado:
 2. **Ir a la carpeta views para hacer cambios importantes**
+   
    Dirígete a la carpeta views donde se encuentran los archivos paso_4.hbs y paso_11.hbs. Aquí deberás configurar la dirección IP de acuerdo a la de tu computador. En      este caso, la dirección IP es 192.168.0.107.
 
    Modificar el código para la validación
@@ -667,23 +668,23 @@ Cambiar el return true en cada caso
 Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
 
 Para E3.1:
-
-return data.M341E31 === "0";  // Retorna true o false
+   ```bash
+   return data.M341E31 === "0";  // Retorna true o false
 
 
 Para E3:
-
-return data.M341E3 === "0";  // Retorna true o false
+   ```bash
+   return data.M341E3 === "0";  // Retorna true o false
 
 
 Para E2:
-
-return data.M341E2 === "0";  // Retorna true o false
+   ```bash
+   return data.M341E2 === "0";  // Retorna true o false
 
 
 Para E1:
-
-return data.M341E1 === "0";  // Retorna true o false
+   ```bash
+   return data.M341E1 === "0";  // Retorna true o false
 
 
 Con estos cambios, estarás validando correctamente cada sección y utilizando la IP configurada para los pasos correspondientes.
