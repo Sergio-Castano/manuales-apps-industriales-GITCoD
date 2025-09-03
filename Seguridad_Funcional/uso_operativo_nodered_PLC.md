@@ -667,26 +667,11 @@ Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de contin
 Cambiar el return true en cada caso
 Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
 
+Cambiar el return true en cada caso  
+Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
+
 Para E3.1:
-   ```bash
-   return data.M341E31 === "0";  // Retorna true o false
 
-
-Para E3:
-   ```bash
-   return data.M341E3 === "0";  // Retorna true o false
-
-
-
-Para E2:
-   ```bash
-   return data.M341E2 === "0";  // Retorna true o false
-
-
-Para E1:
-   ```bash
-   return data.M341E1 === "0";  // Retorna true o false
-
-Con estos cambios, estarás validando correctamente cada sección y utilizando la IP configurada para los pasos correspondientes.
-Recuerda que estos pasos son para realizar la validación con Node-RED. Si quieres usar el PLC, la configuración será diferente.
+```bash
+return data.M341E31 === "0";  // Retorna true o false
 
