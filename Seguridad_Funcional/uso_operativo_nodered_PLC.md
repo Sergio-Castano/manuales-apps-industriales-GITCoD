@@ -633,3 +633,61 @@ Para comenzar con la validación simulada en Node-RED, seguimos estos pasos:
     }
    ]
 
+
+Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de continuar.
+
+2. **Ir a la carpeta views**
+Dirígete a la carpeta views donde se encuentran los archivos paso_4.hbs y paso_11.hbs. Aquí deberás configurar la dirección IP de acuerdo a la de tu computador. En este caso, la dirección IP es 192.168.0.107.
+
+Modificar el código para la validación
+Luego de haber configurado la IP, procederemos a validar variando entre los valores 0 y 1. Para la versión actual, la validación solo está disponible con E3.1, pero puedes ajustarlo para trabajar también con E1, E2, y E3.
+
+Código a modificar:
+
+En los archivos paso_4.hbs y paso_11.hbs, debes cambiar el siguiente bloque de código:
+
+switch (paso_actual) {
+    case 0:
+        divElement.innerText = "Se ha detectado tensión eléctrica en la sección energizada por E3.1.";
+        return data.M341E31 === "0";  // Retorna true o false
+    case 1:
+        divElement.innerText = "Se ha detectado tensión eléctrica en la sección energizada por E3.";
+        return true;  // Retorna true o false data.M341E3 === "0"
+    case 2:
+        divElement.innerText = "Se ha detectado tensión eléctrica en la sección energizada por E2.";
+        return true;  // Retorna true o false data.M341E2 === "0"
+    case 3:
+        divElement.innerText = "Se ha detectado tensión eléctrica en la sección energizada por E1.";
+        return true;  // Retorna true o false data.M341E1 === "0"
+    default:
+        return false;  // Retorna false si no coincide ningún caso
+}
+
+
+Cambiar el return true en cada caso
+Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
+
+Para E3.1:
+
+return data.M341E31 === "0";  // Retorna true o false
+
+
+Para E3:
+
+return data.M341E3 === "0";  // Retorna true o false
+
+
+Para E2:
+
+return data.M341E2 === "0";  // Retorna true o false
+
+
+Para E1:
+
+return data.M341E1 === "0";  // Retorna true o false
+
+
+Con estos cambios, estarás validando correctamente cada sección y utilizando la IP configurada para los pasos correspondientes.
+
+Recuerda que estos pasos son para realizar la validación con Node-RED. Si quieres usar el PLC, la configuración será diferente.
+
