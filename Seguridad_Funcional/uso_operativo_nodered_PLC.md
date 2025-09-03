@@ -670,8 +670,7 @@ Deberás cambiar el return true de cada uno de los casos por la línea correspon
 
 Para E3.1:
 
-```bash
-return data.M341E31 === "0";  // Retorna true o false
+   ```bash
+   return data.M341E31 === "0";  // Retorna true o false
 
 Para E3:
-
