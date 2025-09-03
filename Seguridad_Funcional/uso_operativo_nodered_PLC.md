@@ -635,12 +635,13 @@ Para comenzar con la validación simulada en Node-RED, seguimos estos pasos:
 
 
 Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de continuar.
-
+1. **Importar el hilo de validación en Node-RED**  
+   Abre Node-RED y utiliza el siguiente comando para importar el hilo adecuado:
 2. **Ir a la carpeta views**
-Dirígete a la carpeta views donde se encuentran los archivos paso_4.hbs y paso_11.hbs. Aquí deberás configurar la dirección IP de acuerdo a la de tu computador. En este caso, la dirección IP es 192.168.0.107.
+   Dirígete a la carpeta views donde se encuentran los archivos paso_4.hbs y paso_11.hbs. Aquí deberás configurar la dirección IP de acuerdo a la de tu computador. En      este caso, la dirección IP es 192.168.0.107.
 
-Modificar el código para la validación
-Luego de haber configurado la IP, procederemos a validar variando entre los valores 0 y 1. Para la versión actual, la validación solo está disponible con E3.1, pero puedes ajustarlo para trabajar también con E1, E2, y E3.
+   Modificar el código para la validación
+   Luego de haber configurado la IP, procederemos a validar variando entre los valores 0 y 1. Para la versión actual, la validación solo está disponible con E3.1, pero puedes ajustarlo para trabajar también con E1, E2, y E3.
 
 Código a modificar:
 
