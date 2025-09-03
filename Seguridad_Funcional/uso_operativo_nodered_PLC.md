@@ -673,4 +673,5 @@ Para E3.1:
    ```bash
    return data.M341E31 === "0";  // Retorna true o false
 
+
 Para E3:
