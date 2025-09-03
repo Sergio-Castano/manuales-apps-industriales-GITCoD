@@ -683,5 +683,23 @@ Después de eso, debemos ver lo siguiente:
 
 ![Estado de MongoDB](imagenes/terminalVRMS2.png)
 
-Y ya este ejecutable de C++, sería el que reemplazaría a todo el modulo de node red, ya conectado a la medición Real
+Y ya este ejecutable de C++, sería el que reemplazaría a todo el modulo de node red, ya conectado a la medición , mediante Arduino, usando este codigo: 
+   ```bash
+   void setup() {
+  Serial.begin(115200); // Inicia comunicación serie a 115200 baudios
+}
+
+void loop() {
+  float senal = voltaje_promedio(10) * (5.0 / 1023.0) - 2.5;
+  Serial.println(senal); // Muestra el valor en el monitor serie
+}
+
+int voltaje_promedio(int n) {
+  long suma = 0;
+  for (int i = 0; i < n; i++) {
+    suma += analogRead(A0); // Lee A0 y acumula
+  }
+  return suma / n; // Retorna el promedio
+}
+```
 
