@@ -679,6 +679,9 @@ Ahora, para ejecutarlo con el PLC raspberry 19R+, lo primero que debemos hacer e
    cd ejecutables/
    ./vrms
 ```
-Después de eso, debemos ver lo siguiente 
+Después de eso, debemos ver lo siguiente:
+
 ![Estado de MongoDB](imagenes/terminalVRMS2.png)
+
+Y ya este ejecutable de C++, sería el que reemplazaría a todo el modulo de node red, ya conectado a la medición Real
 
