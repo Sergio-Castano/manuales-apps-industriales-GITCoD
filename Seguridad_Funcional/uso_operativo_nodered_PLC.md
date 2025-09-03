@@ -666,8 +666,15 @@ Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de contin
 
 Cambiar el return true en cada caso
 Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
+
 Para E31: 
    ```bash
    return data.M341E31 === "0";
+   
+
+
+
+
+
 
 hOLA COMO ESTAS
