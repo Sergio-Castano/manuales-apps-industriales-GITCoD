@@ -703,9 +703,8 @@ int voltaje_promedio(int n) {
 }
 ```
 
-Además este es el código del vrms. cpp 
-   ```bash
-  GNU nano 7.2                                                                                                                                                                                                                                                                                                                                                                           vrms.cpp                                                                                                                                                                                                                                                                                                                                                                                    
+Además este es el código del vrms.cpp 
+   ```bash                                                                                                                                                                                                                                                                                                                                                             
 #include <iostream>
 #include <fstream>
 #include <mqtt/async_client.h>
