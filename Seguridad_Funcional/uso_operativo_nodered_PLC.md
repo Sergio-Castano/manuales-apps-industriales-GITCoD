@@ -631,5 +631,5 @@ Para comenzar con la validación simulada en Node-RED, seguimos estos pasos:
         "userProps": "",
         "sessionExpiry": ""
     }
-]
+   ]
 
