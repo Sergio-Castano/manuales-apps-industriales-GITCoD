@@ -673,7 +673,7 @@ Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de contin
       return data.M341E2 === "0";
       return data.M341E3 === "0";
    
-Ahora, para ejecutarlo con el PLC raspberry 19R+, lo primero que debemos hacer es enlazarnos por ssh o mediante terminal, de acuerdo a la dirección ip, ya dentro del PLC, ejecutaremos lo siguiente 
+   Ahora, para ejecutarlo con el PLC raspberry 19R+, lo primero que debemos hacer es enlazarnos por ssh o mediante terminal, de acuerdo a la dirección ip, ya dentro del PLC, ejecutaremos lo siguiente 
    ```bash
       cd porras_test/
       cd ejecutables/
