@@ -39,7 +39,7 @@ Además, se configura **sincronización precisa** y **gestión de prioridades en
 
 A continuación, se presenta el diagrama de nodos que ilustra cómo interactúan los diferentes módulos del sistema:
 
-![Diagrama de Nodos](imagenes/imagen.png)
+![Diagrama de Nodos](imagenes/image.png)
 
 Este diagrama muestra cómo los nodos de sensores, actuadores, y el nodo de referencia se comunican y se gestionan en tiempo real dentro del sistema. 
 
