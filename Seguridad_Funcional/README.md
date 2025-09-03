@@ -21,7 +21,7 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 2. Haz **clic derecho** y selecciona **Abrir en Terminal**.  
    La ventana debería abrirse como en la siguiente imagen:  
 
-   ![Abrir terminal en la carpeta](Seguridad_Funcional/imagenes/terminaluno.png)
+   ![Abrir terminal en la carpeta](imagenes/terminaluno.png)
 
 3. En ese terminal, ejecuta los siguientes comandos:  
 
