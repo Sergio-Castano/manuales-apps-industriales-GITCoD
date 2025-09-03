@@ -664,15 +664,15 @@ Asegúrate de tener Node-RED instalado y corriendo en tu sistema antes de contin
            return false;  // Retorna false si no coincide ningún caso
    }
 
-Cambiar el return true en cada caso
-Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
-
-Para E31, E3, E2 y E1: 
-   ```bash
-   return data.M341E31 === "0";
-   return data.M341E1 === "0";
-   return data.M341E2 === "0";
-   return data.M341E3 === "0";
+   Cambiar el return true en cada caso
+   Deberás cambiar el return true de cada uno de los casos por la línea correspondiente de código, como sigue:
+   
+   Para E31, E3, E2 y E1: 
+      ```bash
+      return data.M341E31 === "0";
+      return data.M341E1 === "0";
+      return data.M341E2 === "0";
+      return data.M341E3 === "0";
 ---
 
 Hola
