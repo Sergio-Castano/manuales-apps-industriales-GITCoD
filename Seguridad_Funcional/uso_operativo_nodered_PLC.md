@@ -673,4 +673,7 @@ Para E31, E3, E2 y E1:
    return data.M341E1 === "0";
    return data.M341E2 === "0";
    return data.M341E3 === "0";
+---
+
+Hola
 
