@@ -677,14 +677,19 @@ Para E3:
    return data.M341E3 === "0";  // Retorna true o false
 
 
+
 Para E2:
    ```bash
    return data.M341E2 === "0";  // Retorna true o false
 
 
+
 Para E1:
    ```bash
    return data.M341E1 === "0";  // Retorna true o false
+
+
+
 
 
 Con estos cambios, estarás validando correctamente cada sección y utilizando la IP configurada para los pasos correspondientes.
