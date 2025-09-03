@@ -680,4 +680,5 @@ Ahora, para ejecutarlo con el PLC raspberry 19R+, lo primero que debemos hacer e
    ./vrms
 ```
 Después de eso, debemos ver lo siguiente 
+![Estado de MongoDB](imagenes/terminalVRMS.png)
 
