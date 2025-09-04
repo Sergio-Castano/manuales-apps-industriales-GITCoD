@@ -33,5 +33,15 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    colcon build
    source install/setup.bash
    ```
+
+3. Asegúrate de que todos los archivos URDF, parámetros, y launch estén correctamente configurados.
+
+## Instalación
+
+1. Lanza el sistema base de simulación y monitoreo:
+
+   ```bash
+   ros2 launch quanser_digital_twin motor_rviz.launch.py
+   ```
    
 
