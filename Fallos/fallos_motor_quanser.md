@@ -94,6 +94,13 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ros2 param set /fault_injector_node stuck_after_s 0.5
    ```
 
+   Volver a la medición sana
+   
+   ```bash  
+   ros2 param set /fault_injector_node fault_type_meas none
+   ros2 param set /fault_injector_node stuck_enable false
+   ```
+
    C. Ráfagas de ruido impulsivo en el sensor
    
    ```bash
