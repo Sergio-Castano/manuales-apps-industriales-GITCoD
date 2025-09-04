@@ -56,9 +56,9 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
 1. Ingresar al PLC mediante SSH o una pantalla con micro HDMI
 2. Ingresar al contenedor de Singularity con los siguientes comandos
    
-   ´´´bash
+   ```bash
    cd singularity_containers/
-   ´´´
+   ```
    
 4. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos 
 
