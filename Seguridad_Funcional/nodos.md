@@ -43,7 +43,7 @@ A continuación, se presenta el diagrama de nodos que ilustra cómo interactúan
 
 Este diagrama muestra cómo los nodos de sensores, actuadores, y el nodo de referencia se comunican y se gestionan en tiempo real dentro del sistema. 
 
-## Resultados
+## Resultados y Códigos 
 
 El sistema fue probado en ejecución simultánea de múltiples nodos dentro de contenedores Singularity, manteniendo tiempos de **muestra estables** y latencias mínimas, incluso en condiciones críticas. Se realizaron pruebas con **sensores** y **actuadores**, mostrando una **sincronización confiable** y un control eficiente bajo diversas condiciones de carga.
 
@@ -51,6 +51,8 @@ El sistema fue probado en ejecución simultánea de múltiples nodos dentro de c
 - **Tiempos de Muestreo**: Los nodos de sensores mantuvieron un periodo constante de 50 ms, con una **dispersión mínima**.
 - **Tiempos de Ejecución**: Los nodos de control, como `actuator_node`, mostraron tiempos de ejecución promedio entre 11 y 36 ms, sin generar latencias críticas.
 - **Publicación LOTO**: El nodo `loto_publisher` logró tiempos de ejecución por debajo de 0.3 ms, sin afectar la reactividad del sistema.
+
+A continuación están los códigos junto a la ejecución de los mismos mediante singularity:
 
 ## Conclusiones
 
