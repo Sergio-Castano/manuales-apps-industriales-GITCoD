@@ -114,4 +114,9 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ```bash
    ros2 param set /fault_injector_node fault_type_meas none
    ```
+   D. Ver estado de salud del sistema
+
+   ```bash
+   ros2 topic echo /health/residual/diagnostics
+   ```
 
