@@ -43,5 +43,11 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ```bash
    ros2 launch quanser_digital_twin motor_rviz.launch.py
    ```
+
+2. Activa el controlador PID del motor
+
+   ```bash
+   ros2 run quanser_digital_twin pid_controller_node
+   ```
    
 
