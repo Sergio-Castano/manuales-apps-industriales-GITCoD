@@ -81,7 +81,7 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    source /opt/ros/humble/setup.bash
    ```
    
-5. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos
+4. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos
    A. Nodo del Actuador 1
    ```bash
    #include <rclcpp/rclcpp.hpp>
@@ -248,11 +248,173 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    }
    ```
    
-   Ejecución del código: 
+   Ejecución y nombre del código: 
+   ```bash
+   ros2 run sensor_node actuator_node
+   ```
+   B. Nodo del sensor 1
+
+   ```bash
+   #include <rclcpp/rclcpp.hpp>
+   #include "std_msgs/msg/float64.hpp"
+   #include <cstdlib>
+   #include <string>
+   #include <memory>
+   #include <array>
+   #include <sstream>
+   #include <vector>
+   #include <ctime>
+   #include <csignal>
+   #include <iostream>
+   #include <pthread.h>
+   #include <sched.h>
+   #include <unistd.h>
+   #include <sys/mman.h>
+   
+   using std::placeholders::_1;
+   
+   bool continuar = true;
+   bool ignorar_delta = false;
+   
+   void signal_handler(int) {
+       std::cout << "🔴 Señal SIGINT recibida. Cerrando nodo sensor..." << std::endl;
+       continuar = false;  // 🚫 Detener el ciclo, pero no hacer shutdown aquí
+   }
+   
+   struct timespec AddTimespecByNs(struct timespec ts, int64_t ns)
+   {
+       ts.tv_nsec += ns;
+       while (ts.tv_nsec >= 1000000000) {
+           ++ts.tv_sec;
+           ts.tv_nsec -= 1000000000;
+       }
+       while (ts.tv_nsec < 0) {
+           --ts.tv_sec;
+           ts.tv_nsec += 1000000000;
+       }
+       return ts;
+   }
+   
+   class SensorNode : public rclcpp::Node
+   {
+   public:
+       SensorNode() : Node("sensor_node")
+       {
+           publisher_ = this->create_publisher<std_msgs::msg::Float64>("sensor_data", 10);
+           sub_loto_ = this->create_subscription<std_msgs::msg::Float64>(
+               "loto", 10, std::bind(&SensorNode::loto_callback, this, _1));
+           last_time = {0, 0};
+           std::cout << "✅ Nodo sensor_node iniciado correctamente." << std::endl;
+       }
+   
+       void read_sensor()
+       {
+           struct timespec now;
+           clock_gettime(CLOCK_MONOTONIC, &now);
+   
+           if (!ignorar_delta && (last_time.tv_sec != 0 || last_time.tv_nsec != 0)) {
+               double delta = (now.tv_sec - last_time.tv_sec) +
+                              (now.tv_nsec - last_time.tv_nsec) / 1e9;
+               tiempos.push_back(delta);
+           }
+           ignorar_delta = false;
+           last_time = now;
+   
+           std::string output = exec("/get-analog-input I0.4");
+           try {
+               double bin = std::stod(output);
+               double voltage = (bin / 4095.0) * 10.0;
+   
+               auto msg = std_msgs::msg::Float64();
+               msg.data = voltage;
+               publisher_->publish(msg);
+   
+               RCLCPP_INFO(this->get_logger(), "Sensor I0.4: %f V", voltage);
+           }
+           catch (const std::exception &e) {
+               RCLCPP_ERROR(this->get_logger(), "Error leyendo o convirtiendo: '%s'", output.c_str());
+           }
+       }
+   
+       std::vector<double> tiempos;
+       struct timespec next_wakeup;
+   
+   private:
+       std::string exec(const char* cmd)
+       {
+           std::array<char, 128> buffer;
+           std::string result;
+           std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+           if (!pipe) throw std::runtime_error("popen() falló");
+           while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+               result += buffer.data();
+           }
+           return result;
+       }
+   
+       void loto_callback(const std_msgs::msg::Float64::SharedPtr msg) {
+           double nuevo = msg->data;
+           if (loto_anterior_ == 0.0 && nuevo == 1.0) {
+               std::cout << "🔄 LOTO flanco 0→1 detectado. Reiniciando tiempo de muestreo." << std::endl;
+               clock_gettime(CLOCK_MONOTONIC, &next_wakeup);
+               ignorar_delta = true;
+           }
+           loto_anterior_ = nuevo;
+       }
+   
+       rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_;
+       rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr sub_loto_;
+       struct timespec last_time;
+       double loto_anterior_ = 1.0;
+   };
+   
+   int main(int argc, char ** argv)
+   {
+       std::signal(SIGINT, signal_handler);
+       rclcpp::init(argc, argv);
+   
+       if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0) {
+           std::cerr << "⚠️  No se pudo bloquear memoria con mlockall." << std::endl;
+       }
+   
+       struct sched_param param;
+       param.sched_priority = 85;
+       cpu_set_t cpuset;
+       CPU_ZERO(&cpuset);
+       CPU_SET(2, &cpuset);  // Core 2
+   
+       pthread_setschedparam(pthread_self(), SCHED_FIFO, &param);
+       pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+   
+       auto node = std::make_shared<SensorNode>();
+   
+       clock_gettime(CLOCK_MONOTONIC, &node->next_wakeup);
+       const int64_t periodo_ns = 50 * 1e6;  // 50 ms
+   
+       while (rclcpp::ok() && continuar) {
+           node->read_sensor();
+           rclcpp::spin_some(node);
+           node->next_wakeup = AddTimespecByNs(node->next_wakeup, periodo_ns);
+           clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &node->next_wakeup, nullptr);
+       }
+   
+       std::cout << "\n📈 Tiempos entre llamadas a read_sensor (s):\n[";
+       for (size_t i = 0; i < node->tiempos.size(); ++i) {
+           std::cout << node->tiempos[i];
+           if (i != node->tiempos.size() - 1)
+               std::cout << ", ";
+       }
+       std::cout << "]" << std::endl;
+   
+       rclcpp::shutdown();  // ✅ shutdown seguro al final
+       return 0;
+   }
+   ```
+
+   Ejecución y nombre del código: 
    ```bash
    ros2 run sensor_node sensor_node
    ```
-   
 
 ## Conclusiones
 
