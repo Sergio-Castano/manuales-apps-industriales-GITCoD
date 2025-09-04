@@ -72,7 +72,9 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    # Ver posición de la planta discreta
    ros2 topic echo /motor_pos_sim_disc
    ```
+   
 5. Para activar un fallo de sensor
+   
    A. Sesgo se sensor
    ```bash
    ros2 param set /fault_injector_node fault_type_meas sensor_bias
