@@ -415,6 +415,149 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    ```bash
    ros2 run sensor_node sensor_node
    ```
+   C. Nodo del sensor de riesgo 1 
+
+
+   ```bash                                                                                                                                                                                                                                                                
+   #include <rclcpp/rclcpp.hpp>
+   #include "std_msgs/msg/float64.hpp"
+   #include <cstdlib>
+   #include <string>
+   #include <memory>
+   #include <iostream>
+   #include <vector>
+   #include <ctime>
+   #include <csignal>
+   #include <pthread.h>
+   #include <sched.h>
+   #include <unistd.h>
+   #include <sys/mman.h>
+   
+   bool continuar = true;
+   
+   void signal_handler(int signum) {
+       std::cout << "🔴 Señal SIGINT recibida. Cerrando nodo sensor_riesgo..." << std::endl;
+       continuar = false;
+       rclcpp::shutdown();
+   }
+   
+   class SensorRiesgo : public rclcpp::Node
+   {
+   public:
+       SensorRiesgo() : Node("sensor_riesgo")
+       {
+           publisher_ = this->create_publisher<std_msgs::msg::Float64>("riesgo_1", 10);
+           last_time_ = {0, 0};
+           std::cout << "✅ Nodo sensor_riesgo iniciado correctamente." << std::endl;
+       }
+   
+       void read_sensor()
+       {
+           struct timespec now;
+           clock_gettime(CLOCK_MONOTONIC, &now);
+   
+           if (last_time_.tv_sec != 0 || last_time_.tv_nsec != 0) {
+               double delta = (now.tv_sec - last_time_.tv_sec) +
+                              (now.tv_nsec - last_time_.tv_nsec) / 1e9;
+               tiempos.push_back(delta);
+           }
+   
+           last_time_ = now;
+   
+           std::string output = exec("/get-analog-input I0.2");
+   
+           try {
+               double bin = std::stod(output);
+               double voltage = (bin / 4095.0) * 10.0;
+   
+               auto msg = std_msgs::msg::Float64();
+               msg.data = voltage;
+               publisher_->publish(msg);
+   
+               std::cout << "[riesgo_1] I0.2 = " << voltage << " V" << std::endl;
+           } catch (const std::exception &e) {
+               std::cerr << "❌ Error leyendo I0.2: '" << output << "'" << std::endl;
+           }
+       }
+   
+       std::vector<double> tiempos;
+   
+   private:
+       std::string exec(const char *cmd)
+       {
+           char buffer[128];
+           std::string result;
+           FILE *fp = popen(cmd, "r");
+           if (!fp) return "0";
+           while (fgets(buffer, sizeof(buffer), fp)) result += buffer;
+           fclose(fp);
+           return result;
+       }
+   
+       rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_;
+       struct timespec last_time_;
+   };
+   
+   int main(int argc, char **argv)
+   {
+       std::signal(SIGINT, signal_handler);
+       rclcpp::init(argc, argv);
+   
+       // ✅ Evitar fallos de página
+       if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0) {
+           std::cerr << "⚠️  No se pudo bloquear la memoria RAM." << std::endl;
+       }
+   
+       // ✅ Prioridad tiempo real 83
+       struct sched_param param;
+       param.sched_priority = 83;
+       if (pthread_setschedparam(pthread_self(), SCHED_FIFO, &param) != 0) {
+           std::cerr << "⚠️  No se pudo asignar prioridad tiempo real." << std::endl;
+       }
+   
+       // ✅ Afinidad al core 2
+       cpu_set_t cpuset;
+       CPU_ZERO(&cpuset);
+       CPU_SET(2, &cpuset);
+       if (pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset) != 0) {
+           std::cerr << "⚠️  No se pudo fijar la afinidad al CPU 2." << std::endl;
+       }
+   
+       auto node = std::make_shared<SensorRiesgo>();
+   
+       // ✅ Temporización precisa (wake-up absoluto cada 50 ms)
+       struct timespec next_wakeup;
+       clock_gettime(CLOCK_MONOTONIC, &next_wakeup);
+   
+       while (rclcpp::ok() && continuar) {
+           rclcpp::spin_some(node);
+           node->read_sensor();
+   
+           // Siguiente wake-up: +50 ms
+           next_wakeup.tv_nsec += 50 * 1e6;
+           while (next_wakeup.tv_nsec >= 1e9) {
+               next_wakeup.tv_nsec -= 1e9;
+               next_wakeup.tv_sec++;
+           }
+           clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_wakeup, nullptr);
+       }
+   
+       std::cout << "\n📈 Tiempos entre llamadas a read_sensor (s):\n[";
+       for (size_t i = 0; i < node->tiempos.size(); ++i) {
+           std::cout << node->tiempos[i];
+           if (i != node->tiempos.size() - 1)
+               std::cout << ", ";
+       }
+       std::cout << "]" << std::endl;
+   
+       return 0;
+   }
+   ```
+
+   Ejecución y nombre del código: 
+   ```bash
+   ros2 run sensor_node sensor_riesgo
+   ```
 
 ## Conclusiones
 
