@@ -133,3 +133,11 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ```bash
       ros2 run quanser_digital_twin motor_sim_theoretical_node --ros-args -r /cmd_voltage:=/cmd_voltage_delayed -r /motor_speed:=/motor_speed_actd -r /motor_current:=/motor_current_actd -r /motor_pos:=/motor_pos_actd -p dt:=0.0001
    ```
+
+   Ejecutar la planta discreta con retardo de mando
+   
+   ```bash
+      ros2 run quanser_digital_twin motor_sim_node --ros-args -r /cmd_voltage_disc:=/cmd_voltage_disc_delayed -r /motor_speed_sim_disc:=/motor_speed_sim_disc_actd -p dt:=0.01
+   ```
+
+   
