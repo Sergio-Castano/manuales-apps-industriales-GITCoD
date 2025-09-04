@@ -58,9 +58,30 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    
    ```bash
    cd singularity_containers/
+   sudo singularity shell -w ROS2/
+   ```
+3. Dentro de Singularity debemos ejecutar estos comandos
+
+    ```bash
+   cd ..
+   cd ros2_ws/
+   source install/setup.bash
+   source /opt/ros/humble/setup.bash
+   ```
+   En caso de no encontrar los ejecutables a momento de usarlos, utilizar: 
+
+    ```bash
+   colcon build --packages-select loto_sender_pkg sensor_node2 sensor_node 
+   ```
+    
+    Y después ejecutar
+
+   ```bash
+   source install/setup.bash
+   source /opt/ros/humble/setup.bash
    ```
    
-4. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos 
+5. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos 
 
 ## Conclusiones
 
