@@ -49,5 +49,34 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ```bash
    ros2 run quanser_digital_twin pid_controller_node
    ```
+
+3. Publica las referencias:
+
+    ```bash
+   ros2 topic pub /ref_voltage std_msgs/Float64 "data: 1.5" -r 20
+   ros2 topic pub /ref_voltage_disc std_msgs/Float64 "data: 1.5" -r 20
+   ```
+    
+4. Ver el valor de las plantas:
+
+   ```bash
+   # Ver velocidad de la planta teórica
+   ros2 topic echo /motor_speed
    
+   # Ver velocidad de la planta discreta
+   ros2 topic echo /motor_speed_sim_disc
+   
+   # Ver posición de la planta teórica
+   ros2 topic echo /motor_pos
+   
+   # Ver posición de la planta discreta
+   ros2 topic echo /motor_pos_sim_disc
+   ```
+5. Para activar un fallo de sensor
+   A. Sesgo se sensor
+   ```bash
+   ros2 param set /fault_injector_node fault_type_meas sensor_bias
+   ros2 param set /fault_injector_node bias_w 0.5
+
+   ```
 
