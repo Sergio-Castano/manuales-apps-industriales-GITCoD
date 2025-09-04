@@ -22,7 +22,7 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    git clone https://github.com/tu_usuario/quanser_digital_twin.git
    cd quanser_digital_twin
    ```
-
+XD
 2. Configura el espacio de trabajo de ROS 2
 
    ```bash
