@@ -145,5 +145,24 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ```bash
       ros2 run quanser_digital_twin health_mux_node --ros-args -r /motor_speed:=/motor_speed_actd -r /motor_speed_sim_disc:=/motor_speed_sim_disc_actd -r /health/ref_speed_rads:=/ahealth/ref_speed_rads -r /health/ref_speed_disc_rds:=/ahealth/ref_speed_disc_rds -r /health/meas_speed_theoretical_rads:=/ahealth/meas_speed_theoretical_rads -r /health/meas_speed_discrete_rads:=/ahealth/meas_speed_discrete_rads
    ```
+   D. Residual monitor (espejo) con retardo de actuador, monitorear los residuales en la planta con retardo del actuador
+   
+   ```bash
+      ros2 run quanser_digital_twin residual_monitor_node --ros-args -r /health/ref_speed_rads:=/ahealth/ref_speed_rads -r /health/ref_speed_disc_rads:=/ahealth/ref_speed_disc_rds -r /health/meas_speed_theoretical_rads:=/ahealth/meas_speed_theoretical_rads -r /health/meas_speed_discrete_rads:=/ahealth/meas_speed_discrete_rads -r /health/residual/track_theoretical:=/ahealth/residual/track_theoretical -r /health/residual/track_discrete:=/ahealth/residual/track_discrete -r /health/residual/parity:=/ahealth/residual/parity -r /health/residual/diagnostics:=/ahealth/residual/diagnostics -p dt:=0.01 -p alpha:=0.2 -p warn_sigma:=1.5 -p alarm_sigma:=3.0
+   ```
+   
+   E. Ver los diagnósticos de la planta con retardeo de actuador
+   
+   ```bash
+   ros2 topic echo /ahealth/residual/diagnostics
+   ```
+
+   F. Volver a sano (retorno sin retardo)
+
+   
+   ```bash
+   ros2 param set /fault_injector_node actuator_delay_ms 0
+   ```
+
 
    
