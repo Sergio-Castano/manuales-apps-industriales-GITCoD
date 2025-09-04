@@ -36,7 +36,7 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
 
 3. Asegúrate de que todos los archivos URDF, parámetros, y launch estén correctamente configurados.
 
-## Instalación
+## Simulación y Monitoreo
 
 1. Lanza el sistema base de simulación y monitoreo:
 
