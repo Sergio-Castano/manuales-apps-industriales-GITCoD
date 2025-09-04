@@ -140,4 +140,10 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
       ros2 run quanser_digital_twin motor_sim_node --ros-args -r /cmd_voltage_disc:=/cmd_voltage_disc_delayed -r /motor_speed_sim_disc:=/motor_speed_sim_disc_actd -p dt:=0.01
    ```
 
+   C. Health mux, remapear entradas y salidas de la planta espejo para monitoreo del retardo de actuador: 
+
+   ```bash
+      ros2 run quanser_digital_twin health_mux_node --ros-args -r /motor_speed:=/motor_speed_actd -r /motor_speed_sim_disc:=/motor_speed_sim_disc_actd -r /health/ref_speed_rads:=/ahealth/ref_speed_rads -r /health/ref_speed_disc_rds:=/ahealth/ref_speed_disc_rds -r /health/meas_speed_theoretical_rads:=/ahealth/meas_speed_theoretical_rads -r /health/meas_speed_discrete_rads:=/ahealth/meas_speed_discrete_rads
+   ```
+
    
