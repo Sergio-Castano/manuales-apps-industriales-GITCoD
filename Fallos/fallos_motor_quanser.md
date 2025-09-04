@@ -120,3 +120,16 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ros2 topic echo /health/residual/diagnostics
    ```
 
+6. Para activar fallo de actuador (Debemos duplicar la planta)
+
+   A. Activar fallo de retardo de actuador
+
+   ```bash
+   ros2 param set /fault_injector_node actuator_delay_ms 150
+   ```
+
+   B. Duplicar plantas para el retardo de actuador
+
+   ```bash
+      ros2 run quanser_digital_twin motor_sim_theoretical_node --ros-args -r /cmd_voltage:=/cmd_voltage_delayed -r /motor_speed:=/motor_speed_actd -r /motor_current:=/motor_current_actd -r /motor_pos:=/motor_pos_actd -p dt:=0.0001
+   ```
