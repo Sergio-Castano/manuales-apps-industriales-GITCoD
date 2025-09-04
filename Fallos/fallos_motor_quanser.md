@@ -109,10 +109,9 @@ Este repositorio contiene un gemelo digital de un motor **Quanser** implementado
    ros2 param set /fault_injector_node burst_prob 0.2
    ```
 
-   D. Volver a estado sano
+   Volver a estado sano
 
    ```bash
    ros2 param set /fault_injector_node fault_type_meas none
-   ros2 param set /fault_injector_node stuck_enable false
    ```
 
