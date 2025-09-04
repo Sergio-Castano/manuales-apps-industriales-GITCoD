@@ -53,6 +53,14 @@ El sistema fue probado en ejecución simultánea de múltiples nodos dentro de c
 - **Publicación LOTO**: El nodo `loto_publisher` logró tiempos de ejecución por debajo de 0.3 ms, sin afectar la reactividad del sistema.
 
 A continuación están los códigos junto a la ejecución de los mismos mediante singularity:
+1. Ingresar al PLC mediante SSH o una pantalla con micro HDMI
+2. Ingresar al contenedor de Singularity con los siguientes comandos
+   
+   ´´´bash
+   cd singularity_containers/
+   ´´´
+   
+4. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos 
 
 ## Conclusiones
 
