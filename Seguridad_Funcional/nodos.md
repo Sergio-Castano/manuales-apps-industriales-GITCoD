@@ -1497,7 +1497,4 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    ```bash
    ros2 run mod_seg_pkg mod_seg_node2
    ```
-   
-## Conclusiones
 
-El sistema distribuido basado en **ROS 2** y ejecutado sobre **Raspberry PLC 19R+** con **Singularity** se mostró como una solución robusta y eficiente para la implementación de **seguridad funcional** en entornos industriales. La **precisión en la temporización** y la **estabilidad en el control de riesgos** permiten una **gestión dinámica y segura** de las operaciones, alineándose con los principios de seguridad funcional y los estándares de la industria.
