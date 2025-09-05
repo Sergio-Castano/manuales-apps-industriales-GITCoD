@@ -71,7 +71,7 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    En caso de no encontrar los ejecutables a momento de usarlos, utilizar: 
 
     ```bash
-   colcon build --packages-select loto_sender_pkg sensor_node2 sensor_node 
+   colcon build --packages-select loto_sender_pkg sensor_node2 sensor_node mod_seg_pkg
    ```
     
     Y después ejecutar
@@ -878,6 +878,8 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    }
    ```
 
+   Ejecución y nombre del código:
+   
    ```bash
    ros2 run sensor_node2 sensor_node2
    ```
@@ -1020,10 +1022,480 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    }
    ```
 
+   Ejecución y nombre del código:
+   
    ```bash
    ros2 run sensor_node2 sensor_riesgo2
    ```
+   G. Nodo de conexión con el aplicativo web LOTO - Encargado de recibir el "1" o "0" para la referencia
+   
+   ```bash
+   #include <rclcpp/rclcpp.hpp>
+   #include "std_msgs/msg/float64.hpp"
+   #include <mqtt/async_client.h>
+   #include <iostream>
+   #include <thread>
+   #include <string>
+   #include <vector>
+   #include <ctime>
+   #include <csignal>
+   #include <sched.h>
+   #include <pthread.h>
+   #include <unistd.h>
+   #include <sys/mman.h>
+   #include <time.h>
+   
+   const std::string ADDRESS = "tcp://192.168.0.107:1883";
+   const std::string CLIENT_ID = "ros2_loto_publisher";
+   const std::string TOPIC_MQTT = "/loto_init";
+   
+   bool continuar = true;
+   
+   void signal_handler(int signum) {
+       continuar = false;
+       rclcpp::shutdown();
+   }
+   
+   class LotoPublisher : public rclcpp::Node, public virtual mqtt::callback {
+   public:
+       LotoPublisher() : Node("loto_publisher"), client_(ADDRESS, CLIENT_ID) {
+           publisher_ = this->create_publisher<std_msgs::msg::Float64>("loto", 10);
+           std::cout << "✅ Nodo loto_publisher iniciado (MQTT + terminal)." << std::endl;
+   
+           mqtt::connect_options connOpts;
+           client_.set_callback(*this);
+           try {
+               client_.connect(connOpts)->wait();
+               client_.subscribe(TOPIC_MQTT, 1);
+               std::cout << "📡 Suscrito a MQTT topic: " << TOPIC_MQTT << std::endl;
+           } catch (const mqtt::exception &e) {
+               std::cerr << "❌ Error conectando al broker MQTT: " << e.what() << std::endl;
+               rclcpp::shutdown();
+           }
+   
+           // Entrada por terminal (en hilo separado)
+           input_thread_ = std::thread([this]() {
+               while (rclcpp::ok() && continuar) {
+                   std::cout << "🔐 Ingrese LOTO (1 para permitir, 0 para detenerlo): ";
+                   std::string input;
+                   std::getline(std::cin, input);
+                   try {
+                       double val = std::stod(input);
+                       if (val == 0.0 || val == 1.0) {
+                           publicar_loto(val);
+                       } else {
+                           std::cout << "❌ Solo se permite 0 o 1." << std::endl;
+                       }
+                   } catch (...) {
+                       std::cout << "❌ Entrada inválida." << std::endl;
+                   }
+               }
+           });
+           input_thread_.detach();
+       }
+   
+       void message_arrived(mqtt::const_message_ptr msg) override {
+           try {
+               double val = std::stod(msg->to_string());
+               if (val == 0.0 || val == 1.0) {
+                   publicar_loto(val);
+                   std::cout << "📥 MQTT recibido en /loto_init: " << val << std::endl;
+               }
+           } catch (...) {
+               std::cerr << "❌ MQTT recibido inválido: " << msg->to_string() << std::endl;
+           }
+       }
+   
+       std::vector<double> tiempos_publicacion;
+   
+   private:
+       void publicar_loto(double val) {
+           struct timespec t0, t1;
+           clock_gettime(CLOCK_MONOTONIC, &t0);
+   
+           std_msgs::msg::Float64 msg;
+           msg.data = val;
+           publisher_->publish(msg);
+           std::cout << "📤 Enviado a /loto: " << val << std::endl;
+   
+           clock_gettime(CLOCK_MONOTONIC, &t1);
+           double elapsed = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / 1e9;
+           tiempos_publicacion.push_back(elapsed);
+       }
+   
+       mqtt::async_client client_;
+       rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr publisher_;
+       std::thread input_thread_;
+   };
+   
+   int main(int argc, char **argv) {
+       std::signal(SIGINT, signal_handler);
+       rclcpp::init(argc, argv);
+   
+       // 💾 Bloquear memoria
+       if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
+           std::cerr << "⚠️  No se pudo bloquear la memoria." << std::endl;
+   
+       // 🧠 Prioridad tiempo real 78
+       struct sched_param param;
+       param.sched_priority = 78;
+       if (pthread_setschedparam(pthread_self(), SCHED_FIFO, &param) != 0)
+           std::cerr << "⚠️  No se pudo asignar prioridad tiempo real." << std::endl;
+   
+       // ⚙️ Afinidad a Core 3
+       cpu_set_t cpuset;
+       CPU_ZERO(&cpuset);
+       CPU_SET(3, &cpuset);
+       if (pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset) != 0)
+           std::cerr << "⚠️  No se pudo fijar la afinidad al CPU 3." << std::endl;
+   
+       auto node = std::make_shared<LotoPublisher>();
+   
+       struct timespec next_wakeup;
+       clock_gettime(CLOCK_MONOTONIC, &next_wakeup);
+   
+       while (rclcpp::ok() && continuar) {
+           rclcpp::spin_some(node);
+   
+           next_wakeup.tv_nsec += 500;  // 0.5 microsegundos
+           while (next_wakeup.tv_nsec >= 1e9) {
+               next_wakeup.tv_nsec -= 1e9;
+               next_wakeup.tv_sec++;
+           }
+           clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_wakeup, nullptr);
+       }
+   
+       std::cout << "\n📊 Tiempos de publicación en /loto (segundos):\n[";
+       for (size_t i = 0; i < node->tiempos_publicacion.size(); ++i) {
+           std::cout << node->tiempos_publicacion[i];
+           if (i != node->tiempos_publicacion.size() - 1)
+               std::cout << ", ";
+       }
+       std::cout << "]" << std::endl;
+   
+       return 0;
+   }
+   ```
+   Ejecución y nombre del código:
+   
+   ```bash
+   ros2 run loto_sender_pkg loto_publisher
+   ```
 
+   H. Modulo encargado de la publicación de las referencias - Forma 1
+
+   ```bash                                                                                                                                                
+   #include <rclcpp/rclcpp.hpp>
+   #include "std_msgs/msg/float64.hpp"
+   #include <algorithm>
+   #include <iostream>
+   #include <thread>
+   #include <mutex>
+   #include <vector>
+   #include <ctime>
+   #include <csignal>
+   #include <pthread.h>
+   #include <sched.h>
+   #include <unistd.h>
+   #include <chrono>
+   #include <sys/mman.h>
+   
+   bool continuar = true;
+   
+   void signal_handler(int signum) {
+       std::cout << "\U0001F534 Señal SIGINT recibida. Cerrando mod_seg_node..." << std::endl;
+       continuar = false;
+       rclcpp::shutdown();
+   }
+   
+   class ModSegNode : public rclcpp::Node
+   {
+   public:
+       ModSegNode() : Node("mod_seg_node"), riesgo1_(0.0), riesgo2_(0.0), ref_base_(3.0), loto_(1.0)
+       {
+           sub1_ = this->create_subscription<std_msgs::msg::Float64>(
+               "riesgo_1", 10, std::bind(&ModSegNode::riesgo1_callback, this, std::placeholders::_1));
+           sub2_ = this->create_subscription<std_msgs::msg::Float64>(
+               "riesgo_2", 10, std::bind(&ModSegNode::riesgo2_callback, this, std::placeholders::_1));
+           sub_loto_ = this->create_subscription<std_msgs::msg::Float64>(
+               "loto", 10, std::bind(&ModSegNode::loto_callback, this, std::placeholders::_1));
+   
+           pub1_ = this->create_publisher<std_msgs::msg::Float64>("reference", 10);
+           pub2_ = this->create_publisher<std_msgs::msg::Float64>("reference2", 10);
+   
+           std::cout << "✅ Nodo mod_seg_node iniciado. Referencia base = 3.0 V" << std::endl;
+       }
+   
+       std::vector<double> tiempos_compute;
+   
+       void compute_and_publish()
+       {
+           struct timespec t0, t1;
+           clock_gettime(CLOCK_MONOTONIC, &t0);
+   
+           double D_max = 5.0;
+           double f1 = (D_max - riesgo1_) / D_max;
+           double f2 = (D_max - riesgo2_) / D_max;
+           double riesgo_mayor = 1.0 - std::min(f1, f2);
+   
+           double ref_base_copy;
+           {
+               std::lock_guard<std::mutex> lock(mutex_);
+               ref_base_copy = ref_base_;
+           }
+   
+           double ref_final = (loto_ > 0.5) ? ref_base_copy * (1.0 - riesgo_mayor) : 0.0;
+           ref_final = std::clamp(ref_final, 0.0, ref_base_copy);
+   
+           auto msg = std_msgs::msg::Float64();
+           msg.data = ref_final;
+   
+           pub1_->publish(msg);
+           pub2_->publish(msg);
+   
+           clock_gettime(CLOCK_MONOTONIC, &t1);
+           double elapsed = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / 1e9;
+           tiempos_compute.push_back(elapsed);
+   
+           std::cout << "[MOD] LOTO=" << loto_
+                     << " | riesgo1=" << riesgo1_
+                     << " | riesgo2=" << riesgo2_
+                     << " | riesgo_mayor=" << riesgo_mayor
+                     << " | ref_base=" << ref_base_copy
+                     << " | ref_final=" << ref_final << " V" << std::endl;
+       }
+   
+   private:
+       void riesgo1_callback(const std_msgs::msg::Float64::SharedPtr msg) { riesgo1_ = msg->data; }
+       void riesgo2_callback(const std_msgs::msg::Float64::SharedPtr msg) { riesgo2_ = msg->data; }
+       void loto_callback(const std_msgs::msg::Float64::SharedPtr msg) {
+           loto_ = msg->data;
+           std::cout << "\U0001F512 LOTO recibido: " << loto_ << std::endl;
+       }
+   
+       double riesgo1_, riesgo2_, ref_base_, loto_;
+       std::mutex mutex_;
+       rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr sub1_, sub2_, sub_loto_;
+       rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub1_, pub2_;
+   };
+   
+   int main(int argc, char **argv)
+   {
+       std::signal(SIGINT, signal_handler);
+       rclcpp::init(argc, argv);
+   
+       if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
+           std::cerr << "⚠️  No se pudo bloquear la memoria." << std::endl;
+   
+       struct sched_param param;
+       param.sched_priority = 79;
+       if (pthread_setschedparam(pthread_self(), SCHED_FIFO, &param) != 0)
+           std::cerr << "⚠️  No se pudo asignar prioridad tiempo real." << std::endl;
+   
+       cpu_set_t cpuset;
+       CPU_ZERO(&cpuset);
+       CPU_SET(2, &cpuset);
+       if (pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset) != 0)
+           std::cerr << "⚠️  No se pudo fijar la afinidad al CPU 2." << std::endl;
+   
+       auto node = std::make_shared<ModSegNode>();
+   
+       struct timespec next_wakeup;
+       clock_gettime(CLOCK_MONOTONIC, &next_wakeup);
+   
+       while (rclcpp::ok() && continuar) {
+           rclcpp::spin_some(node);
+           node->compute_and_publish();
+   
+           next_wakeup.tv_nsec += 500 * 1e6;
+           while (next_wakeup.tv_nsec >= 1e9) {
+               next_wakeup.tv_nsec -= 1e9;
+               next_wakeup.tv_sec++;
+           }
+   
+           clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_wakeup, nullptr);
+       }
+   
+       std::cout << "\n📈 Tiempos de ejecución compute_and_publish (s):\n[";
+       for (size_t i = 0; i < node->tiempos_compute.size(); ++i) {
+           std::cout << node->tiempos_compute[i];
+           if (i != node->tiempos_compute.size() - 1)
+               std::cout << ", ";
+       }
+       std::cout << "]" << std::endl;
+   
+       return 0;
+   }
+
+
+   ```
+   
+   Ejecución y nombre del código:
+   
+   ```bash
+   ros2 run mod_seg_pkg mod_seg_node
+   ```
+
+   I. Modulo publicador de las referencias - Forma 2
+
+   ```bash
+   #include <rclcpp/rclcpp.hpp>
+   #include "std_msgs/msg/float64.hpp"
+   #include <algorithm>
+   #include <iostream>
+   #include <mutex>
+   #include <vector>
+   #include <ctime>
+   #include <csignal>
+   #include <pthread.h>
+   #include <sched.h>
+   #include <unistd.h>
+   #include <sys/mman.h>
+   
+   bool continuar = true;
+   void signal_handler(int signum) {
+       std::cout << "🔴 Señal SIGINT recibida. Cerrando mod_seg_node2..." << std::endl;
+       continuar = false;
+       rclcpp::shutdown();
+   }
+   
+   class ModSegNode2 : public rclcpp::Node
+   {
+   public:
+       ModSegNode2() : Node("mod_seg_node2"), riesgo1_(0.0), riesgo2_(0.0), ref_base_(3.0), loto_(1.0)
+       {
+           sub1_ = this->create_subscription<std_msgs::msg::Float64>(
+               "riesgo_1", 10, std::bind(&ModSegNode2::riesgo1_callback, this, std::placeholders::_1));
+           sub2_ = this->create_subscription<std_msgs::msg::Float64>(
+               "riesgo_2", 10, std::bind(&ModSegNode2::riesgo2_callback, this, std::placeholders::_1));
+           sub_loto_ = this->create_subscription<std_msgs::msg::Float64>(
+               "loto", 10, std::bind(&ModSegNode2::loto_callback, this, std::placeholders::_1));
+   
+           pub1_ = this->create_publisher<std_msgs::msg::Float64>("reference", 10);
+           pub2_ = this->create_publisher<std_msgs::msg::Float64>("reference2", 10);
+   
+           std::cout << "✅ Nodo mod_seg_node2 iniciado (riesgo en serie). Referencia base = 3.0 V" << std::endl;
+       }
+   
+       std::vector<double> tiempos_computo;
+   
+       void compute_and_publish()
+       {
+           struct timespec t0, t1;
+           clock_gettime(CLOCK_MONOTONIC, &t0);
+   
+           double D_max = 5.0;
+           double f1 = (D_max - riesgo1_) / D_max;
+           double f2 = (D_max - riesgo2_) / D_max;
+   
+           double riesgo1 = 1.0 - f1;
+           double riesgo2 = 1.0 - f2;
+           double riesgo_mayor = std::max(riesgo1, riesgo2);
+   
+           double ref_base_copy;
+           {
+               std::lock_guard<std::mutex> lock(mutex_);
+               ref_base_copy = ref_base_;
+           }
+   
+           double ref1_final = (loto_ > 0.5) ? ref_base_copy * (1.0 - riesgo1) : 0.0;
+           double ref2_final = (loto_ > 0.5) ? ref_base_copy * (1.0 - riesgo_mayor) : 0.0;
+   
+           ref1_final = std::clamp(ref1_final, 0.0, ref_base_copy);
+           ref2_final = std::clamp(ref2_final, 0.0, ref_base_copy);
+   
+           std_msgs::msg::Float64 msg1;
+           msg1.data = ref1_final;
+           pub1_->publish(msg1);
+   
+           std_msgs::msg::Float64 msg2;
+           msg2.data = ref2_final;
+           pub2_->publish(msg2);
+   
+           clock_gettime(CLOCK_MONOTONIC, &t1);
+           double elapsed = (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec) / 1e9;
+           tiempos_computo.push_back(elapsed);
+   
+           std::cout << "[MOD2-serie] LOTO=" << loto_
+                     << " | riesgo1=" << riesgo1_
+                     << " | riesgo2=" << riesgo2_
+                     << " | riesgo_mayor=" << riesgo_mayor
+                     << " | ref_base=" << ref_base_copy
+                     << " | ref1_final=" << ref1_final
+                     << " | ref2_final=" << ref2_final << " V" << std::endl;
+       }
+   
+       void set_reference(double new_ref) {
+           std::lock_guard<std::mutex> lock(mutex_);
+           ref_base_ = new_ref;
+       }
+   
+   private:
+       void riesgo1_callback(const std_msgs::msg::Float64::SharedPtr msg) { riesgo1_ = msg->data; }
+       void riesgo2_callback(const std_msgs::msg::Float64::SharedPtr msg) { riesgo2_ = msg->data; }
+       void loto_callback(const std_msgs::msg::Float64::SharedPtr msg) {
+           loto_ = msg->data;
+           std::cout << "🔐 LOTO recibido: " << loto_ << std::endl;
+       }
+   
+       double riesgo1_, riesgo2_, ref_base_, loto_;
+       std::mutex mutex_;
+       rclcpp::Subscription<std_msgs::msg::Float64>::SharedPtr sub1_, sub2_, sub_loto_;
+       rclcpp::Publisher<std_msgs::msg::Float64>::SharedPtr pub1_, pub2_;
+   };
+   
+   int main(int argc, char **argv)
+   {
+       std::signal(SIGINT, signal_handler);
+       rclcpp::init(argc, argv);
+   
+       if (mlockall(MCL_CURRENT | MCL_FUTURE) != 0)
+           std::cerr << "⚠️  No se pudo bloquear la memoria." << std::endl;
+   
+       struct sched_param param;
+       param.sched_priority = 78;
+       if (pthread_setschedparam(pthread_self(), SCHED_FIFO, &param) != 0)
+           std::cerr << "⚠️  No se pudo asignar prioridad tiempo real." << std::endl;
+   
+       cpu_set_t cpuset;
+       CPU_ZERO(&cpuset);
+       CPU_SET(3, &cpuset);
+       if (pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset) != 0)
+           std::cerr << "⚠️  No se pudo fijar la afinidad al CPU 3." << std::endl;
+   
+       auto node = std::make_shared<ModSegNode2>();
+   
+       struct timespec next_wakeup;
+       clock_gettime(CLOCK_MONOTONIC, &next_wakeup);
+   
+       while (rclcpp::ok() && continuar) {
+           rclcpp::spin_some(node);
+           node->compute_and_publish();
+   
+           next_wakeup.tv_nsec += 500 * 1e6;
+           while (next_wakeup.tv_nsec >= 1e9) {
+               next_wakeup.tv_nsec -= 1e9;
+               next_wakeup.tv_sec++;
+           }
+   
+           clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_wakeup, nullptr);
+       }
+   
+       std::cout << "⏱️ Tiempos de cómputo de compute_and_publish(): [";
+       for (size_t i = 0; i < node->tiempos_computo.size(); ++i) {
+           std::cout << node->tiempos_computo[i];
+           if (i != node->tiempos_computo.size() - 1) std::cout << ", ";
+       }
+       std::cout << "]" << std::endl;
+   
+       return 0;
+   }
+   ```
+
+   ```bash
+   ros2 run mod_seg_pkg mod_seg_node2
+   ```
+   
 ## Conclusiones
 
 El sistema distribuido basado en **ROS 2** y ejecutado sobre **Raspberry PLC 19R+** con **Singularity** se mostró como una solución robusta y eficiente para la implementación de **seguridad funcional** en entornos industriales. La **precisión en la temporización** y la **estabilidad en el control de riesgos** permiten una **gestión dinámica y segura** de las operaciones, alineándose con los principios de seguridad funcional y los estándares de la industria.
