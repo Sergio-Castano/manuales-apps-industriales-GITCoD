@@ -1492,6 +1492,8 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    }
    ```
 
+   Ejecución y nombre del código:
+   
    ```bash
    ros2 run mod_seg_pkg mod_seg_node2
    ```
