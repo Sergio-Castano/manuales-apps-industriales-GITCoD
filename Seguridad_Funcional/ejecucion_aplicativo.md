@@ -44,6 +44,7 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
        ```bash
          echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.2.list
          ```
+       
        El tercer paso es recargar los paquetes con la base de datos
        ```bash
          sudo apt-get update
