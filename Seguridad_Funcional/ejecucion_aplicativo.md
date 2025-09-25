@@ -6,7 +6,13 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 
 1. **Descargar la carpeta correspondiente a `prototipo_v7`, la cual la podemos sacar directamente del repositorio:**  
    ```bash
-   git clone https://github.com/Sergio-Castano/manuales-apps-industriales-GITCoD.git
+   
+   git clone --no-checkout https://github.com/Sergio-Castano/manuales-apps-industriales-GITCoD.git
+   cd manuales-apps-industriales-GITCoD
+   git sparse-checkout init --cone
+   git sparse-checkout set Seguridad_Funcional/prototipo_v7_final/prototipo_v7
+   git checkout
+
    ```
 2. Tener instalado **Mosquitto**, **Node.js** y **MongoDB** en tu sistema.  
    - [Descargar Node.js](https://nodejs.org/)
