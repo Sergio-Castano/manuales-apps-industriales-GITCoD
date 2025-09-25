@@ -30,7 +30,7 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
    - Descargar node red (Tiene como requisito previo a Node JS)
      
      ```bash
-        sudo npm install -g --unsafe-perm node-red
+     sudo npm install -g --unsafe-perm node-red
      ```
    
       
