@@ -10,8 +10,8 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
    - Instalación Mosquitto
      ```bash
-      nvm use 20
-      npm run dev
+      sudo apt update
+      sudo apt install mosquitto mosquitto-clients
       ```
 3. Verificar que **MongoDB esté corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
