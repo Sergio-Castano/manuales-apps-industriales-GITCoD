@@ -25,8 +25,11 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
       npm -v # Should print "10.9.3".
     ```
    - Descargar node red (Tiene como requisito previo a Node JS)
+     
      ``bash
-      sudo npm install -g --unsafe-perm node-red
+     
+     | sudo npm install -g --unsafe-perm node-red
+     
       ```
       
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
