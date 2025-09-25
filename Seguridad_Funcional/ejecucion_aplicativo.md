@@ -6,7 +6,25 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 
 1. **Descargar la carpeta correspondiente a `prototipo_v7`.**  
 2. Tener instalado **Mosquitto**, **Node.js** y **MongoDB** en tu sistema.  
-   - [Descargar Node.js](https://nodejs.org/)  
+   - [Descargar Node.js](https://nodejs.org/)
+  
+   ```bash
+     # Download and install nvm:
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+      
+      # in lieu of restarting the shell
+      \. "$HOME/.nvm/nvm.sh"
+      
+      # Download and install Node.js:
+      nvm install 22
+      
+      # Verify the Node.js version:
+      node -v # Should print "v22.20.0".
+      
+      # Verify npm version:
+      npm -v # Should print "10.9.3".
+    ```
+   
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
    - Instalación Mosquitto
      ```bash
