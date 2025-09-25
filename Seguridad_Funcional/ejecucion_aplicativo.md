@@ -4,7 +4,7 @@
 
 Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 
-1. **Descargar la carpeta correspondiente a `prototipo_v7`.**  
+1. **Descargar la carpeta correspondiente a `prototipo_v7`, la cual la podemos sacar directamente del repositorio:**  
    ```bash
    git clone https://github.com/Sergio-Castano/manuales-apps-industriales-GITCoD.git
    ```
