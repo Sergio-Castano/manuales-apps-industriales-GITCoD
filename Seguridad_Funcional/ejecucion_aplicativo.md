@@ -50,7 +50,7 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
        El tercer paso es recargar los paquetes con la base de datos
        ```bash
          sudo apt-get update
-         ```
+       ```
        
        Finalmente instalar MongoDB
        ```bash
