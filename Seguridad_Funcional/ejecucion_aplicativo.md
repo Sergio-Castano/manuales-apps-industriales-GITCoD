@@ -55,11 +55,12 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
        Finalmente instalar MongoDB
        ```bash
          sudo apt-get install -y mongodb-org
-         ```
+       ```
+       
        Después de instalarlo debemos iniciar el programa
        ```bash
          sudo systemctl start mongod
-         ```
+       ```
        
    
    - Instalación Mosquitto
