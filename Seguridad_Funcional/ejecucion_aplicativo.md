@@ -26,11 +26,10 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
     ```
    - Descargar node red (Tiene como requisito previo a Node JS)
      
-     ``bash
-     
-     | sudo npm install -g --unsafe-perm node-red
-     
-      ```
+     ```bash
+        sudo npm install -g --unsafe-perm node-red
+     ```
+   
       
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
    - Instalación Mosquitto
