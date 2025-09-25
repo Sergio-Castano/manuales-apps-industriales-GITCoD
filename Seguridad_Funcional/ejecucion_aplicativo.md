@@ -49,22 +49,22 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
        
        El tercer paso es recargar los paquetes con la base de datos
        ```bash
-         sudo apt-get update
+       sudo apt-get update
        ```
        
        Finalmente instalar MongoDB
        ```bash
-         sudo apt-get install -y mongodb-org
+       sudo apt-get install -y mongodb-org
        ```
        
        Después de instalarlo debemos iniciar el programa
        ```bash
-         sudo systemctl start mongod
+       sudo systemctl start mongod
        ```
 
        En caso de que recibas un error similar a este "Failed to start mongod.service: Unit mongod.service not found.", primero ejecutar
       ```bash
-         sudo systemctl daemon-reload
+      sudo systemctl daemon-reload
        ```
        
    
