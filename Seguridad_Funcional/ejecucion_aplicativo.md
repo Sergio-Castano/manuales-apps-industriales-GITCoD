@@ -33,19 +33,24 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
       
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
      
-   ```bash
-     sudo apt-get install gnupg curl
-      curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
-      sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
-      --dearmor
-    ```
+     El primer paso es importar la llave pública del Community Edition:
+      ```bash
+        sudo apt-get install gnupg curl
+         curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+         sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
+         --dearmor
+       ```
+      Siguiente es paso es crear la lista, esta varía de acuerdo a la versión de Ubuntu, esta linea de código es para Jammy 22.04
+       ```bash
+         echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.2.list
+         ```
    
    - Instalación Mosquitto
      ```bash
       sudo apt update
       sudo apt install mosquitto mosquitto-clients
       ```
-3. Verificar que **MongoDB esté corriendo** en tu máquina.  
+4. Verificar que **MongoDB esté corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
 
    ![Estado de MongoDB](imagenes/mongodb.png)
