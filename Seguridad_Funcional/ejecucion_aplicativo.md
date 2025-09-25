@@ -5,9 +5,13 @@
 Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 
 1. **Descargar la carpeta correspondiente a `prototipo_v7`.**  
-2. Tener instalado **Node.js** y **MongoDB** en tu sistema.  
+2. Tener instalado **Mosquitto**, **Node.js** y **MongoDB** en tu sistema.  
    - [Descargar Node.js](https://nodejs.org/)  
-   - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)  
+   - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
+   - Instalación Mosquitto
+     ```bash
+   nvm use 20
+   npm run dev
 3. Verificar que **MongoDB esté corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
 
