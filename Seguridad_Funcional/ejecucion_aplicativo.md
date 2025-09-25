@@ -5,6 +5,9 @@
 Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
 
 1. **Descargar la carpeta correspondiente a `prototipo_v7`.**  
+   ```bash
+   git clone https://github.com/Sergio-Castano/manuales-apps-industriales-GITCoD.git
+   ```
 2. Tener instalado **Mosquitto**, **Node.js** y **MongoDB** en tu sistema.  
    - [Descargar Node.js](https://nodejs.org/)
   
