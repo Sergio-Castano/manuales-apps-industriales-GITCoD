@@ -32,6 +32,14 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
    
       
    - [Instalación de MongoDB](https://www.mongodb.com/docs/manual/installation/)
+     
+   ```bash
+     sudo apt-get install gnupg curl
+      curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
+      sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
+      --dearmor
+    ```
+   
    - Instalación Mosquitto
      ```bash
       sudo apt update
