@@ -50,7 +50,7 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
          --dearmor
       ```
       
-      Siguiente es paso es crear la lista, esta varía de acuerdo a la versión de Ubuntu, esta linea de código es para Jammy 22.04
+      Siguiente paso es crear la lista, esta varía de acuerdo a la versión de Ubuntu, esta linea de código es para Jammy 22.04
        ```bash
          echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.2.list
        
