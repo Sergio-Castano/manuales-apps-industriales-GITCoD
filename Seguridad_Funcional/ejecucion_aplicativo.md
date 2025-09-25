@@ -39,17 +39,19 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
          curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | \
          sudo gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg \
          --dearmor
-          ```
+      ```
       
       Siguiente es paso es crear la lista, esta varía de acuerdo a la versión de Ubuntu, esta linea de código es para Jammy 22.04
        ```bash
          echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/8.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-8.2.list
-         ```
+       
+       ```
        
        El tercer paso es recargar los paquetes con la base de datos
        ```bash
          sudo apt-get update
          ```
+       
        Finalmente instalar MongoDB
        ```bash
          sudo apt-get install -y mongodb-org
