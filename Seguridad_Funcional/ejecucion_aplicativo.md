@@ -95,10 +95,12 @@ Antes de ejecutar el prototipo, asegúrate de cumplir con lo siguiente:
       sudo apt update
       sudo apt install mosquitto mosquitto-clients
       ```
-4. Verificar que **MongoDB esté corriendo** en tu máquina.  
+4. Verificar que **MongoDB y Mosquitto estén corriendo** en tu máquina.  
    El estado debería verse similar a la siguiente imagen:  
 
    ![Estado de MongoDB](imagenes/mongodb.png)
+
+   ![Estado de MongoDB](imagenes/Foto_Mosquitto.png)
 
 ---
 
