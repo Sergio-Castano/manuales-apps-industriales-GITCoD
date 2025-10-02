@@ -82,6 +82,7 @@ A continuación están los códigos junto a la ejecución de los mismos mediante
    ```
    
 4. Repetir este proceso 9 veces en total con cada uno de los siguientes códigos
+   
    A. Nodo del Actuador 1
    ```bash
    #include <rclcpp/rclcpp.hpp>
