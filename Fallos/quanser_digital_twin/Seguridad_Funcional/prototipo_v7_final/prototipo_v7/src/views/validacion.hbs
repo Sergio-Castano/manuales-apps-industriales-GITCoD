@@ -1,0 +1,19 @@
+<div class="container py-4 rounded-4" style="width: 60%; background:white; margin-top: 3rem;">
+    <h1 class="text-center">Asistente de mantenimiento</h1>
+    <div class="container py-2" style="width: 90%;">
+        <form action="/validacion" method="POST">
+            <h5 class="mt-4">Por favor ingrese sus datos para validar su identidad</h5>
+            <div class="form-floating mb-3 mt-3">
+                <input type="email" name="correo" class="form-control" value="{{correo}}" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" name="pass" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Contraseña</label>
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center" style="margin-top: 1.5rem;">
+                <button class="btn btn-primary btn-lg" type="submit"> Continuar </button>
+            </div>
+        </form>
+    </div>
+</div>

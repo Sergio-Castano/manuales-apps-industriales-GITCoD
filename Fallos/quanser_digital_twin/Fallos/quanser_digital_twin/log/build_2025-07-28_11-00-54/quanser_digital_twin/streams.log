@@ -1,0 +1,44 @@
+[0.722s] Invoking command in '/home/investigacion/ros2_ws/src/quanser_digital_twin': PYTHONPATH=/home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/quanser_digital_twin build --build-base /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build install --record /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/install.log --single-version-externally-managed install_data
+[0.967s] running egg_info
+[0.967s] creating build/quanser_digital_twin/quanser_digital_twin.egg-info
+[0.967s] writing build/quanser_digital_twin/quanser_digital_twin.egg-info/PKG-INFO
+[0.968s] writing dependency_links to build/quanser_digital_twin/quanser_digital_twin.egg-info/dependency_links.txt
+[0.968s] writing entry points to build/quanser_digital_twin/quanser_digital_twin.egg-info/entry_points.txt
+[0.968s] writing requirements to build/quanser_digital_twin/quanser_digital_twin.egg-info/requires.txt
+[0.968s] writing top-level names to build/quanser_digital_twin/quanser_digital_twin.egg-info/top_level.txt
+[0.968s] writing manifest file 'build/quanser_digital_twin/quanser_digital_twin.egg-info/SOURCES.txt'
+[0.970s] reading manifest file 'build/quanser_digital_twin/quanser_digital_twin.egg-info/SOURCES.txt'
+[0.970s] writing manifest file 'build/quanser_digital_twin/quanser_digital_twin.egg-info/SOURCES.txt'
+[0.971s] running build
+[0.971s] running build_py
+[0.971s] creating /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build
+[0.971s] creating /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib
+[0.971s] creating /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin
+[0.971s] copying quanser_digital_twin/motor_sim_theoretical.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin
+[0.971s] copying quanser_digital_twin/__init__.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin
+[0.971s] copying quanser_digital_twin/motor_sim_node.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin
+[0.972s] copying quanser_digital_twin/pid_controller_node.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin
+[0.972s] running install
+[0.972s] running install_lib
+[0.973s] creating /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin
+[0.973s] copying /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin/motor_sim_theoretical.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin
+[0.973s] copying /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin/__init__.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin
+[0.973s] copying /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin/motor_sim_node.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin
+[0.973s] copying /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build/lib/quanser_digital_twin/pid_controller_node.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin
+[0.973s] byte-compiling /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin/motor_sim_theoretical.py to motor_sim_theoretical.cpython-310.pyc
+[0.974s] byte-compiling /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin/__init__.py to __init__.cpython-310.pyc
+[0.974s] byte-compiling /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin/motor_sim_node.py to motor_sim_node.cpython-310.pyc
+[0.974s] byte-compiling /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin/pid_controller_node.py to pid_controller_node.cpython-310.pyc
+[0.975s] running install_data
+[0.975s] copying package.xml -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/share/quanser_digital_twin
+[0.975s] creating /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/share/quanser_digital_twin/launch
+[0.975s] copying launch/motor_sim.launch.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/share/quanser_digital_twin/launch
+[0.975s] copying launch/motor_sim_theoretical.launch.py -> /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/share/quanser_digital_twin/launch
+[0.976s] running install_egg_info
+[0.977s] Copying build/quanser_digital_twin/quanser_digital_twin.egg-info to /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages/quanser_digital_twin-0.0.1-py3.10.egg-info
+[0.978s] running install_scripts
+[0.994s] Installing motor_sim_node script to /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/quanser_digital_twin
+[0.994s] Installing motor_sim_theoretical_node script to /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/quanser_digital_twin
+[0.994s] Installing pid_controller_node script to /home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/quanser_digital_twin
+[0.994s] writing list of installed files to '/home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/install.log'
+[1.012s] Invoked command in '/home/investigacion/ros2_ws/src/quanser_digital_twin' returned '0': PYTHONPATH=/home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/investigacion/ros2_ws/src/quanser_digital_twin/install/quanser_digital_twin/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base build/quanser_digital_twin build --build-base /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/build install --record /home/investigacion/ros2_ws/src/quanser_digital_twin/build/quanser_digital_twin/install.log --single-version-externally-managed install_data

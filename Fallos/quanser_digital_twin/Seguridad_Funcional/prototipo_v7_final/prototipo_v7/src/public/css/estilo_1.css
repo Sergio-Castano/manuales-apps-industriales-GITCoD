@@ -1,0 +1,227 @@
+html,
+body {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Contenedor con borde y espacio */
+.my-body-area {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.section-left {
+  flex: 1.8;
+  background-color: #2b3b4a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Sección derecha */
+.section-right {
+  height: 100%;
+  flex: 8.2;
+  display: flex;
+  flex-direction: column;
+}
+
+.top-half-left {
+  flex: 4.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: white;
+}
+
+.profile-pic {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: gray;
+  background-size: cover;
+  background-position: center;
+  border: 3px solid white;
+  margin-bottom: 10px;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.user-email {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.bottom-half-left {
+  flex: 5.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: left;
+  width: 100%;
+}
+
+.top-half-right {
+  height: 10%;
+  min-height: 10%;
+  display: flex;
+  justify-content: space-between;
+  /* Distribuye los elementos en los extremos */
+  align-items: center;
+  width: 100%;
+  background-color: #ff5001;
+}
+
+.bottom-half-right {
+  height: 90%;
+  /* Permite desplazamiento cuando hay contenido desbordado */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  /* 100% menos los márgenes */
+  margin: 0;
+  border: 0;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+}
+
+.stage {
+  width: 100%;
+  padding: 20px 0px 20px 30px;
+  color: white;
+  border-bottom: solid #ff5001 2px;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #ff5001;
+  /* Color para el paso activo */
+}
+
+.completed {
+  background-color: #6b2200;
+  /* Color para pasos completados */
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.led {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: gray;
+  transition: background-color 0.3s;
+}
+
+.led.active {
+  background-color: green;
+}
+
+.step-number {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.info-container {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  /* Hace que los elementos internos se alineen en fila */
+  align-items: center;
+  /* Alinea verticalmente los elementos */
+}
+
+/* Contenedores izquierdo y derecho */
+.contenedor_izquierdo,
+.contenedor_derecho {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para la imagen */
+.contenedor_izquierdo img {
+  max-height: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  /* Mantiene la proporción de la imagen */
+}
+
+.content-section {
+  display: none;
+  background-color: white;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 40px;
+  /* Agrega espacio interno */
+  box-sizing: border-box;
+  /* Evita desbordamientos */
+  border: 0;
+  margin: 0;
+  width: 100%;
+  height: calc(100% - 40px);
+  /* Usa el 100% del espacio disponible */
+  overflow: auto;
+}
+
+.content-section.active {
+  display: block;
+  overflow: auto;
+}
+
+.form-label {
+  font-weight: 400;
+  color: black;
+  font-size: larger;
+}
+
+.form-select,
+.form-control {
+  background-color: #deebf7;
+}

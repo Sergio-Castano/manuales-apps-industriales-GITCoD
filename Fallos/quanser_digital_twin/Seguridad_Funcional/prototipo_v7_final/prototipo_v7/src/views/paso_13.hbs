@@ -1,0 +1,196 @@
+<div class="my-body-area">
+    <div class="section-left">
+        <div class="top-half-left">
+            <div id="profile-pic" class="profile-pic"></div>
+            <div id="user-name" class="user-name">Nombre Apellido</div>
+            <div id="user-email" class="user-email">email@ejemplo.com</div>
+        </div>
+        <div class="bottom-half-left">
+            <div class="stage">
+                A. Preparación
+            </div>
+            <div class="stage">
+                B. Bloqueo
+            </div>
+            <div class="stage">
+                C. Intervención
+            </div>
+            <div class="stage">
+                D. Desbloqueo
+            </div>
+            <div class="stage">
+                E. Puesta a punto
+            </div>
+            <div class="stage">
+                F. Entrega
+            </div>
+        </div>
+    </div>
+    <div class="section-right">
+        <div class="top-half-right">
+            <div style="padding-left: 40px; color: white; font-weight: bold; font-size: 1.5rem;">Asistente de
+                mantenimiento</div>
+            <div style="padding-right: 40px; color: white;"> Logout </div>
+        </div>
+
+        <div class="bottom-half-right">
+            <div style="margin-top: 30px;">
+            <div class="info-container mt-1">
+                <form action="/visto_bueno/{{usuario._id}}/{{selectedOptionID}}" method="POST" id="procedimientoForm" class="box-container"
+                    style="width: 70%;">
+                    <div id="steps-container" class="box box2">
+                        <p id="titulo" class="text-center" style="font-size: 2.5rem; font-weight: 600;">
+                        </p>
+                        <p id="cuerpo" style="font-size: 2rem; text-align: justify;">
+                        </p>
+                    </div>
+                    <div class="mb-2">
+                        <label for="operario" class="form-label fw-bold">Nombre del operario:</label>
+                        <input type="text" class="form-control" aria-label="Default select example" id="operario"
+                            name="operario" autocomplete="off" required />
+                    </div>
+                    <div class="mb-2">
+                        <label for="op_ID" class="form-label fw-bold">Número de identificación:</label>
+                        <input type="text" class="form-control" aria-label="Default select example" id="op_ID"
+                            name="op_ID" autocomplete="off" required />
+                    </div>
+                    <div class="box mt-4 mb-5"
+                        style="display: flex; align-items: center;  justify-content: center; width:100%;">
+                        <div class="box"
+                            style="display: flex; align-items: center;  justify-content: center;  gap: 10px; width:100%;">
+                            <input type="checkbox" id="confirm-check" style="width: 2rem; height: 2rem;">
+                            <span id="confirm-text" style="font-size: 1.5rem;"></span>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="button" id="prev-step" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-arrow-left fs-1"></i>
+                        </button>
+                        <button id="next-step" type="button" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-arrow-right fs-1"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Centrar checkbox y texto */
+    .check-container {
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+        gap: 10px;
+        /* Espacio entre el checkbox y el texto */
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    /* Ajustar tamaño del checkbox */
+    #confirm-check {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Mantener la posición del botón de avanzar */
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    #prev-step {
+        visibility: visible;
+        /* Oculta pero mantiene el espacio */
+    }
+
+    .btn {
+        width: 45%;
+        background-color: #2b3b4a;
+    }
+</style>
+
+<script>
+    setUserProfile("{{usuario.picture}}", "{{usuario.name}}", "{{usuario.email}}")
+</script>
+
+<script>
+    const stages = document.querySelectorAll('.stage');
+    const progressMessage = document.getElementById('progress-message');
+    let currentStage = 6;
+
+    function updateStage(stage) {
+        stages.forEach((element, index) => {
+            if (index + 1 < stage) {
+                element.classList.add('completed');
+                element.classList.remove('active');
+            } else if (index + 1 === stage) {
+                element.classList.add('active');
+                element.classList.remove('completed');
+            } else {
+                element.classList.remove('active', 'completed');
+            }
+        });
+    }
+
+    updateStage(currentStage);
+</script>
+
+<script>
+    function replaceNewlinesWithBreaks(text) {
+        return text.replace(/\n/g, '<br>');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const steps = [
+            {
+                title: '12. Entregue la máquina al operario',
+                body: replaceNewlinesWithBreaks("- Notifique al operario que el mantenimiento ha concluido y la máquina se encuentra lista para funcionar.\n- Solicite al operario dar el visto bueno del correcto funcionamiento de la máquina registrando sus datos."),
+                confirmText: "Confirmo haber realizado la entrega de la máquina",
+                info: ""
+            }
+        ];
+
+        let currentStep = 0;
+        const prevButton = document.getElementById('prev-step');
+        const nextButton = document.getElementById('next-step');
+        const confirmCheck = document.getElementById('confirm-check');
+        const confirmText = document.getElementById('confirm-text');
+
+        function renderStep(index) {
+            if (index < 0 || index >= steps.length) return;
+
+            document.getElementById('titulo').innerHTML = steps[index].title;
+            document.getElementById('cuerpo').innerHTML = steps[index].body;
+            confirmText.innerHTML = steps[index].confirmText;
+            confirmCheck.checked = false; // Desmarcar al cambiar de paso
+        }
+
+        prevButton.addEventListener('click', () => {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep(currentStep);
+            }
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (!confirmCheck.checked) {
+                alert("Debe confirmar que ha realizado este paso antes de continuar.");
+                return; // Detener el avance si no está marcado
+            }
+
+            // Si el checkbox está marcado, enviamos el formulario
+            const form = document.getElementById('procedimientoForm');
+            // Si el formulario es válido (todos los campos required están llenos)
+            if (form.reportValidity()) {
+                form.submit(); // Enviar el formulario
+            }
+        });
+
+        renderStep(currentStep);
+    });
+</script>

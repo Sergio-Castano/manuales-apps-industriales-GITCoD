@@ -1,0 +1,649 @@
+{
+    "nombre": "341",
+    "partes": [
+        {
+            "nombre": "Desembobinador",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Botoneras de Control Torres",
+                        "actividades": [
+                            "Realizar ajuste de los pulsadores, selectores y botones de parada de emergencia internamente al cableado y externamente sobre la base. Cambiar estos elementos de control sí se encuentran averiados o el color de seguridad se ha perdido por el uso. Recordar que todo botón de paro de emergencia debe ser de color rojo y contener guarda de seguridad amarilla",
+                            "Realizar limpieza interna y externa a la botonera de control. Sí va enplear aire a presión, debe ajustar primero los cables internos.",
+                            "Verificar la marcación de los pulsadores, selectores y botones de parada de emergencia, que se encuentren en buen estado y sea legible para el operario de producción.",
+                            "Instalar y/o reponer la tornillería faltante en las botoneras. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control"
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Motorreductor Rotación Bobina",
+                        "actividades": [
+                            "Retire la tapa de la caja de conexiones del motor y realizar ajuste de las borneras y cableado interno. Se debe garantizar que el cable internos estén asegurados a sus borneras y que no se encuentre fisurado en su aislamiento. Se debe cambiar todo cable que tenga expuesto el conductor.",
+                            "Medir en los terminales de la caja de conexiones el valor de resistencia de los bobinados, comprobando que estén balanceadas óhmicamente. Al terminar, colocar de nuevo la tapa, con la tornillería completa. Consignar la información de la medición aquí:",
+                            "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones y al motor en general se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes.",
+                            "Instalar y/o reponer la tornillería faltante en las cajas de conexiones del motor. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Motorreductor Subir-Bajar Contrapuntas",
+                        "actividades": [
+                            "Retire la tapa de la caja de conexiones del motor y realizar ajuste de las borneras y cableado interno. Se debe garantizar que el cable internos estén asegurados a sus borneras y que no se encuentre fisurado en su aislamiento. Se debe cambiar todo cable que tenga expuesto el conductor.",
+                            "Medir en los terminales de la caja de conexiones el valor de resistencia de los bobinados, comprobando que estén balanceadas óhmicamente. Al terminar, colocar de nuevo la tapa, con la tornillería completa. Consignar la información de la medición.",
+                            "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones y al motor en general se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes.",
+                            "Instalar y/o reponer la tornillería faltante en las cajas de conexiones del motor. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Motorreductor Desplazamiento Horizontal Torres",
+                        "actividades": [
+                            "Retire la tapa de la caja de conexiones del motor y realizar ajuste de las borneras y cableado interno. Se debe garantizar que el cable internos estén asegurados a sus borneras y que no se encuentre fisurado en su aislamiento. Se debe cambiar todo cable que tenga expuesto el conductor.",
+                            "Medir en los terminales de la caja de conexiones el valor de resistencia de los bobinados, comprobando que estén balanceadas óhmicamente. Al terminar, colocar de nuevo la tapa, con la tornillería completa. Consignar la información de la medición.",
+                            "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones y al motor en general se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes.",
+                            "Instalar y/o reponer la tornillería faltante en las cajas de conexiones del motor. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Microswitch Desplazamientohorizontal (Travesaño)",
+                        "actividades": [
+                            "Realizarque el microswtich y la cabeza tele mecánica no presenten golpes, fisuras o desajuste que puedan afectar su funcionamiento. Si se presenta esta anomalía, realizarreparación o el cambio del elemento. Se debe solicitar repuesto al ingeniero de mantenimiento preventivo.",
+                            "Realizar limpieza y ajuste del microswitche a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                            "Revisar el estado del cableado del microswitche. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                            "Verificar el funcionamiento de los microswitches durante la entrega POST de la máquina."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Microswitch Desplazamiento Horizontal (Carcamos)",
+                        "actividades": [
+                            "Realizarque el microswtich y la cabeza tele mecánica no presenten golpes, fisuras o desajuste que puedan afectar su funcionamiento. Si se presenta esta anomalía, realizarreparación o el cambio del elemento. Se debe solicitar repuesto al ingeniero de mantenimiento preventivo.",
+                            "Realizar limpieza y ajuste del microswitche a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                            "Revisar el estado del cableado del microswitche. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                            "Verificar el funcionamiento de los microswitches durante la entrega POST de la máquina."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Microswitch Desplazamiento Vertical Torres",
+                        "actividades": [
+                            "Realizarque el microswtich y la cabeza tele mecánica no presenten golpes, fisuras o desajuste que puedan afectar su funcionamiento. Si se presenta esta anomalía, realizarreparación o el cambio del elemento. Se debe solicitar repuesto al ingeniero de mantenimiento preventivo.",
+                            "Realizar limpieza y ajuste del microswitche a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                            "Revisar el estado del cableado del microswitche. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                            "Verificar el funcionamiento de los microswitches durante la entrega POST de la máquina."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Sensores Giro",
+                        "actividades": [
+                            "Realizar el ajuste del cableados de los sensores de giro, verificando que no se encuentre flojo, desconectado o fisurado. Reemplazar elemento en caso de encontrarlo averido sin opción de reparación.",
+                            "Realizar limpieza y ajuste de los sensores de giro a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                            "Revisar el estado del cableado de los sensores de giro. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                            "Revisar el estado del cableado de los sensores de giro. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Caja de Conexiones Desembobinador",
+                        "actividades": [
+                            "Inspeccionar el estado de la caja de plástico o metálica de las conexiones del desembobinador. Sí encuentra en mal estado su tapa o cuerpo, debe ser reportada para cambio.",
+                            "Destape la caja de conexiones y revise el estado del cableado interno. Debe realizar limpieza y ajustar cada bornera con sus respectivos cables. Sí encuentra algún cable fisurado o roto, debe ser reemplazado durante el MPV. De igual forma, sí identifica averia en alguna bornera, esta debe ser reemplazada.",
+                            "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Contrapunta Móvil",
+                        "actividades": [
+                            "Descargar la bobina metálica",
+                            "Inspeccionar que la contrapunta móvil no presente desgaste superficial o golpes. Mida el diámetro de la contrapunta y comparelo con el diámetro nominal de 80 mm. Reporte medida obtenida.",
+                            "Verificar que la contrapunta móvil gire libremente. Sí identifica arrastre, juego axial o radial informal al supervisor de mtto para definir contramedida.",
+                            "Verificar los tornillos de sujeción de la contrapunta al portaimpulsor. Cambiar tornillos sí se encuentran partidos o ausentes.",
+                            "Inspeccionar que el perno de arrastre no tenga fisuras o grietas superficiales. Verifique el estado superficial del perno de arrastre. Realizar su respectivo cambio sí encuentra alguna de las anteriores anomalias."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Contrapunta Fija",
+                        "actividades": [
+                            "Descargar la bobina metálica",
+                            "Inspeccionar que la contrapunta móvil no presente desgaste superficial o golpes. Mida el diámetro de la contrapunta y comparelo con el diámetro nominal de 80 mm. Reporte medida obtenida.",
+                            "Verificar que la contrapunta móvil gire libremente. Sí identifica arrastre, juego axial o radial informal al supervisor de mtto para definir contramedida.",
+                            "Verificar los tornillos de sujeción de la contrapunta al portaimpulsor. Cambiar tornillos sí se encuentran partidos o ausentes.",
+                            "Inspeccionar que el perno de arrastre no tenga fisuras o grietas superficiales. Verifique el estado superficial del perno de arrastre. Realizar su respectivo cambio sí encuentra alguna de las anteriores anomalias."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Motor Rotación Bobina",
+                        "actividades": [
+                            "Revisar el estado de la banda dentada de transmisión. Cambiela sí encuentra fisuras o defectos en los dientes.",
+                            "Revisar el ajuste de la polea dentada superior e inferior de transmisión. Los dientes deben tener contacto superficial con la banda y no tener defectos superficiales.",
+                            "Detectar si existe juego axial o radial de la polea superior e inferior de transmisión respecto al eje de rotación."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Motorreductor Desplazamiento",
+                        "actividades": [
+                            "Verificar el estado del anclaje del motorreductor a la base de la torre. Apriete tornillos de sujeción.",
+                            "Inspeccionar el estado del \"frame\" del motorreductor. Identifique posibles fisuras o golpes que afecten su funcionalidad.",
+                            "Inspeccionar el estado del eje de salida del motorreductor. Sí encuentra desajuste, desgaste o fisuras reportarlo."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Motorreductores Subir-Bajar Contrapuntas",
+                        "actividades": [
+                            "Verificar el estado del anclaje del motorreductor a la base de la torre. Apriete tornillos de sujeción.",
+                            "Inspeccionar el estado del \"frame\" del motorreductor. Identifique posibles fisuras o golpes que afecten su funcionalidad.",
+                            "Inspeccionar el estado del eje de salida del motorreductor. Sí encuentra desajuste, desgaste o fisuras reportarlo."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Sistema de Freno Desembobinador",
+                        "actividades": [
+                            "Retirar la guarda de seguridad ",
+                            "Revisar el estado de las pastillas de freno. Desmontarlas, verificar que la superficie de frenado con el plato estén parejas. Comprobar desgaste y cambiar sí es necesario.",
+                            "Revisar que las mordazas encajen correctamente con las pastillas de freno y se ajusten contra el disco metálico.",
+                            "Revisar que la superficie del disco de freno se encuentre lisa y pareja. Adicionalmente, verificar que no presente juego axial ni radial respecto a su punto de anclaje.",
+                            "Revisar que el diafragma del booster no presente fisuras o escapes de aire por medio de sus accesorios. Reportar y corregir anomalias que se presenten.",
+                            "Verificar que las mangueras y racores del sistema neumático no presenten puntos de fuga. Cambiar accesorios en caso de identificar anonalias."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Guías Verticales",
+                        "actividades": [
+                            "Verificar la condición superficial de las guías metálicas de ambas torres del desembobinador. Estas debes estar lisas, sin imperfecciones o torceduras que impidan el traslado vertical de las contrapuntas.",
+                            "Revisar la calidad de la lubricación. Este punto es para que lo revisen los mecánicos y den algún aviso al lubricador o el ingeniero de mantenimiento y este pueda ejecutar la re-lubricación de las guías verticales.",
+                            "Verificar durante el funcionamiento de las torres durante el POST, que no exista algún juego axial o radial entre las guías y el frame móvil de las contrapuntas móvil y fija."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Tornillos Desplazamiento",
+                        "actividades": [
+                            "Verificar el estado de la rosca del tornillo, el cual no debe presentar despicaduras, torceduras o desgaste.",
+                            "Verificar la calidad de la lubricación del tornillo y notificar sí debe mejorarse.",
+                            "Inspeccionar físicamente el acople entre tornillo y tuerca. No se debe presentar juego axial o radial. Informar sí es así."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Rieles Desplazamiento Torres",
+                        "actividades": [
+                            "Retirar las bobinas del desembobinador",
+                            "Verificar el estado del carcamo y de los rieles. Sí estps presentan condición anormal que pueda ocasionar un accidente de trabajo o una avería mecánica notifique a los ingenieros de mtto para toma de soluciones.",
+                            "Verificar el estado de las pletinas soporte de bobinas. Estas deben desplazarse regularmente sobre los rieles. Verifique que no se encuentren fisuradas. Debe revisar las ruedas guía que se encuentran en su parte inferior."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Unidad de Mantenimiento",
+                        "actividades": [
+                            "Verificar que las mangueras y racores del sistema neumático no presenten puntos de fuga. Cambiar accesorios en caso de identificar anonalias.",
+                            "Revisar el estado del manometro. Sí se encuentra con la caratula rota y/o no marca unidad de presión debe cambiarlo.",
+                            "Realizar la revisión del nivel de aceite del deposito de la unidad de mantenimiento.",
+                            "Revisar si hay tarjetas de alerta de fugas de aire comprimido, si las hay realice la corrección."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    },
+                    {
+                        "nombre": "Rodillos",
+                        "actividades": [
+                            "Verificar que la estructura metálica que porta los rodillos esté correctamente anclada a la estructura del pedestal de rodillos.",
+                            "Verificar el estado de los slog que permiten movimiento de los rodillos en trayectoria horizontal y vertical (sí aplica).",
+                            "Inspeccionar el estado de los pomos de apriete de los rodillos guía (sí aplica).",
+                            "Inspeccionar el estado superficial de los rodillos guía. Verifique que se encuentren sin talladuras, golpes o fisuras. Desmontar y corregir sí detecta anomalias.",
+                            "Verificar que los rodillos no presenten juego axial o radial."
+                        ],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Capstan",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente A",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente A",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Dancer",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente C",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente D",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Embobinador",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente E",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente F",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Encintadora 1",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente G",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente H",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Encintadora 2",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente I",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente J",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Tableros de Control",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente K",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente L",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        },
+        {
+            "nombre": "Gabbia Concéntrica",
+            "electricas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "E3",
+                            "ubicación": "Breaker Q1 a 380 V para alimentación del desembobinador de 63 A, ubicado en el tablero de la máquina – E1-341-03",
+                            "procedimiento": "Coloque el breaker en posición OFF (apagado) para aislar la energía eléctrica del desembobinador. Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E2",
+                            "ubicación": "Totalizador E-341-1 a 380 V de 63 A, ubicado en el tablero de la máquina  – E1-341-02",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        },
+                        {
+                            "fuente": "E1",
+                            "ubicación": "Totalizador a 380 V para alimentación de la encintadora 341 de 250 A, ubicado en la subestación eléctrica # 1  E1-341-01",
+                            "procedimiento": "Coloque el totalizador en posición OFF (apagado) para aislar la energía eléctrica de la máquina 341 (máquina completa). Verifique que no esté energizado el elemento de corte y su entorno midiendo la tensión, la cual debe ser cero.",
+                            "dispDeBloqueo": "Dispositivo para bloqueo de breaker universal. Candado y tarjeta \"No operar\"",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente M",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            },
+            "mecanicas": {
+                "rutinaDeBloqueo": {
+                    "pasos": [
+                        {
+                            "fuente": "N1",
+                            "ubicación": "Válvula de bola 1/2” a 110 PSI ubicada en la columna del entregador de la máquina 341 – N1-341-01",
+                            "procedimiento": "Cerrar válvula de bola, implementar bloqueo de válvula de bola asociada a la entrada principal de aire comprimido al entregador de la  máquina 341. Recuerde que la válvula debe estar completa y en buen estado para poder realizar el bloqueo.",
+                            "dispDeBloqueo": "Bloqueador de válvula de bola 1/2” a 2 ½” . Candado y tarjeta de seguridad",
+                            "imagen": "/images/paso1.jpg"
+                        }
+                    ]
+                },
+                "componentes": [
+                    {
+                        "nombre": "Componente N",
+                        "actividades": [],
+                        "imagen": "/images/paso1.jpg"
+                    }
+                ]
+            }
+        }
+    ]
+}

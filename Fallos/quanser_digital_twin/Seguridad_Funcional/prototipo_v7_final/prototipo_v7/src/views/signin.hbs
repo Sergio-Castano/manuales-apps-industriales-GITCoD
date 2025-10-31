@@ -1,0 +1,69 @@
+{{#each errors}}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{text}}
+    <button type="button" class="btn-close-custom" data-bs-dismiss="alert" aria-label="Close">
+        <i class="bi bi-x"></i>
+    </button>
+</div>
+{{/each}}
+
+
+<div class="my-body-area">
+    <div class="section-left">
+        <div class="overlay-text">
+            <div id="linea1" class="linea">ASISTENTE DE</div>
+            <div id="linea2" class="linea">MANTENIMIENTO</div>
+        </div>
+    </div>
+    <div class="section-right">
+        <div class="top-half">
+            <div class="texto-bienvenida" style="color: white; font-size: 3rem; font-weight: 600;">
+                Bienvenido <br> a la aplicación
+            </div>
+            <div style="width: 80%;">
+                <p style="color: yellow;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore quis culpa
+                    repudianda Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt blanditiis beatae
+                </p>
+            </div>
+        </div>
+        <div class="bottom-half">
+            <form action="/signin" style="width: 100%; padding:0;" method="post">
+                <!-- Formulario de Login -->
+                <div class="login-container">
+                    <div class="login-title">LOGIN</div>
+                    <div class="my-input-group">
+                        <span class="material-icons"><i class="bi bi-person-fill"></i></span>
+                        <input type="email" name="usuario" id="usuario" class="my-login-input" placeholder="Usuario">
+                    </div>
+
+                    <div class="my-input-group">
+                        <span class="material-icons"><i class="bi bi-lock-fill"></i></span>
+                        <input type="password" name="password" id="Password" class="my-login-input"
+                            placeholder="Contraseña">
+                    </div>
+
+                    <button class="login-button">Ingresar</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    window.addEventListener('load', function () {
+        const linea1 = document.getElementById('linea1');
+        const linea2 = document.getElementById('linea2');
+
+        // Medir los anchos reales de cada línea
+        const anchoLinea1 = linea1.getBoundingClientRect().width;
+        const anchoLinea2 = linea2.getBoundingClientRect().width;
+
+        // Calcular el factor de escala para que el ancho de "ASISTENTE DE" coincida con "MANTENIMIENTO"
+        const factorEscala = anchoLinea2 / anchoLinea1;
+
+        // Aplicar la escala horizontal a "ASISTENTE DE"
+        linea1.style.transform += ' scaleX(' + factorEscala + ')';
+    });
+</script>

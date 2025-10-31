@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROTOTIPO CENTELSA</title>
+    <!-- Icons -->
+    <link rel="stylesheet" href="/librerias/icons/font/bootstrap-icons.min.css">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- BOOTSTRAP 5 -->
+    <link href="/librerias/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/librerias/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function setUserProfile(imageUrl, name, email) {
+            const defaultImage = "no_image.jpg";
+            const finalImage = imageUrl && imageUrl.trim() ? imageUrl : defaultImage;
+
+            console.log(finalImage);
+
+            document.getElementById('profile-pic').style.backgroundImage = `url('/uploads/users/${finalImage}')`;
+            document.getElementById('user-name').textContent = name;
+            document.getElementById('user-email').textContent = email;
+        }
+    </script>
+
+</head>
+
+<body>
+    {{{body}}}
+</body>
+
+</html>
