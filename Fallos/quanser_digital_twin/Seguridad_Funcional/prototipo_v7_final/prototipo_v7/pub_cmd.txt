@@ -1,1 +1,0 @@
-mosquitto_pub -h 0.0.0.0 -t "mqtt/boton/data" -m "rojo"

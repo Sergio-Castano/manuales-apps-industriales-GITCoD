@@ -1,5 +1,0 @@
-[console_scripts]
-motor_sim_node = quanser_digital_twin.motor_sim_node:main
-motor_sim_theoretical_node = quanser_digital_twin.motor_sim_theoretical:main
-pid_controller_node = quanser_digital_twin.pid_controller_node:main
-
