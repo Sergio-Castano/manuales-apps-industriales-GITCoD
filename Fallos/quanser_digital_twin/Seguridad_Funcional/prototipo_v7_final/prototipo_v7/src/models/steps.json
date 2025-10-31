@@ -1,0 +1,93 @@
+{
+    "steps": [
+        {
+            "title": "Botoneras de Control Torres",
+            "substeps": [
+                "Realizar ajuste de los pulsadores, selectores y botones de parada de emergencia internamente al cableado y externamente sobre la base. Cambiar estos elementos de control sí se encuentran averiados o el color de seguridad se ha perdido por el uso. Recordar que todo botón de paro de emergencia debe ser de color rojo y contener guarda de seguridad amarilla",
+                "Realizar limpieza interna y externa a la botonera de control. Sí va enplear aire a presión, debe ajustar primero los cables internos.",
+                "Verificar la marcación de los pulsadores, selectores y botones de parada de emergencia, que se encuentren en buen estado y sea legible para el operario de producción.",
+                "Instalar y/o reponer la tornillería faltante en las botoneras. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control"
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Motorreductor Rotación Bobina",
+            "substeps": [
+                "Retire la tapa de la caja de conexiones del motor y realizar ajuste de las borneras y cableado interno. Se debe garantizar que el cable internos estén asegurados a sus borneras y que no se encuentre fisurado en su aislamiento. Se debe cambiar todo cable que tenga expuesto el conductor.",
+                "Medir en los terminales de la caja de conexiones el valor de resistencia de los bobinados, comprobando que estén balanceadas óhmicamente. Al terminar, colocar de nuevo la tapa, con la tornillería completa. Consignar la información de la medición aquí:",
+                "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones y al motor en general se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes.",
+                "Instalar y/o reponer la tornillería faltante en las cajas de conexiones del motor. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Motorreductor Subir-Bajar Contrapuntas",
+            "substeps": [
+                "Retire la tapa de la caja de conexiones del motor y realizar ajuste de las borneras y cableado interno. Se debe garantizar que el cable internos estén asegurados a sus borneras y que no se encuentre fisurado en su aislamiento. Se debe cambiar todo cable que tenga expuesto el conductor.",
+                "Medir en los terminales de la caja de conexiones el valor de resistencia de los bobinados, comprobando que estén balanceadas óhmicamente. Al terminar, colocar de nuevo la tapa, con la tornillería completa. Consignar la información de la medición.",
+                "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones y al motor en general se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes.",
+                "Instalar y/o reponer la tornillería faltante en las cajas de conexiones del motor. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Motorreductor Desplazamiento Horizontal Torres",
+            "substeps": [
+                "Retire la tapa de la caja de conexiones del motor y realizar ajuste de las borneras y cableado interno. Se debe garantizar que el cable internos estén asegurados a sus borneras y que no se encuentre fisurado en su aislamiento. Se debe cambiar todo cable que tenga expuesto el conductor.",
+                "Medir en los terminales de la caja de conexiones el valor de resistencia de los bobinados, comprobando que estén balanceadas óhmicamente. Al terminar, colocar de nuevo la tapa, con la tornillería completa. Consignar la información de la medición.",
+                "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones y al motor en general se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes.",
+                "Instalar y/o reponer la tornillería faltante en las cajas de conexiones del motor. Esta actividad es responsabilidad del electricista, ya que, hace parte de un equipo con elementos del sistema eléctrico y de control."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Microswitch Desplazamientohorizontal (Travesaño)",
+            "substeps": [
+                "Realizarque el microswtich y la cabeza tele mecánica no presenten golpes, fisuras o desajuste que puedan afectar su funcionamiento. Si se presenta esta anomalía, realizarreparación o el cambio del elemento. Se debe solicitar repuesto al ingeniero de mantenimiento preventivo.",
+                "Realizar limpieza y ajuste del microswitche a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                "Revisar el estado del cableado del microswitche. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                "Verificar el funcionamiento de los microswitches durante la entrega POST de la máquina."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Microswitch Desplazamiento Horizontal (Carcamos)",
+            "substeps": [
+                "Realizarque el microswtich y la cabeza tele mecánica no presenten golpes, fisuras o desajuste que puedan afectar su funcionamiento. Si se presenta esta anomalía, realizarreparación o el cambio del elemento. Se debe solicitar repuesto al ingeniero de mantenimiento preventivo.",
+                "Realizar limpieza y ajuste del microswitche a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                "Revisar el estado del cableado del microswitche. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                "Verificar el funcionamiento de los microswitches durante la entrega POST de la máquina."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Microswitch Desplazamiento Vertical Torres",
+            "substeps": [
+                "Realizarque el microswtich y la cabeza tele mecánica no presenten golpes, fisuras o desajuste que puedan afectar su funcionamiento. Si se presenta esta anomalía, realizarreparación o el cambio del elemento. Se debe solicitar repuesto al ingeniero de mantenimiento preventivo.",
+                "Realizar limpieza y ajuste del microswitche a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                "Revisar el estado del cableado del microswitche. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                "Verificar el funcionamiento de los microswitches durante la entrega POST de la máquina."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Sensores Giro",
+            "substeps": [
+                "Realizar el ajuste del cableados de los sensores de giro, verificando que no se encuentre flojo, desconectado o fisurado. Reemplazar elemento en caso de encontrarlo averido sin opción de reparación.",
+                "Realizar limpieza y ajuste de los sensores de giro a su base. Sí encuentra tornillería faltante se debe reponer. Sí encuentra anomalía en la base física de este elemento, reportar al ingeniero de MPV.",
+                "Revisar el estado del cableado de los sensores de giro. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV.",
+                "Revisar el estado del cableado de los sensores de giro. Cambiar cableado sí lo encuentra pelado, tostado o roto. Solicitar repuesto al ingeniero de MPV."
+            ],
+            "imagen": "/images/paso1.jpg"
+        },
+        {
+            "title": "Caja de Conexiones Desembobinador",
+            "substeps": [
+                "Inspeccionar el estado de la caja de plástico o metálica de las conexiones del desembobinador. Sí encuentra en mal estado su tapa o cuerpo, debe ser reportada para cambio.",
+                "Destape la caja de conexiones y revise el estado del cableado interno. Debe realizar limpieza y ajustar cada bornera con sus respectivos cables. Sí encuentra algún cable fisurado o roto, debe ser reemplazado durante el MPV. De igual forma, sí identifica averia en alguna bornera, esta debe ser reemplazada.",
+                "Verificar que las corazas y conectores (gris o negra) asociadas a la caja de conexiones se encuentren en buen estado. Estas se deben reemplazar sí las encuentra partidas, desencajadas o faltantes."
+            ],
+            "imagen": "/images/paso1.jpg"
+        }
+    ]
+}

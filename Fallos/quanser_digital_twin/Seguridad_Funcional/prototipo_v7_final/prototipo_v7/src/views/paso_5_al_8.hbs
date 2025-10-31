@@ -1,0 +1,213 @@
+<div class="my-body-area">
+    <div class="section-left">
+        <div class="top-half-left">
+            <div id="profile-pic" class="profile-pic"></div>
+            <div id="user-name" class="user-name">Nombre Apellido</div>
+            <div id="user-email" class="user-email">email@ejemplo.com</div>
+        </div>
+        <div class="bottom-half-left">
+            <div class="stage">
+                A. Preparación
+            </div>
+            <div class="stage">
+                B. Bloqueo
+            </div>
+            <div class="stage">
+                C. Intervención
+            </div>
+            <div class="stage">
+                D. Desbloqueo
+            </div>
+            <div class="stage">
+                E. Puesta a punto
+            </div>
+            <div class="stage">
+                F. Entrega
+            </div>
+        </div>
+    </div>
+    <div class="section-right">
+        <div class="top-half-right">
+            <div style="padding-left: 40px; color: white; font-weight: bold; font-size: 1.5rem;">Asistente de
+                mantenimiento</div>
+            <div style="padding-right: 40px; color: white;"> Logout </div>
+        </div>
+
+        <div class="bottom-half-right">
+            <div style="margin-top: 30px;">
+                <div class="progress-container" id="progressBar"></div>
+
+                <script>
+                    function createProgressBar(totalSteps) {
+                        const progressBar = document.getElementById('progressBar');
+                        progressBar.innerHTML = ''; // Limpiar contenido previo
+
+                        for (let i = 1; i <= totalSteps; i++) {
+                            const step = document.createElement('div');
+                            step.classList.add('step');
+
+                            const stepNumber = document.createElement('div');
+                            stepNumber.classList.add('step-number');
+                            stepNumber.textContent = i;
+
+                            const led = document.createElement('div');
+                            led.classList.add('led');
+                            led.id = `led-${i}`;
+
+                            step.appendChild(stepNumber);
+                            step.appendChild(led);
+                            progressBar.appendChild(step);
+                        }
+                    }
+
+                    function updateProgressBar(totalSteps, activeSteps) {
+                        createProgressBar(totalSteps);
+
+                        for (let i = 1; i <= activeSteps; i++) {
+                            const led = document.getElementById(`led-${i}`);
+                            if (led) {
+                                led.classList.add('active');
+                            }
+                        }
+                    }
+
+                </script>
+            </div>
+            <div class="info-container mt-5">
+                <div class="box-container" style="width: 70%;">
+                    <div id="steps-container" class="box box2">
+                        <p id="titulo" class="text-center" style="font-size: 2.5rem; font-weight: 600;">
+                            6. Libere energías residuales
+                        </p>
+                        <p id="cuerpo" style="font-size: 2rem; text-align: justify;">
+                            Revise en la Ficha de Bloqueo de la máquina los eleméntos que pueden almacenar energía
+                            eléctrica residual y siga los procedimientos para descargarlos.
+                        </p>
+                    </div>
+                    <div class="button-container" style="justify-content: center; ">
+                        <button type="button" id="prev-step" class="btn btn-success btn-lg">
+                            Ver Ficha de Bloqueo
+                        </button>
+                    </div>
+                    <div class="box box3 mb-3">
+                        <p id="info_adicional" style=" font-size: 1.25rem;">
+                        </p>
+                    </div>
+                    <div class="box mt-4 mb-5"
+                        style="display: flex; align-items: center;  justify-content: center; width:100%;">
+                        <div class="box"
+                            style="display: flex; align-items: center;  justify-content: center;  gap: 10px; width:100%;">
+                            <input type="checkbox" id="confirm-check" style="width: 2rem; height: 2rem;">
+                            <span id="confirm-text" style="font-size: 1.5rem;"> Confirmo haber liberado las energías
+                                residuales</span>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button type="button" id="prev-step" class="btn btn-secondary btn-lg"
+                            style=" width: 45%; background-color: #2b3b4a;">
+                            <i class="bi bi-arrow-left fs-1"></i>
+                        </button>
+                        <button type="button" id="next-step" class="btn btn-secondary btn-lg"
+                            style=" width: 45%; background-color: #2b3b4a;">
+                            <i class="bi bi-arrow-right fs-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Centrar checkbox y texto */
+    .check-container {
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+        gap: 10px;
+        /* Espacio entre el checkbox y el texto */
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    /* Ajustar tamaño del checkbox */
+    #confirm-check {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Mantener la posición del botón de avanzar */
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+</style>
+
+<script>
+    setUserProfile("{{usuario.picture}}", "{{usuario.name}}", "{{usuario.email}}");
+    updateProgressBar(1, 1);
+</script>
+
+<script>
+    const stages = document.querySelectorAll('.stage');
+    const progressMessage = document.getElementById('progress-message');
+    let currentStage = 2;
+
+    function updateStage(stage) {
+        stages.forEach((element, index) => {
+            if (index + 1 < stage) {
+                element.classList.add('completed');
+                element.classList.remove('active');
+            } else if (index + 1 === stage) {
+                element.classList.add('active');
+                element.classList.remove('completed');
+            } else {
+                element.classList.remove('active', 'completed');
+            }
+        });
+    }
+
+    updateStage(currentStage);
+</script>
+
+<script>
+    function replaceNewlinesWithBreaks(text) {
+        return text.replace(/\n/g, '<br>');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const prevButton = document.getElementById('prev-step');
+        const nextButton = document.getElementById('next-step');
+        const confirmCheck = document.getElementById('confirm-check');
+        const confirmText = document.getElementById('confirm-text');
+
+        prevButton.addEventListener('click', () => {
+        });
+
+        nextButton.addEventListener('click', () => {
+            if (!confirmCheck.checked) {
+                alert("Debe confirmar que ha realizado este paso antes de continuar.");
+                return; // Detener el avance
+            }
+
+            const selectedOptionID = '{{selectedOptionID}}';
+            const usuario = '{{usuario._id}}';
+            fetch('/paso_9', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario, selectedOptionID })
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirectUrl;
+                    }
+                }).catch(console.error);
+            return;
+
+        });
+
+    });
+</script>

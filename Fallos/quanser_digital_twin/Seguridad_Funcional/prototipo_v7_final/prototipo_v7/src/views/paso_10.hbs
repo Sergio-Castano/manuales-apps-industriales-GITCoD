@@ -1,0 +1,223 @@
+<div class="my-body-area">
+    <div class="section-left">
+        <div class="top-half-left">
+            <div id="profile-pic" class="profile-pic"></div>
+            <div id="user-name" class="user-name">Nombre Apellido</div>
+            <div id="user-email" class="user-email">email@ejemplo.com</div>
+        </div>
+        <div class="bottom-half-left">
+            <div class="stage">
+                A. Preparación
+            </div>
+            <div class="stage">
+                B. Bloqueo
+            </div>
+            <div class="stage">
+                C. Intervención
+            </div>
+            <div class="stage">
+                D. Desbloqueo
+            </div>
+            <div class="stage">
+                E. Puesta a punto
+            </div>
+            <div class="stage">
+                F. Entrega
+            </div>
+        </div>
+    </div>
+    <div class="section-right">
+        <div class="top-half-right">
+            <div style="padding-left: 40px; color: white; font-weight: bold; font-size: 1.5rem;">Asistente de
+                mantenimiento</div>
+            <div style="padding-right: 40px; color: white;"> Logout </div>
+        </div>
+
+        <div class="bottom-half-right">
+
+            <div class="info-container mt-1">
+                <div class="box-container" style="width: 80%;">
+                    <div id="steps-container" class="box box2">
+                        <p id="titulo" class="text-center" style="font-size: 2.5rem; font-weight: 600;">
+                            8. Retire los dispositivos de bloqueo y etiquetado
+                        </p>
+                        <p id="cuerpo" style="font-size: 2rem; text-align: justify;">
+                            Al concluir la intervención, verifique que el personal de mantenimiento retire los
+                            dispositivos de bloqueo individual.
+                        </p>
+                        <div class="box mt-4 mb-5"
+                            style="display: flex; align-items: center;  justify-content: center; width:100%;">
+                            <div class="box"
+                                style="display: flex; align-items: center;  justify-content: center;  gap: 10px; width:100%;">
+                                <input type="checkbox" id="confirm-check" style="width: 2rem; height: 2rem;">
+                                <span id="confirm-text" style="font-size: 1.5rem;"> Confirmo que el personal retiró los
+                                    dispositivos de bloqueo</span>
+                            </div>
+                        </div>
+                        <div class="video-container">
+                            <video id="step-video" width="70%" height="auto" controls>
+                                <source id="video-source" src="/videos/remover.mp4" type="video/mp4">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="box box3 mb-3">
+                        <p id="info_adicional" style=" font-size: 1.25rem;">
+                        </p>
+                    </div>
+                    <div class="button-container">
+                        <button type="button" id="prev-step" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-arrow-left fs-1"></i>
+                        </button>
+                        <button type="button" id="next-step" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-arrow-right fs-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Centrar checkbox y texto */
+    .check-container {
+        display: flex;
+        align-items: center;
+        /* Centrar verticalmente */
+        justify-content: center;
+        /* Centrar horizontalmente */
+        gap: 10px;
+        /* Espacio entre el checkbox y el texto */
+        font-size: 1.5rem;
+        padding: 15px;
+    }
+
+    /* Ajustar tamaño del checkbox */
+    #confirm-check {
+        width: 24px;
+        height: 24px;
+    }
+
+    /* Mantener la posición del botón de avanzar */
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    .btn {
+        width: 45%;
+        background-color: #2b3b4a;
+    }
+
+    .video-container {
+        display: flex;
+        justify-content: center;
+        /* Centra horizontalmente */
+        align-items: center;
+        /* Centra verticalmente si es necesario */
+        width: 100%;
+    }
+
+    video {
+        max-width: 100%;
+        /* Asegura que el video no se desborde */
+        height: auto;
+    }
+</style>
+
+<script>
+    setUserProfile("{{usuario.picture}}", "{{usuario.name}}", "{{usuario.email}}")
+</script>
+
+<script>
+    const stages = document.querySelectorAll('.stage');
+    const progressMessage = document.getElementById('progress-message');
+    let currentStage = 4;
+
+    function updateStage(stage) {
+        stages.forEach((element, index) => {
+            if (index + 1 < stage) {
+                element.classList.add('completed');
+                element.classList.remove('active');
+            } else if (index + 1 === stage) {
+                element.classList.add('active');
+                element.classList.remove('completed');
+            } else {
+                element.classList.remove('active', 'completed');
+            }
+        });
+    }
+
+    updateStage(currentStage);
+</script>
+
+<script>
+    function replaceNewlinesWithBreaks(text) {
+        return text.replace(/\n/g, '<br>');
+    }
+
+    const steps = [
+        {
+            title: '8. Retire los dispositivos de bloqueo y etiquetado',
+            video: "/videos/remover.mp4"
+        }
+    ];
+
+    let currentStep = 0;
+    const prevButton = document.getElementById('prev-step');
+    const nextButton = document.getElementById('next-step');
+
+    function renderStep(index) {
+        if (index < 0 || index >= steps.length) return;
+
+        // Actualizar el título
+        document.getElementById('titulo').innerHTML = steps[index].title;
+
+        // Actualizar la fuente del video
+        const videoElement = document.querySelector(".video-container video");
+        const sourceElement = videoElement.querySelector("source");
+
+        sourceElement.src = steps[index].video;
+        videoElement.load(); // Recargar el video con la nueva fuente
+
+        // Actualizar la barra de progreso
+    }
+
+    prevButton.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            renderStep(currentStep);
+        }
+    });
+
+    nextButton.addEventListener('click', () => {
+        const confirmCheck = document.getElementById('confirm-check');
+
+        if (!confirmCheck.checked) {
+            alert("Debe confirmar que ha realizado este paso antes de continuar.");
+            return; // Detener el avance
+        }
+
+        if (currentStep === steps.length - 1) {
+            const selectedOptionID = '{{selectedOptionID}}';
+            const usuario = '{{usuario._id}}';
+            fetch('/paso_11', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usuario, selectedOptionID })
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = data.redirectUrl;
+                    }
+                }).catch(console.error);
+            return;
+        }
+
+        currentStep++;
+        renderStep(currentStep);
+    });
+
+    renderStep(currentStep);
+</script>
