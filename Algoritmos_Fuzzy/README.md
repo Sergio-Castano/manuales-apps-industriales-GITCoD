@@ -30,4 +30,15 @@ Cada modelo predice si el motor está:
 ---
 
 # 2. Arquitectura del Sistema
+```bash
+       Corriente ───┐
+                     ├──► Preprocesamiento ───► Ventaneo ───► Modelo ML ───► Probabilidad de fallo
+   Temperatura ───┘
+                                          │
+                                          ▼
+                                 Sistema Fuzzy
+                                          │
+                                          ▼
+                               Decisión final (Normal/Fallo)
 
+```
