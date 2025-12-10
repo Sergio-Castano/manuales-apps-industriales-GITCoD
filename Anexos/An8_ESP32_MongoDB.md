@@ -43,3 +43,6 @@ La segunda tarea del sistema recibe cada muestra enviada desde la tarea de gener
 ### 3.1 Funcionamiento del filtro
 
 El cálculo del filtro corresponde a la fórmula:
+```bash
+y[k] = (x[k] + 2*x[k-1] + x[k-2]) / 4
+```
