@@ -2,10 +2,9 @@
 
 Este repositorio contiene el desarrollo de un sistema de detección de fallos utilizando:
 
-- señales de **corriente**,  
-- señales de **temperatura**,  
-- modelos de clasificación con **contexto multivariable**,  
-- y un sistema de decisión basado en **Lógica Difusa (Fuzzy)**.
+- Señales de **corriente**,  
+- Señales de **temperatura**,  
+- Modelos de clasificación con **contexto multivariable** y un sistema de decisión basado en **Lógica Difusa (Fuzzy)**.
 
 El objetivo principal es determinar si el motor se encuentra en **condición normal** o en **condición de fallo** mediante técnicas de machine learning y sistemas expertos.
 
