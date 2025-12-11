@@ -197,43 +197,45 @@ Ver velocidad en planta ZOH:
 ```bash
 ros2 topic echo /motor_speed_zoh_output
 ```
-9. Archivos de registro
+## 9. Archivos de registro
 
-Los nodos generan automáticamente:
+Los nodos generan automáticamente archivos locales que registran tiempos de ejecución y tiempos de muestreo.
 
-Nodo	Archivo
-motor_sim_node	motor_disc_exec_times.txt
-motor_teorico_zoh_node	motor_teorico_zoh_exec_times.txt
-dual_pid_node2	pid2_sample_times.txt
-dual_pid_node3	pid3_sample_times.txt
-10. Ejecución completa del Gemelo Digital
+| Nodo                                     | Archivo generado                       |
+|------------------------------------------|-----------------------------------------|
+| **motor_sim_node**                       | **motor_disc_exec_times.txt**           |
+| **motor_teorico_zoh_node**               | **motor_teorico_zoh_exec_times.txt**    |
+| **dual_pid_node2**                       | **pid2_sample_times.txt**               |
+| **dual_pid_node3**                       | **pid3_sample_times.txt**               |
+
+## 10. Ejecución completa del Gemelo Digital
 Caso 1: modelo identificado
 
 Terminal 1:
-
+```bash
 ros2 run motor_digital_twin motor_sim_node
-
+```
 
 Terminal 2:
-
+```bash
 ros2 run motor_digital_twin pid_node2
-
+```
 
 Terminal 3 (referencia en rad/s):
-
+```bash
 ros2 topic pub -r 100 /ref_speed_sim std_msgs/msg/Float64 "{data: 40.0}"
-
+```
 Caso 2: modelo teórico ZOH
 
 Terminal 1:
-
+```bash
 ros2 run motor_digital_twin motor_teorico_zoh_node
-
+```
 
 Terminal 2:
-
+```bash
 ros2 run motor_digital_twin pid_node3
-
+```
 
 Terminal 3:
 
