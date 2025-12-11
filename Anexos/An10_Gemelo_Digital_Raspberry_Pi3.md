@@ -1,4 +1,4 @@
-Gemelo Digital del Motor DC Quanser en ROS2 Jazzy (Tiempo Real, SCHED_FIFO)
+# Gemelo Digital del Motor DC Quanser en ROS2 Jazzy (Tiempo Real, SCHED_FIFO)
 
 Este proyecto implementa un Gemelo Digital del motor DC Quanser utilizando ROS2 Jazzy dentro de un entorno Linux con capacidades de tiempo real (RT-PREEMPT). El sistema integra:
 
@@ -14,23 +14,24 @@ Registro del tiempo de ejecución y sample time para evaluar determinismo
 
 El propósito es validar dinámica, estabilidad temporal y confiabilidad del sistema corriendo en tiempo real.
 
-1. Dependencias
+## 1. Dependencias
+```bash
 sudo apt install ros-jazzy-desktop
 sudo apt install ros-jazzy-rmw-fastrtps*
 sudo apt install build-essential
 sudo apt install rt-tests
-
-2. Compilación
+```
+## 2. Compilación
 
 Estructura recomendada:
-
+```bash
 ros2_ws/src/motor_digital_twin/
 └── src/
     ├── motor_sim_node.cpp
     ├── motor_teorico_zoh.cpp
     ├── dual_pid_node2.cpp
     ├── dual_pid_node3.cpp
-
+```
 
 Compilar:
 
