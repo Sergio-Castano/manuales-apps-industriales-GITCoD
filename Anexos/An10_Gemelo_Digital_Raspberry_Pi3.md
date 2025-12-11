@@ -168,29 +168,35 @@ Ambas plantas reciben el voltaje por:
 
 Ejemplo: enviar 3 V:
 
+```bash
 ros2 topic pub /cmd_voltage_disc std_msgs/msg/Float64 "{data: 3.0}"
-
+```
 
 Ejemplo: saturación negativa:
 
+```bash
 ros2 topic pub /cmd_voltage_disc std_msgs/msg/Float64 "{data: -12.0}"
+```
 
-8. Monitoreo
+## 8. Monitoreo
 
 Listar tópicos:
 
+```bash
 ros2 topic list
-
+```
 
 Ver velocidad en planta simulada:
 
+```bash
 ros2 topic echo /motor_speed_sim_disc
-
+```
 
 Ver velocidad en planta ZOH:
 
+```bash
 ros2 topic echo /motor_speed_zoh_output
-
+```
 9. Archivos de registro
 
 Los nodos generan automáticamente:
