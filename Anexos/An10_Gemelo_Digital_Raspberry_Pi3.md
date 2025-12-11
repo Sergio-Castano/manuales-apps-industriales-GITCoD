@@ -238,5 +238,6 @@ ros2 run motor_digital_twin pid_node3
 ```
 
 Terminal 3:
-
+```bash
 ros2 topic pub -r 100 /ref_speed_sim std_msgs/msg/Float64 "{data: 40.0}"
+```
