@@ -35,20 +35,22 @@ ros2_ws/src/motor_digital_twin/
 
 Compilar:
 
+```bash
 cd ~/ros2_ws
 colcon build --symlink-install
 source install/setup.bash
+```
 
-3. Arquitectura de Tópicos
-3.1 Planta simulada (modelo identificado)
+## 3. Arquitectura de Tópicos
+### 3.1 Planta simulada (modelo identificado)
 
-motor_sim_node
+#### motor_sim_node
 
 Publica: /motor_speed_sim_disc
 
 Se suscribe: /cmd_voltage_disc
 
-dual_pid_node2
+#### dual_pid_node2
 
 Publica: /cmd_voltage_disc
 
@@ -58,15 +60,15 @@ Se suscribe:
 
 /motor_speed_sim_disc
 
-3.2 Planta teórica ZOH
+### 3.2 Planta teórica ZOH
 
-motor_teorico_zoh_node
+#### motor_teorico_zoh_node
 
 Publica: /motor_speed_zoh_output
 
 Se suscribe: /cmd_voltage_disc
 
-dual_pid_node3
+#### dual_pid_node3
 
 Publica: /cmd_voltage_disc
 
@@ -76,7 +78,8 @@ Se suscribe:
 
 /motor_speed_zoh_output
 
-4. Diagrama general del sistema
+## 4. Diagrama general del sistema
+```bash
            +----------------------+
            |   /ref_speed_sim     |  <-- referencia en rad/s
            +----------+-----------+
@@ -100,26 +103,39 @@ Se suscribe:
        |                               |
        v                               v
  /motor_speed_sim_disc      /motor_speed_zoh_output
+```
 
-5. Ejecución de los nodos
+## 5. Ejecución de los nodos
 
 No olvides:
 
+```bash
 source ~/ros2_ws/install/setup.bash
+```
 
-5.1 Ejecutar el modelo identificado
+### 5.1 Ejecutar el modelo identificado
+
+```bash
 ros2 run motor_digital_twin motor_sim_node
+```
 
-5.2 Ejecutar el PID para el modelo identificado
+### 5.2 Ejecutar el PID para el modelo identificado
+
+```bash
 ros2 run motor_digital_twin pid_node2
+```
 
-5.3 Ejecutar el modelo teórico ZOH
+### 5.3 Ejecutar el modelo teórico ZOH
+
+```bash
 ros2 run motor_digital_twin motor_teorico_zoh_node
-
-5.4 Ejecutar el PID para el modelo ZOH
+```
+### 5.4 Ejecutar el PID para el modelo ZOH
+```bash
 ros2 run motor_digital_twin pid_node3
+```
 
-6. Cómo enviar una referencia al PID (en rad/s)
+## 6. Cómo enviar una referencia al PID (en rad/s)
 
 El PID recibe la referencia en el tópico:
 
@@ -128,19 +144,22 @@ El PID recibe la referencia en el tópico:
 
 Enviar una referencia de 20 rad/s:
 
+```bash
 ros2 topic pub /ref_speed_sim std_msgs/msg/Float64 "{data: 20.0}"
-
+```
 
 Enviar una referencia de 50 rad/s de forma continua a 100 Hz:
 
+```bash
 ros2 topic pub -r 100 /ref_speed_sim std_msgs/msg/Float64 "{data: 50.0}"
-
+```
 
 Enviar un escalón a cero (parar el motor):
 
+```bash
 ros2 topic pub /ref_speed_sim std_msgs/msg/Float64 "{data: 0.0}"
-
-7. Modo manual: enviar voltaje directo al motor
+```
+## 7. Modo manual: enviar voltaje directo al motor
 
 Ambas plantas reciben el voltaje por:
 
