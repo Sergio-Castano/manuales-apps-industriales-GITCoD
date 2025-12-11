@@ -12,7 +12,7 @@ Afinidad de CPU, planificación SCHED_FIFO y bloqueo de memoria
 
 Registro del tiempo de ejecución y sample time para evaluar determinismo
 
-El propósito es validar dinámica, estabilidad temporal y confiabilidad del sistema corriendo en tiempo real.
+El propósito es validar dinámica, estabilidad temporal y confiabilidad del sistema corriendo en tiempo real, todo el paquete de ROS2 Jazzy está en la carpeta Archivos_Gemelo_Digital
 
 ## 1. Dependencias
 ```bash
