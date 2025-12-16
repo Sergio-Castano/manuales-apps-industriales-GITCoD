@@ -45,3 +45,19 @@ int voltaje_promedio(int n) {
   return (suma / n);
 }
 ```
+## 🔌 Diagrama de conexiones
+
+El circuito de acondicionamiento (divisor resistivo, capacitor y polarización) se encuentra **integrado completamente en la PCB**.  
+Por esta razón, el Arduino UNO solo requiere tres conexiones.
+
+> El diagrama mostrado corresponde al circuito implementado en la PCB.
+
+---
+
+## 🔗 Conexiones PCB – Arduino UNO
+
+| PCB | Arduino UNO |
+|-----|-------------|
+| VL  | A0          |
+| GND | GND         |
+| 5V  | 5V          |
