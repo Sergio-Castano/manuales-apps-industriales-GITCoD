@@ -50,7 +50,7 @@ int voltaje_promedio(int n) {
 El circuito de acondicionamiento (divisor resistivo, capacitor y polarización) se encuentra **integrado completamente en la PCB**.  
 Por esta razón, el Arduino UNO solo requiere tres conexiones.
 
-![Conexiones](imagenes/COnexionesArduino.png)
+![Conexiones](imagenes/ConexionesArduino.png)
 
 ---
 
