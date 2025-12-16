@@ -200,4 +200,4 @@ cd ejecutables/
 ```
 ## 🔗 Simulación del Sistema
 Para simular el valor de corriente, en la Universidad Autónoma se utilizó el banco de resistencias con la siguiente conexión para medir corriente AC, está disponible en el laboratorio de eléctrica
-![Conexion](imagenes/ConexionesBanco.png)
+![Conexion](imagenes/ConexionBanco.png)
