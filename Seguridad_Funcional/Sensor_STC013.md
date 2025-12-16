@@ -64,9 +64,8 @@ Por esta razón, el Arduino UNO solo requiere tres conexiones.
 
 ---
 
-## 🔗 Código y Ejecución del nodo en el PLC 
-```cpp
-  GNU nano 7.2                                                                                                                                                                                                                                                                      vrms.cpp                                                                                                                                                                                                                                                                               
+## 🔗 Código de medición VRMS en el PLC 
+```cpp                                                                                           
 #include <iostream>
 #include <fstream>
 #include <mqtt/async_client.h>
@@ -185,5 +184,17 @@ int main() {
     return 0;
 }
 
+```
+Este programa implementa un puente de comunicación entre un sistema de adquisición de señales y una infraestructura IIoT basada en MQTT. Su función principal es leer valores provenientes de un dispositivo externo a través de un puerto serial, evaluar el estado de la señal medida y publicar dicho estado en un broker MQTT bajo demanda.
 
+El sistema opera de forma reactiva: permanece a la espera de solicitudes entrantes en un tópico MQTT específico. Cuando se recibe un mensaje en dicho tópico, el programa accede al puerto serial para obtener un valor numérico enviado por un microcontrolador (por ejemplo, una medición relacionada con corriente eléctrica). A partir de este valor, se aplica un criterio de decisión sencillo para determinar un estado lógico (activo/inactivo), el cual representa la condición del sistema monitoreado.
+
+Una vez determinado el estado, el programa construye un mensaje en formato JSON, encapsulando la variable de interés, y lo publica en un tópico MQTT de salida. Este mecanismo permite integrar el sistema de medición con plataformas de supervisión, aplicaciones industriales o sistemas de control de nivel superior, facilitando la comunicación entre el mundo físico y los servicios digitales.
+
+## 🔗 Ejecución del nodo en el PLC 
+Lo primero que se hará es entrar al PLC por ssh o mediante un microhdmi con pantalla, luego ejecutaremos los siguientes comandos:
+```bash
+cd porras_test/
+cd ejecutables/
+./vrms
 ```
