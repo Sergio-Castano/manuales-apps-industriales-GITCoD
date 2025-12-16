@@ -1,7 +1,7 @@
 # Medición de Corriente AC con SCT-013 y Arduino UNO
 
 Este proyecto implementa la lectura de corriente alterna (AC) utilizando el sensor **SCT-013-010** junto con un **Arduino UNO**.  
-La señal del sensor es acondicionada mediante una **PCB**, la cual integra el circuito de polarización, filtrado y adaptación de nivel para su correcta lectura por el ADC del Arduino.
+La señal del sensor es acondicionada mediante una **PCB**, la cual integra el circuito de polarización, filtrado y adaptación de nivel para su correcta lectura por el ADC del Arduino. Para luego mediante serial ser medido por el PLC 19R+
 
 ---
 
